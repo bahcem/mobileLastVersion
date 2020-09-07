@@ -7,7 +7,6 @@ import '../../generated/l10n.dart';
 import '../controllers/tracking_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
 import '../elements/ProductOrderItemWidget.dart';
-import '../elements/ShoppingCartButtonWidget.dart';
 import '../helpers/helper.dart';
 import '../models/route_argument.dart';
 
@@ -99,9 +98,7 @@ class _TrackingWidgetState extends StateMVC<TrackingWidget> with SingleTickerPro
                     S.of(context).orderDetails,
                     style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
                   ),
-                  actions: <Widget>[
-                    new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
-                  ],
+
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   elevation: 0,
                   bottom: TabBar(
@@ -209,17 +206,7 @@ class _TrackingWidgetState extends StateMVC<TrackingWidget> with SingleTickerPro
                                                     Helper.getPrice(_con.order.deliveryFee, context, style: Theme.of(context).textTheme.subtitle1)
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Expanded(
-                                                      child: Text(
-                                                        '${S.of(context).tax} (${_con.order.tax}%)',
-                                                        style: Theme.of(context).textTheme.bodyText1,
-                                                      ),
-                                                    ),
-                                                    Helper.getPrice(Helper.getTaxOrder(_con.order), context, style: Theme.of(context).textTheme.subtitle1)
-                                                  ],
-                                                ),
+
                                                 Row(
                                                   children: <Widget>[
                                                     Expanded(

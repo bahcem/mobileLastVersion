@@ -24,7 +24,6 @@ class UserController extends ControllerMVC {
     _firebaseMessaging.getToken().then((String _deviceToken) {
       user.deviceToken = _deviceToken;
     }).catchError((e) {
-      print('Notification not configured');
     });
   }
 

@@ -1,4 +1,4 @@
-package com.smartersvision.markets
+package com.bahcema
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity

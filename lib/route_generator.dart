@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'src/models/route_argument.dart';
 import 'src/pages/cart.dart';
 import 'src/pages/category.dart';
@@ -72,7 +71,7 @@ class RouteGenerator {
       case '/Checkout':
         return MaterialPageRoute(builder: (_) => CheckoutWidget());
       case '/CashOnDelivery':
-        return MaterialPageRoute(builder: (_) => OrderSuccessWidget(routeArgument: RouteArgument(param: 'Cash on Delivery')));
+        return MaterialPageRoute(builder: (_) => OrderSuccessWidget(routeArgument: RouteArgument(param: 'Kapıda Öde')));
       case '/PayOnPickup':
         return MaterialPageRoute(builder: (_) => OrderSuccessWidget(routeArgument: RouteArgument(param: 'Pay on Pickup')));
       case '/PayPal':

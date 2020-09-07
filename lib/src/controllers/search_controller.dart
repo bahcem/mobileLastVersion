@@ -26,7 +26,6 @@ class SearchController extends ControllerMVC {
     stream.listen((Market _market) {
       setState(() => markets.add(_market));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 
@@ -39,7 +38,6 @@ class SearchController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => products.add(_product));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 

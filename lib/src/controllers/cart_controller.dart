@@ -34,7 +34,6 @@ class CartController extends ControllerMVC {
         });
       }
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));
@@ -69,7 +68,6 @@ class CartController extends ControllerMVC {
         this.cartCount = _count;
       });
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));
@@ -120,7 +118,6 @@ class CartController extends ControllerMVC {
     stream.listen((Coupon _coupon) async {
       coupon = _coupon;
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));

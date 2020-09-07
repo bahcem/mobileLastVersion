@@ -43,7 +43,6 @@ class User {
       }
       image = jsonMap['media'] != null && (jsonMap['media'] as List).length > 0 ? Media.fromJSON(jsonMap['media'][0]) : new Media();
     } catch (e) {
-      print(e);
     }
   }
 
@@ -72,6 +71,6 @@ class User {
   }
 
   bool profileCompleted() {
-    return address != null && address != '' && phone != null && phone != '';
+    return phone != null && phone != '';
   }
 }

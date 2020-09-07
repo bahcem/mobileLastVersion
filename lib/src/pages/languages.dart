@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../generated/l10n.dart';
-import '../elements/SearchBarWidget.dart';
-import '../elements/ShoppingCartButtonWidget.dart';
 import '../models/language.dart';
 import '../repository/settings_repository.dart' as settingRepo;
 
@@ -25,15 +23,20 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        bottom: PreferredSize(
+          child: Container(
+            color: Theme.of(context).focusColor.withOpacity(0.3),
+            height: 1.0,
+          ),
+          preferredSize: Size.fromHeight(4.0),
+        ),
         elevation: 0,
         centerTitle: true,
         title: Text(
           S.of(context).languages,
           style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
         ),
-        actions: <Widget>[
-          new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
-        ],
+
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 10),
@@ -42,11 +45,6 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SearchBarWidget(),
-            ),
-            SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListTile(
@@ -89,6 +87,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                       settingRepo.setting.value.mobileLanguage.value = new Locale(_lang.elementAt(0), _lang.elementAt(1));
                     else
                       settingRepo.setting.value.mobileLanguage.value = new Locale(_lang.elementAt(0));
+                    // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
                     settingRepo.setting.notifyListeners();
                     languagesList.languages.forEach((_l) {
                       setState(() {

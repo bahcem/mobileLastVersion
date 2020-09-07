@@ -10,7 +10,8 @@ class CardsCarouselWidget extends StatefulWidget {
   List<Market> marketsList;
   String heroTag;
 
-  CardsCarouselWidget({Key key, this.marketsList, this.heroTag}) : super(key: key);
+  CardsCarouselWidget({Key key, this.marketsList, this.heroTag})
+      : super(key: key);
 
   @override
   _CardsCarouselWidgetState createState() => _CardsCarouselWidgetState();
@@ -27,31 +28,35 @@ class _CardsCarouselWidgetState extends State<CardsCarouselWidget> {
     return widget.marketsList.isEmpty
         ? CardsCarouselLoaderWidget()
         : Container(
-            height: 288,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.marketsList.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/Details',
-                        arguments: RouteArgument(
-                          id: widget.marketsList.elementAt(index).id,
-                          heroTag: widget.heroTag,
-                        ));
-                  },
-                  child: Container(margin: EdgeInsets.only(
-                      right: widget.marketsList.elementAt(index).id ==
-                          widget.marketsList
-                              .elementAt(
-                              ((widget.marketsList.length) - 1)
-                                  .toInt())
-                              .id
-                          ? 20
-                          : 0),child: CardWidget(market: widget.marketsList.elementAt(index), heroTag: widget.heroTag)),
-                );
-              },
-            ),
+      height: 288,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.marketsList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/Details',
+                  arguments: RouteArgument(
+                    id: widget.marketsList.elementAt(index).id,
+                    heroTag: widget.heroTag,
+                  ));
+            },
+            child: Container(
+                margin: EdgeInsets.only(
+                    right: widget.marketsList.elementAt(index).id ==
+                        widget.marketsList
+                            .elementAt(
+                            ((widget.marketsList.length) - 1)
+                                .toInt())
+                            .id
+                        ? 20
+                        : 0),
+                child: CardWidget(
+                    market: widget.marketsList.elementAt(index),
+                    heroTag: widget.heroTag)),
           );
+        },
+      ),
+    );
   }
 }

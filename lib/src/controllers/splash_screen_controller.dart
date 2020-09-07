@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
-import '../helpers/custom_trace.dart';
 import '../repository/settings_repository.dart' as settingRepo;
 import '../repository/user_repository.dart' as userRepo;
 
@@ -37,6 +36,7 @@ class SplashScreenController extends ControllerMVC {
     userRepo.currentUser.addListener(() {
       if (userRepo.currentUser.value.auth != null) {
         progress.value["User"] = 59;
+        // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
         progress?.notifyListeners();
       }
     });
@@ -55,9 +55,7 @@ class SplashScreenController extends ControllerMVC {
         onResume: notificationOnResume,
       );
     } catch (e) {
-      print(CustomTrace(StackTrace.current, message: e));
-      print(CustomTrace(StackTrace.current, message: 'Error Config Firebase'));
-    }
+       }
   }
 
   Future notificationOnResume(Map<String, dynamic> message) async {
@@ -66,7 +64,6 @@ class SplashScreenController extends ControllerMVC {
         settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 3);
       }
     } catch (e) {
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 
@@ -80,7 +77,6 @@ class SplashScreenController extends ControllerMVC {
         }
       }
     } catch (e) {
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 

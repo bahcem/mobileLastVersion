@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/home_controller.dart';
 import '../elements/CardsCarouselWidget.dart';
@@ -82,15 +81,20 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  // leading: Icon(
+                  //                    Icons.stars,
+                  //                    color: Theme.of(context).hintColor,
+                  //                  ),
                   trailing: IconButton(
                     onPressed: () {
+
                       if (currentUser.value.apiToken == null) {
                         _con.requestForCurrentLocation(context);
                       } else {
                         var bottomSheetController = widget
                             .parentScaffoldKey.currentState
                             .showBottomSheet(
-                          (context) => DeliveryAddressBottomSheetWidget(
+                              (context) => DeliveryAddressBottomSheetWidget(
                               scaffoldKey: widget.parentScaffoldKey),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.only(
@@ -143,11 +147,33 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                   ),
                 ),
               ),
+              //Text(
+              //                            (settingsRepo.deliveryAddress.value?.description ??
+              //                                "" ),
+              //                            style: TextStyle(
+              //                                fontSize: 14.0,
+              //                                fontWeight: FontWeight.w600,
+              //                                color: Theme.of(context).focusColor,
+              //                                height: 1.2),
+              //                          ),
+              //                          Text(
+              //                            (settingsRepo.deliveryAddress.value?.address ??
+              //                                S.of(context).unknown),
+              //                            style: TextStyle(
+              //                                fontSize: 14.0,
+              //                                fontWeight: FontWeight.w300,
+              //                                color: Theme.of(context).focusColor,
+              //                                height: 1.2),
+              //                          ),
               CardsCarouselWidget(
                   marketsList: _con.topMarkets, heroTag: 'home_top_markets'),
               ListTile(
                 dense: true,
                 contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                //leading: Icon(
+                //                  Icons.trending_up,
+                //                  color: Theme.of(context).hintColor,
+                //                ),
                 title: Text(
                   S.of(context).trending_this_week,
                   style: Theme.of(context).textTheme.headline4,
@@ -166,6 +192,10 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  //leading: Icon(
+                  //                    Icons.category,
+                  //                    color: Theme.of(context).hintColor,
+                  //                  ),
                   title: Text(
                     S.of(context).product_categories,
                     style: Theme.of(context).textTheme.headline4,
@@ -180,6 +210,10 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  //leading: Icon(
+                  //                    Icons.trending_up,
+                  //                    color: Theme.of(context).hintColor,
+                  //                  ),
                   title: Text(
                     S.of(context).most_popular,
                     style: Theme.of(context).textTheme.headline4,
@@ -198,6 +232,10 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
+                  //leading: Icon(
+                  //                    Icons.recent_actors,
+                  //                    color: Theme.of(context).hintColor,
+                  //                  ),
                   title: Text(
                     S.of(context).recent_reviews,
                     style: Theme.of(context).textTheme.headline4,

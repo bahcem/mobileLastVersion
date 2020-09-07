@@ -51,7 +51,7 @@ class _ReviewsWidgetState extends StateMVC<ReviewsWidget> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 30),
                                   child: SizedBox(
-                                    height: 150,
+                                    height: 200,
                                     width: double.infinity,
                                     child: Hero(
                                       tag: widget.routeArgument.heroTag + _con.order.productOrders[0].product.market.id,
@@ -88,21 +88,37 @@ class _ReviewsWidgetState extends StateMVC<ReviewsWidget> {
                                     shape: StadiumBorder(),
                                   ),
                                 ),
+
                               ],
                             ),
                             Positioned(
-                              top: 30,
                               left: 15,
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                              top: 30,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(
+                                      context);
                                 },
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  color: Theme.of(context).primaryColor,
+                                child: Container(
+
+                                  padding: EdgeInsets.all(10),
+                                  color: Colors.transparent,
+                                  child: Container(
+                                    width: 36,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(40, 40, 40,0.75),
+                                      borderRadius: BorderRadius.all(Radius.circular(100),),
+                                    ),
+                                    child: Icon(
+                                      Icons.clear,
+                                      size: 26,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                         SizedBox(height: 10),

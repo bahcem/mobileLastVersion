@@ -5,7 +5,6 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helpers/custom_trace.dart';
 import '../helpers/helper.dart';
 import '../models/address.dart';
 import '../models/favorite.dart';
@@ -40,7 +39,6 @@ Future<Stream<Product>> getTrendingProducts(Address address) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Product.fromJSON({}));
   }
 }
@@ -55,8 +53,7 @@ Future<Stream<Product>> getProduct(String productId) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Product.fromJSON({}));
+   return new Stream.value(new Product.fromJSON({}));
   }
 }
 
@@ -81,7 +78,6 @@ Future<Stream<Product>> searchProducts(String search, Address address) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Product.fromJSON({}));
   }
 }
@@ -105,7 +101,6 @@ Future<Stream<Product>> getProductsByCategory(categoryId) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Product.fromJSON({}));
   }
 }
@@ -123,8 +118,7 @@ Future<Stream<Favorite>> isFavoriteProduct(String productId) async {
 
     return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getObjectData(data)).map((data) => Favorite.fromJSON(data));
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    return new Stream.value(new Favorite.fromJSON({}));
+     return new Stream.value(new Favorite.fromJSON({}));
   }
 }
 
@@ -147,7 +141,6 @@ Future<Stream<Favorite>> getFavorites() async {
         .expand((data) => (data as List))
         .map((data) => Favorite.fromJSON(data));
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return new Stream.value(new Favorite.fromJSON({}));
   }
 }
@@ -169,7 +162,6 @@ Future<Favorite> addFavorite(Favorite favorite) async {
     );
     return Favorite.fromJSON(json.decode(response.body)['data']);
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return Favorite.fromJSON({});
   }
 }
@@ -189,8 +181,7 @@ Future<Favorite> removeFavorite(Favorite favorite) async {
     );
     return Favorite.fromJSON(json.decode(response.body)['data']);
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    return Favorite.fromJSON({});
+   return Favorite.fromJSON({});
   }
 }
 
@@ -214,7 +205,6 @@ Future<Stream<Product>> getProductsOfMarket(String marketId, {List<String> categ
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Product.fromJSON({}));
   }
 }
@@ -236,8 +226,7 @@ Future<Stream<Product>> getTrendingProductsOfMarket(String marketId) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Product.fromJSON({}));
+     return new Stream.value(new Product.fromJSON({}));
   }
 }
 
@@ -257,8 +246,7 @@ Future<Stream<Product>> getFeaturedProductsOfMarket(String marketId) async {
       return Product.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Product.fromJSON({}));
+   return new Stream.value(new Product.fromJSON({}));
   }
 }
 
@@ -275,11 +263,9 @@ Future<Review> addProductReview(Review review, Product product) async {
     if (response.statusCode == 200) {
       return Review.fromJSON(json.decode(response.body)['data']);
     } else {
-      print(CustomTrace(StackTrace.current, message: response.body).toString());
-      return Review.fromJSON({});
+     return Review.fromJSON({});
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return Review.fromJSON({});
   }
 }

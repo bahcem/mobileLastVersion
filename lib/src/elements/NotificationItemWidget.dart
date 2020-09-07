@@ -17,18 +17,23 @@ class NotificationItemWidget extends StatelessWidget {
         Stack(
           children: <Widget>[
             Container(
-              width: 75,
-              height: 75,
+              width: 45, //75,
+              height: 75, //75,
+              //color: Colors.transparent,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [
-                    Theme.of(context).focusColor.withOpacity(0.7),
-                    Theme.of(context).focusColor.withOpacity(0.05),
-                  ])),
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        Theme.of(context).focusColor.withOpacity(0.7),
+                        Theme.of(context).focusColor.withOpacity(0.05),
+                      ])),
               child: Icon(
                 Icons.notifications,
-                color: Theme.of(context).scaffoldBackgroundColor,
-                size: 40,
+                color: Colors.white,
+                //Theme.of(context).scaffoldBackgroundColor,
+                size: 24, //40,
               ),
             ),
             Positioned(
@@ -38,7 +43,9 @@ class NotificationItemWidget extends StatelessWidget {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.15),
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.15),
                   borderRadius: BorderRadius.circular(150),
                 ),
               ),
@@ -50,7 +57,9 @@ class NotificationItemWidget extends StatelessWidget {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.15),
+                  color: Theme.of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.15),
                   borderRadius: BorderRadius.circular(150),
                 ),
               ),

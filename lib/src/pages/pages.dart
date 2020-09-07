@@ -90,8 +90,8 @@ class _PagesWidgetState extends State<PagesWidget> {
           unselectedFontSize: 0,
           iconSize: 22,
           elevation: 0,
-          backgroundColor: Colors.transparent,
-          selectedIconTheme: IconThemeData(size: 28),
+          backgroundColor: Theme.of(context).primaryColor,
+          //selectedIconTheme: IconThemeData(size: 28),
           unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
           currentIndex: widget.currentTab,
           onTap: (int i) {
@@ -101,14 +101,14 @@ class _PagesWidgetState extends State<PagesWidget> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
-              title: new Container(height: 0.0),
+              title: Text("Bildirimler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_on),
-              title: new Container(height: 0.0),
+              title: Text("Marketler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
             ),
             BottomNavigationBarItem(
-                title: new Container(height: 5.0),
+                title: Container(height: 5.0),
                 icon: Container(
                   width: 42,
                   height: 42,
@@ -122,15 +122,15 @@ class _PagesWidgetState extends State<PagesWidget> {
                       BoxShadow(color: Theme.of(context).accentColor.withOpacity(0.4), blurRadius: 13, offset: Offset(0, 3))
                     ],
                   ),
-                  child: new Icon(Icons.home, color: Theme.of(context).primaryColor),
+                  child: new Icon(Icons.home, size: widget.currentTab == 2 ? 32 : 24, color: Colors.white),
                 )),
             BottomNavigationBarItem(
               icon: new Icon(Icons.local_mall),
-              title: new Container(height: 0.0),
+              title: Text("Siparişler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.favorite),
-              title: new Container(height: 0.0),
+              title: Text("Favoriler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
             ),
           ],
         ),

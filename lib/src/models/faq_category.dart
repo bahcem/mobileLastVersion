@@ -17,7 +17,6 @@ class FaqCategory {
       id = '';
       name = '';
       faqs = [];
-      print(e);
     }
   }
 }

@@ -22,7 +22,6 @@ class MapsUtil {
     return http.get(BASE_URL + url).then((http.Response response) {
       String res = response.body;
       int statusCode = response.statusCode;
-//      print("API Response: " + res);
       if (statusCode < 200 || statusCode > 400 || json == null) {
         res = "{\"status\":" + statusCode.toString() + ",\"message\":\"error\",\"response\":" + res + "}";
         throw new Exception(res);
@@ -55,7 +54,6 @@ class MapsUtil {
 
       return response['results'][0]['formatted_address'];
     } catch (e) {
-      print(e);
       return null;
     }
   }

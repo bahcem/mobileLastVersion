@@ -14,7 +14,6 @@ class Faq {
       id = '';
       question = '';
       answer = '';
-      print(e);
     }
   }
 }

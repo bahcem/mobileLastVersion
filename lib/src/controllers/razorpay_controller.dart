@@ -23,7 +23,7 @@ class RazorPayController extends ControllerMVC {
     final String _deliveryAddress = 'delivery_address_id=${settingRepo.deliveryAddress.value?.id}';
     final String _couponCode = 'coupon_code=${settingRepo.coupon?.code}';
     url = '${GlobalConfiguration().getString('base_url')}payments/razorpay/checkout?$_apiToken&$_deliveryAddress&$_couponCode';
-    print(url);
+
     setState(() {});
     super.initState();
   }

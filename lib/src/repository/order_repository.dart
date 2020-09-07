@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
-import '../helpers/custom_trace.dart';
 import '../helpers/helper.dart';
 import '../models/credit_card.dart';
 import '../models/order.dart';
@@ -29,7 +28,6 @@ Future<Stream<Order>> getOrders() async {
       return Order.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return new Stream.value(new Order.fromJSON({}));
   }
 }
@@ -105,7 +103,7 @@ Future<Order> addOrder(Order order, Payment payment) async {
 }
 
 Future<Order> cancelOrder(Order order) async {
-  print(order.toMap());
+
   User _user = userRepo.currentUser.value;
   final String _apiToken = 'api_token=${_user.apiToken}';
   final String url = '${GlobalConfiguration().getString('api_base_url')}orders/${order.id}?$_apiToken';

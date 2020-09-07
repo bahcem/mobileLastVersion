@@ -44,7 +44,6 @@ class CategoryController extends ControllerMVC {
     stream.listen((Category _category) {
       setState(() => category = _category);
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));

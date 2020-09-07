@@ -1,4 +1,3 @@
-import '../helpers/custom_trace.dart';
 
 class OrderStatus {
   String id;
@@ -13,7 +12,6 @@ class OrderStatus {
     } catch (e) {
       id = '';
       status = '';
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 }

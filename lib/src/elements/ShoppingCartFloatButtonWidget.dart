@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../controllers/cart_controller.dart';
+import '../models/product.dart';
 import '../models/route_argument.dart';
 import '../repository/user_repository.dart';
 
@@ -9,13 +10,13 @@ class ShoppingCartFloatButtonWidget extends StatefulWidget {
   const ShoppingCartFloatButtonWidget({
     this.iconColor,
     this.labelColor,
-    this.routeArgument,
+    this.product,
     Key key,
   }) : super(key: key);
 
   final Color iconColor;
   final Color labelColor;
-  final RouteArgument routeArgument;
+  final Product product;
 
   @override
   _ShoppingCartFloatButtonWidgetState createState() => _ShoppingCartFloatButtonWidgetState();
@@ -45,7 +46,8 @@ class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButt
         shape: StadiumBorder(),
         onPressed: () {
           if (currentUser.value.apiToken != null) {
-            Navigator.of(context).pushNamed('/Cart', arguments: widget.routeArgument);
+            Navigator.of(context)
+                .pushNamed('/Cart', arguments: RouteArgument(param: '/Product', id: widget.product.id));
           } else {
             Navigator.of(context).pushNamed('/Login');
           }
@@ -54,20 +56,23 @@ class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButt
           alignment: AlignmentDirectional.bottomEnd,
           children: <Widget>[
             Icon(
-              Icons.shopping_cart,
-              color: this.widget.iconColor,
+              Icons.shopping_basket,
+              color: Theme.of(context).primaryColor,
               size: 28,
             ),
             Container(
-              child: Text(
-                _con.cartCount.toString(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.caption.merge(
-                      TextStyle(color: Theme.of(context).primaryColor, fontSize: 10),
-                    ),
+              child: Center(
+                child: Text(
+                  _con.cartCount.toString(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.caption.merge(
+                    TextStyle(color: Theme.of(context).primaryColor, fontSize: 10),
+                  ),
+                ),
               ),
               padding: EdgeInsets.all(0),
-              decoration: BoxDecoration(color: this.widget.labelColor, borderRadius: BorderRadius.all(Radius.circular(10))),
+              decoration:
+              BoxDecoration(color: this.widget.labelColor, borderRadius: BorderRadius.all(Radius.circular(10))),
               constraints: BoxConstraints(minWidth: 15, maxWidth: 15, minHeight: 15, maxHeight: 15),
             ),
           ],
@@ -76,7 +81,7 @@ class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButt
     );
 //    return FlatButton(
 //      onPressed: () {
-//        print('to shopping cart');
+//
 //      },
 //      child:
 //      color: Colors.transparent,

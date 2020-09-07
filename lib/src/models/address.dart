@@ -1,11 +1,10 @@
 import 'package:location/location.dart';
 
-import '../helpers/custom_trace.dart';
-
 class Address {
   String id;
   String description;
   String address;
+  String extra_address;
   double latitude;
   double longitude;
   bool isDefault;
@@ -20,9 +19,10 @@ class Address {
       address = jsonMap['address'] != null ? jsonMap['address'] : null;
       latitude = jsonMap['latitude'] != null ? jsonMap['latitude'] : null;
       longitude = jsonMap['longitude'] != null ? jsonMap['longitude'] : null;
+      extra_address = jsonMap['extra_address'] != null ? jsonMap['extra_address'] : null;
       isDefault = jsonMap['is_default'] ?? false;
     } catch (e) {
-      print(CustomTrace(StackTrace.current, message: e));
+
     }
   }
 
@@ -37,6 +37,7 @@ class Address {
     map["address"] = address;
     map["latitude"] = latitude;
     map["longitude"] = longitude;
+    map["extra_address"] = extra_address;
     map["is_default"] = isDefault;
     map["user_id"] = userId;
     return map;

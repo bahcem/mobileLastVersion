@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helpers/custom_trace.dart';
 import '../helpers/helper.dart';
 import '../models/coupon.dart';
 import '../models/user.dart';
@@ -22,7 +21,6 @@ Future<Stream<Coupon>> verifyCoupon(String code) async {
     'searchFields': 'code:=',
   };
   uri = uri.replace(queryParameters: query);
-  print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
@@ -30,7 +28,6 @@ Future<Stream<Coupon>> verifyCoupon(String code) async {
       return Coupon.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Coupon.fromJSON({}));
   }
 }

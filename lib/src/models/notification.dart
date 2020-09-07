@@ -20,7 +20,6 @@ class Notification {
       data = {};
       read = false;
       createdAt = new DateTime(0);
-      print(e);
     }
   }
 

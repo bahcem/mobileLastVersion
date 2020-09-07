@@ -5,9 +5,10 @@ import '../models/user.dart';
 
 class ProfileSettingsDialog extends StatefulWidget {
   final User user;
+  final TextStyle color;
   final VoidCallback onChanged;
 
-  ProfileSettingsDialog({Key key, this.user, this.onChanged}) : super(key: key);
+  ProfileSettingsDialog({Key key, this.user, this.color,this.onChanged}) : super(key: key);
 
   @override
   _ProfileSettingsDialogState createState() => _ProfileSettingsDialogState();
@@ -44,7 +45,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
                           keyboardType: TextInputType.text,
-                          decoration: getInputDecoration(hintText: S.of(context).john_doe, labelText: S.of(context).full_name),
+                          decoration: getInputDecoration(hintText: S.of(context).john_doe, labelText: 'Ad Soyad'),
                           initialValue: widget.user.name,
                           validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_full_name : null,
                           onSaved: (input) => widget.user.name = input,
@@ -65,22 +66,22 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_phone : null,
                           onSaved: (input) => widget.user.phone = input,
                         ),
-                        new TextFormField(
-                          style: TextStyle(color: Theme.of(context).hintColor),
-                          keyboardType: TextInputType.text,
-                          decoration: getInputDecoration(hintText: S.of(context).your_address, labelText: S.of(context).address),
-                          initialValue: widget.user.address,
-                          validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_address : null,
-                          onSaved: (input) => widget.user.address = input,
-                        ),
-                        new TextFormField(
-                          style: TextStyle(color: Theme.of(context).hintColor),
-                          keyboardType: TextInputType.text,
-                          decoration: getInputDecoration(hintText: S.of(context).your_biography, labelText: S.of(context).about),
-                          initialValue: widget.user.bio,
-                          validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_biography : null,
-                          onSaved: (input) => widget.user.bio = input,
-                        ),
+                        //new TextFormField(
+                        //                          style: TextStyle(color: Theme.of(context).hintColor),
+                        //                          keyboardType: TextInputType.text,
+                        //                          decoration: getInputDecoration(hintText: S.of(context).your_address, labelText: S.of(context).address),
+                        //                          initialValue: widget.user.address,
+                        //                          validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_address : null,
+                        //                          onSaved: (input) => widget.user.address = input,
+                        //                        ),
+                        //                        new TextFormField(
+                        //                          style: TextStyle(color: Theme.of(context).hintColor),
+                        //                          keyboardType: TextInputType.text,
+                        //                          decoration: getInputDecoration(hintText: S.of(context).your_biography, labelText: S.of(context).about),
+                        //                          initialValue: widget.user.bio,
+                        //                          validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_biography : null,
+                        //                          onSaved: (input) => widget.user.bio = input,
+                        //                        ),
                       ],
                     ),
                   ),
@@ -110,7 +111,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
       },
       child: Text(
         S.of(context).edit,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: widget.color,
       ),
     );
   }
@@ -120,14 +121,14 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
       hintText: hintText,
       labelText: labelText,
       hintStyle: Theme.of(context).textTheme.bodyText2.merge(
-            TextStyle(color: Theme.of(context).focusColor),
-          ),
+        TextStyle(color: Theme.of(context).focusColor),
+      ),
       enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
       focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).hintColor)),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       labelStyle: Theme.of(context).textTheme.bodyText2.merge(
-            TextStyle(color: Theme.of(context).hintColor),
-          ),
+        TextStyle(color: Theme.of(context).hintColor),
+      ),
     );
   }
 

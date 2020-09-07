@@ -68,12 +68,12 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                     children: <Widget>[
                       Column(
                           children: List.generate(
-                        widget.order.productOrders.length,
-                        (indexProduct) {
-                          return ProductOrderItemWidget(
-                              heroTag: 'mywidget.orders', order: widget.order, productOrder: widget.order.productOrders.elementAt(indexProduct));
-                        },
-                      )),
+                            widget.order.productOrders.length,
+                                (indexProduct) {
+                              return ProductOrderItemWidget(
+                                  heroTag: 'mywidget.orders', order: widget.order, productOrder: widget.order.productOrders.elementAt(indexProduct));
+                            },
+                          )),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         child: Column(
@@ -89,17 +89,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
                                 Helper.getPrice(widget.order.deliveryFee, context, style: Theme.of(context).textTheme.subtitle1)
                               ],
                             ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    '${S.of(context).tax} (${widget.order.tax}%)',
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                                Helper.getPrice(Helper.getTaxOrder(widget.order), context, style: Theme.of(context).textTheme.subtitle1)
-                              ],
-                            ),
+
                             Row(
                               children: <Widget>[
                                 Expanded(

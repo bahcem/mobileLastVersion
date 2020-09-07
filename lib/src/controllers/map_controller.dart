@@ -61,7 +61,6 @@ class MapController extends ControllerMVC {
       }
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
-        print('Permission denied');
       }
     }
   }
@@ -82,7 +81,6 @@ class MapController extends ControllerMVC {
       });
     } on PlatformException catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
-        print('Permission denied');
       }
     }
   }

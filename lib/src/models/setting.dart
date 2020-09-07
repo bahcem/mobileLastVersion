@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../helpers/custom_trace.dart';
 
 class Setting {
   String appName = '';
@@ -21,7 +20,7 @@ class Setting {
   String scaffoldDarkColor;
   String scaffoldColor;
   String googleMapsKey;
-  ValueNotifier<Locale> mobileLanguage = new ValueNotifier(Locale('en', ''));
+  ValueNotifier<Locale> mobileLanguage = new ValueNotifier(Locale('tr', ''));
   String appVersion;
   bool enableVersion = true;
 
@@ -53,7 +52,6 @@ class Setting {
       stripeEnabled = jsonMap['enable_stripe'] == null || jsonMap['enable_stripe'] == '0' ? false : true;
       razorPayEnabled = jsonMap['enable_razorpay'] == null || jsonMap['enable_razorpay'] == '0' ? false : true;
     } catch (e) {
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 

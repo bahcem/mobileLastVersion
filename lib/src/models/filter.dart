@@ -15,7 +15,6 @@ class Filter {
           ? List.from(jsonMap['fields']).map((element) => Field.fromJSON(element)).toList()
           : [];
     } catch (e) {
-      print(e);
     }
   }
 

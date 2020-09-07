@@ -31,7 +31,6 @@ class ReviewsController extends ControllerMVC {
         productsReviews = List.generate(order.productOrders.length, (_) => new Review.init("0"));
       });
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));

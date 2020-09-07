@@ -1,4 +1,4 @@
-import '../helpers/custom_trace.dart';
+
 import '../models/media.dart';
 
 class Category {
@@ -17,7 +17,6 @@ class Category {
       id = '';
       name = '';
       image = new Media();
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 }

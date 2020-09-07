@@ -54,7 +54,7 @@ class ProductsCarouselItemWidget extends StatelessWidget {
                 child: Helper.getPrice(
                   product.price,
                   context,
-                  style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(color: Theme.of(context).primaryColor)),
+                  style: Theme.of(context).textTheme.bodyText1.merge(TextStyle(color: Theme.of(context).primaryColor,fontSize: 12)),
                 ),
               ),
             ],

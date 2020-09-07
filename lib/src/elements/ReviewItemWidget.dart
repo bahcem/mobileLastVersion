@@ -1,6 +1,4 @@
-import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../helpers/helper.dart';
@@ -76,11 +74,7 @@ class ReviewItemWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text(
-                      review.user.bio.substring(0, min(30, review.user.bio.length)),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.caption,
-                    )
+
                   ],
                 ),
               )

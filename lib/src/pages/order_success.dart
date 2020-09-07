@@ -38,13 +38,7 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
         key: _con.scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(Icons.arrow_back),
-            color: Theme.of(context).hintColor,
-          ),
+          leading: Container(),
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
@@ -130,7 +124,7 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      height: 255,
+                      height: 235,
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
@@ -168,18 +162,7 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                                     ],
                                   ),
                             SizedBox(height: 3),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Text(
-                                    "${S.of(context).tax} (${_con.carts[0].product.market.defaultTax}%)",
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                                Helper.getPrice(_con.taxAmount, context, style: Theme.of(context).textTheme.subtitle1)
-                              ],
-                            ),
-                            Divider(height: 30),
+                            Divider(height: 30,color: Theme.of(context).hintColor,),
                             Row(
                               children: <Widget>[
                                 Expanded(
@@ -208,7 +191,6 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
                           ],
                         ),
                       ),

@@ -11,7 +11,6 @@ import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helpers/custom_trace.dart';
 import '../helpers/maps_util.dart';
 import '../models/address.dart';
 import '../models/coupon.dart';
@@ -42,10 +41,8 @@ Future<Setting> initSettings() async {
         setting.notifyListeners();
       }
     } else {
-      print(CustomTrace(StackTrace.current, message: response.body).toString());
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return Setting.fromJSON({});
   }
   return setting.value;

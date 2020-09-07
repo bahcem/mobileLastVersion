@@ -41,9 +41,15 @@ class DeliveryAddressDialog {
                       child: new TextFormField(
                         style: TextStyle(color: Theme.of(context).hintColor),
                         keyboardType: TextInputType.text,
-                        decoration: getInputDecoration(hintText: S.of(context).home_address, labelText: S.of(context).description),
-                        initialValue: address.description?.isNotEmpty ?? false ? address.description : null,
-                        validator: (input) => input.trim().length == 0 ? 'Not valid address description' : null,
+                        decoration: getInputDecoration(
+                            hintText: S.of(context).home_address,
+                            labelText: S.of(context).description),
+                        initialValue: address.description?.isNotEmpty ?? false
+                            ? address.description
+                            : null,
+                        validator: (input) => input.trim().length == 0
+                            ? 'Not valid address description'
+                            : null,
                         onSaved: (input) => address.description = input,
                       ),
                     ),
@@ -52,10 +58,35 @@ class DeliveryAddressDialog {
                       child: new TextFormField(
                         style: TextStyle(color: Theme.of(context).hintColor),
                         keyboardType: TextInputType.text,
-                        decoration: getInputDecoration(hintText: S.of(context).hint_full_address, labelText: S.of(context).full_address),
-                        initialValue: address.address?.isNotEmpty ?? false ? address.address : null,
-                        validator: (input) => input.trim().length == 0 ? 'Not valid address' : null,
+                        decoration: getInputDecoration(
+                            hintText: S.of(context).hint_full_address,
+                            labelText: S.of(context).full_address),
+                        initialValue: address.address?.isNotEmpty ?? false
+                            ? address.address
+                            : null,
+                        validator: (input) => input.trim().length == 0
+                            ? 'Geçerli bir tanım girin'
+                            : null,
                         onSaved: (input) => address.address = input,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: new TextFormField(
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        keyboardType: TextInputType.text,
+                        decoration: getInputDecoration(
+                            hintText: "Ayrıntılı Adres",
+                            labelText: "Apartman no, Kat No"),
+                        initialValue: address.extra_address?.isNotEmpty ?? false
+                            ? address.extra_address
+                            : null,
+                        validator: (input) => input.trim().length == 0
+                            ? 'Geçerli bir apartman no ve kapı no girin'
+                            : null,
+                        onSaved: (input) {
+                          address.extra_address = input;
+                        },
                       ),
                     ),
                     SizedBox(
@@ -64,7 +95,7 @@ class DeliveryAddressDialog {
                         context: context,
                         initialValue: address.isDefault ?? false,
                         onSaved: (input) => address.isDefault = input,
-                        title: Text('Make it default'),
+                        title: Text('Varsayılan yap'),
                       ),
                     )
                   ],
@@ -102,20 +133,24 @@ class DeliveryAddressDialog {
       hintText: hintText,
       labelText: labelText,
       hintStyle: Theme.of(context).textTheme.bodyText2.merge(
-            TextStyle(color: Theme.of(context).focusColor),
-          ),
-      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
-      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).hintColor)),
+        TextStyle(color: Theme.of(context).focusColor),
+      ),
+      enabledBorder: UnderlineInputBorder(
+          borderSide:
+          BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
+      focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).hintColor)),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       labelStyle: Theme.of(context).textTheme.bodyText2.merge(
-            TextStyle(color: Theme.of(context).hintColor),
-          ),
+        TextStyle(color: Theme.of(context).hintColor),
+      ),
     );
   }
 
   void _submit() {
     if (_deliveryAddressFormKey.currentState.validate()) {
       _deliveryAddressFormKey.currentState.save();
+
       onChanged(address);
       Navigator.pop(context);
     }

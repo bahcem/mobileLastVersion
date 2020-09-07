@@ -22,7 +22,6 @@ class Field {
       description = '';
       image = new Media();
       selected = false;
-      print(e);
     }
   }
 

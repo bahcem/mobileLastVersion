@@ -28,7 +28,6 @@ class Option {
       description = '';
       checked = false;
       image = new Media();
-      print(e);
     }
   }
 

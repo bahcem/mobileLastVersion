@@ -70,7 +70,6 @@ class Product {
       options = [];
       optionGroups = [];
       productReviews = [];
-      print(e);
     }
   }
 

@@ -31,7 +31,6 @@ class HomeController extends ControllerMVC {
     stream.listen((Category _category) {
       setState(() => categories.add(_category));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 
@@ -61,7 +60,6 @@ class HomeController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => trendingProducts.add(_product));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 

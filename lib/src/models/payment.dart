@@ -16,7 +16,6 @@ class Payment {
       id = '';
       status = '';
       method = '';
-      print(e);
     }
   }
 

@@ -27,12 +27,12 @@ class MarketController extends ControllerMVC {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
+
   void listenForMarket({String id, String message}) async {
     final Stream<Market> stream = await getMarket(id, deliveryAddress.value);
     stream.listen((Market _market) {
       setState(() => market = _market);
     }, onError: (a) {
-      print(a);
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));
@@ -64,7 +64,6 @@ class MarketController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => products.add(_product));
     }, onError: (a) {
-      print(a);
     }, onDone: () {
       market..name = products?.elementAt(0)?.market?.name;
     });
@@ -75,7 +74,6 @@ class MarketController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => trendingProducts.add(_product));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 
@@ -84,7 +82,6 @@ class MarketController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => featuredProducts.add(_product));
     }, onError: (a) {
-      print(a);
     }, onDone: () {});
   }
 
@@ -93,7 +90,6 @@ class MarketController extends ControllerMVC {
     stream.listen((Category _category) {
       setState(() => categories.add(_category));
     }, onError: (a) {
-      print(a);
     }, onDone: () {
       categories.insert(0, new Category.fromJSON({'id': '0', 'name': S.of(context).all}));
     });

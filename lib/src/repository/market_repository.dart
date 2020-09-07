@@ -5,7 +5,6 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../helpers/custom_trace.dart';
 import '../helpers/helper.dart';
 import '../models/address.dart';
 import '../models/filter.dart';
@@ -36,8 +35,7 @@ Future<Stream<Market>> getNearMarkets(Address myLocation, Address areaLocation) 
       return Market.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Market.fromJSON({}));
+   return new Stream.value(new Market.fromJSON({}));
   }
 }
 
@@ -63,8 +61,7 @@ Future<Stream<Market>> getPopularMarkets(Address myLocation) async {
       return Market.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Market.fromJSON({}));
+   return new Stream.value(new Market.fromJSON({}));
   }
 }
 
@@ -89,8 +86,7 @@ Future<Stream<Market>> searchMarkets(String search, Address address) async {
       return Market.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Market.fromJSON({}));
+   return new Stream.value(new Market.fromJSON({}));
   }
 }
 
@@ -110,7 +106,6 @@ Future<Stream<Market>> getMarket(String id, Address address) async {
 
     return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).map((data) => Market.fromJSON(data));
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Market.fromJSON({}));
   }
 }
@@ -125,8 +120,7 @@ Future<Stream<Review>> getMarketReviews(String id) async {
       return Review.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    return new Stream.value(new Review.fromJSON({}));
+     return new Stream.value(new Review.fromJSON({}));
   }
 }
 
@@ -139,8 +133,7 @@ Future<Stream<Review>> getRecentReviews() async {
       return Review.fromJSON(data);
     });
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
-    return new Stream.value(new Review.fromJSON({}));
+     return new Stream.value(new Review.fromJSON({}));
   }
 }
 
@@ -157,11 +150,9 @@ Future<Review> addMarketReview(Review review, Market market) async {
     if (response.statusCode == 200) {
       return Review.fromJSON(json.decode(response.body)['data']);
     } else {
-      print(CustomTrace(StackTrace.current, message: response.body).toString());
       return Review.fromJSON({});
     }
   } catch (e) {
-    print(CustomTrace(StackTrace.current, message: url).toString());
     return Review.fromJSON({});
   }
 }

@@ -44,7 +44,6 @@ class Order {
       payment = Payment.fromJSON({});
       deliveryAddress = Address.fromJSON({});
       productOrders = [];
-      print(jsonMap);
     }
   }
 

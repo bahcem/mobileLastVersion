@@ -15,7 +15,7 @@ class CardsCarouselLoaderWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             width: 292,
-            margin: EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 20),
+            margin: EdgeInsets.only(left: 20, right: 0, top: 15, bottom: 20),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(10)),

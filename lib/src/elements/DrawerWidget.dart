@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/connection.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../controllers/profile_controller.dart';
@@ -302,7 +303,12 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
 
             ListTile(
               onTap: () {
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ConnectionPage(),
+                  ),
+                );
               },
               title: Row(
                 children: [
@@ -318,7 +324,6 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                 ],
               ),
             ),
-
             ListTile(
               onTap: () {
                 if (currentUser.value.apiToken != null) {

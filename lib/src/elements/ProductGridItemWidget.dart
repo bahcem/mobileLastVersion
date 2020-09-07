@@ -51,27 +51,10 @@ class _ProductGridItemWidgetState extends State<ProductGridItemWidget> {
                 widget.product.market.name,
                 style: Theme.of(context).textTheme.caption,
                 overflow: TextOverflow.ellipsis,
-              )
+              ),
             ],
           ),
-          Container(
-            margin: EdgeInsets.all(10),
-            width: 40,
-            height: 40,
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                widget.onPressed();
-              },
-              child: Icon(
-                Icons.shopping_cart,
-                color: Theme.of(context).primaryColor,
-                size: 24,
-              ),
-              color: Theme.of(context).accentColor.withOpacity(0.9),
-              shape: StadiumBorder(),
-            ),
-          ),
+
         ],
       ),
     );

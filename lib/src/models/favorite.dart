@@ -18,7 +18,6 @@ class Favorite {
       id = '';
       product = Product.fromJSON({});
       options = [];
-      print(e);
     }
   }
 

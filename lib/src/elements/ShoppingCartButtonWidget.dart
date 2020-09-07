@@ -56,7 +56,7 @@ class _ShoppingCartButtonWidgetState extends StateMVC<ShoppingCartButtonWidget> 
             decoration: BoxDecoration(
               color: Theme.of(context).accentColor,
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(6),
               ),
             ),
             child: Column(
@@ -67,7 +67,7 @@ class _ShoppingCartButtonWidgetState extends StateMVC<ShoppingCartButtonWidget> 
                     Icon(
                       Icons.shopping_basket,
                       color: Theme.of(context).primaryColor,
-                      size: 24,
+                      size: 22,
                     ),
                     Container(
                       height: 1,
@@ -117,7 +117,7 @@ class _ShoppingCartButtonWidgetState extends StateMVC<ShoppingCartButtonWidget> 
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.all(
-                Radius.circular(12),
+                Radius.circular(6),
               ),
               border: Border.all(
                   color: Theme.of(context).hintColor, width: 0.4),

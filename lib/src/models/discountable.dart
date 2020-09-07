@@ -1,5 +1,3 @@
-import '../helpers/custom_trace.dart';
-
 class Discountable {
   String id;
   String discountableType;
@@ -16,7 +14,6 @@ class Discountable {
       id = '';
       discountableType = null;
       discountableId = null;
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 

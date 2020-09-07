@@ -7,6 +7,7 @@ class Market {
   String rate;
   String address;
   String description;
+  String custom_fields;
   String phone;
   String mobile;
   String information;
@@ -44,6 +45,12 @@ class Market {
       closed = jsonMap['closed'] ?? false;
       availableForDelivery = jsonMap['available_for_delivery'] ?? false;
       distance = jsonMap['distance'] != null ? double.parse(jsonMap['distance'].toString()) : 0.0;
+      try{
+        custom_fields = jsonMap['custom_fields']['delivery_time']['view'];
+      }catch (e) {
+        custom_fields = "";
+      }
+
     } catch (e) {
       id = '';
       name = '';
@@ -63,7 +70,6 @@ class Market {
       closed = false;
       availableForDelivery = false;
       distance = 0.0;
-      print(e);
     }
   }
 
@@ -75,6 +81,7 @@ class Market {
       'longitude': longitude,
       'delivery_fee': deliveryFee,
       'distance': distance,
+      'custom_fields':custom_fields,
     };
   }
 }

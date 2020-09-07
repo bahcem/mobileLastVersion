@@ -11,7 +11,6 @@ class OptionGroup {
     } catch (e) {
       id = '';
       name = '';
-      print(e);
     }
   }
 

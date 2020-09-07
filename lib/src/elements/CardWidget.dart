@@ -63,27 +63,27 @@ class CardWidget extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
                     decoration: BoxDecoration(
                         color: market.closed ? Colors.grey : Colors.green,
                         borderRadius: BorderRadius.circular(24)),
                     child: market.closed
                         ? Text(
-                            S.of(context).closed,
-                            style: Theme.of(context).textTheme.caption.merge(
-                                TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                          )
+                      S.of(context).closed,
+                      style: Theme.of(context).textTheme.caption.merge(
+                          TextStyle(
+                              color: Theme.of(context).primaryColor)),
+                    )
                         : Text(
-                            S.of(context).open,
-                            style: Theme.of(context).textTheme.caption.merge(
-                                TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                          ),
+                      S.of(context).open,
+                      style: Theme.of(context).textTheme.caption.merge(
+                          TextStyle(
+                              color: Theme.of(context).primaryColor)),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
                     decoration: BoxDecoration(
                         color: Helper.canDelivery(market)
@@ -91,18 +91,30 @@ class CardWidget extends StatelessWidget {
                             : Colors.orange,
                         borderRadius: BorderRadius.circular(24)),
                     child: Helper.canDelivery(market)
+                        ? market.custom_fields == "" &&
+                        market.custom_fields == null
                         ? Text(
-                            S.of(context).delivery,
-                            style: Theme.of(context).textTheme.caption.merge(
-                                TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                          )
+                      "Hızlı Teslim",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          .merge(TextStyle(
+                          color: Theme.of(context).primaryColor)),
+                    )
                         : Text(
-                            S.of(context).pickup,
-                            style: Theme.of(context).textTheme.caption.merge(
-                                TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                          ),
+                      market.custom_fields,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          .merge(TextStyle(
+                          color: Theme.of(context).primaryColor)),
+                    )
+                        : Text(
+                      S.of(context).pickup,
+                      style: Theme.of(context).textTheme.caption.merge(
+                          TextStyle(
+                              color: Theme.of(context).primaryColor)),
+                    ),
                   ),
                 ],
               ),
@@ -135,7 +147,7 @@ class CardWidget extends StatelessWidget {
                       SizedBox(height: 5),
                       Row(
                         children:
-                            Helper.getStarsList(double.parse(market.rate)),
+                        Helper.getStarsList(double.parse(market.rate)),
                       ),
                     ],
                   ),
@@ -149,7 +161,7 @@ class CardWidget extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pushNamed('/Pages',
                               arguments:
-                                  new RouteArgument(id: '1', param: market));
+                              new RouteArgument(id: '1', param: market));
                         },
                         child: Icon(Icons.directions,
                             color: Theme.of(context).primaryColor),
@@ -159,14 +171,14 @@ class CardWidget extends StatelessWidget {
                       ),
                       market.distance > 0
                           ? Text(
-                              Helper.getDistance(
-                                  market.distance,
-                                  Helper.of(context)
-                                      .trans(setting.value.distanceUnit)),
-                              overflow: TextOverflow.fade,
-                              maxLines: 1,
-                              softWrap: false,
-                            )
+                        Helper.getDistance(
+                            market.distance,
+                            Helper.of(context)
+                                .trans(setting.value.distanceUnit)),
+                        overflow: TextOverflow.fade,
+                        maxLines: 1,
+                        softWrap: false,
+                      )
                           : SizedBox(height: 0)
                     ],
                   ),

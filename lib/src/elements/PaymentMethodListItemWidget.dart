@@ -17,7 +17,7 @@ class PaymentMethodListItemWidget extends StatelessWidget {
       highlightColor: Theme.of(context).primaryColor,
       onTap: () {
         Navigator.of(context).pushNamed(this.paymentMethod.route);
-        print(this.paymentMethod.name);
+
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),

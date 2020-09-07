@@ -21,7 +21,6 @@ import '../models/order.dart';
 import '../models/product_order.dart';
 import '../repository/settings_repository.dart';
 import 'app_config.dart' as config;
-import 'custom_trace.dart';
 
 class Helper {
   BuildContext context;
@@ -56,20 +55,19 @@ class Helper {
   }
 
   static Future<Marker> getMarker(Map<String, dynamic> res) async {
-    final Uint8List markerIcon = await getBytesFromAsset('assets/img/marker.png', 120);
+    final Uint8List markerIcon = await getBytesFromAsset('assets/img/marker.png', 180);
     final Marker marker = Marker(
         markerId: MarkerId(res['id']),
         icon: BitmapDescriptor.fromBytes(markerIcon),
 //        onTap: () {
-//          //print(res.name);
+//
 //        },
         anchor: Offset(0.5, 0.5),
         infoWindow: InfoWindow(
             title: res['name'],
             snippet: getDistance(res['distance'].toDouble(), setting.value.distanceUnit),
             onTap: () {
-              print(CustomTrace(StackTrace.current, message: 'Info Window'));
-            }),
+              }),
         position: LatLng(double.parse(res['latitude']), double.parse(res['longitude'])));
 
     return marker;

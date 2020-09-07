@@ -22,7 +22,6 @@ class Review {
       review = '';
       rate = '0';
       user = User.fromJSON({});
-      print(e);
     }
   }
 

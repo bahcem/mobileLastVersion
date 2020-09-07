@@ -43,71 +43,21 @@ class _CartWidgetState extends StateMVC<CartWidget> {
         appBar: AppBar(
           bottom: _con.carts.isEmpty
               ? PreferredSize(
-                  preferredSize: Size.fromHeight(0),
-                  child: Container(),
-                )
+            preferredSize: Size.fromHeight(0),
+            child: Container(),
+          )
               : PreferredSize(
-                  child: Container(
-                    color: Theme.of(context).focusColor.withOpacity(0.3),
-                    height: 1.0,
-                  ),
-                  preferredSize: Size.fromHeight(4.0),
-                ),
+            child: Container(
+              color: Theme.of(context).focusColor.withOpacity(0.3),
+              height: 1.0,
+            ),
+            preferredSize: Size.fromHeight(4.0),
+          ),
           automaticallyImplyLeading: false,
-          actions: [
-            _con.carts.isEmpty
-                ? Container()
-                : IconButton(
-                    onPressed: () async {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // return object of type Dialog
-                          return AlertDialog(
-                            title: Wrap(
-                              spacing: 10,
-                              children: <Widget>[],
-                            ),
-                            content: Text(
-                                "Sepetinizdeki bütün ürünleri silmek istediğinize emin misiniz?"),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 25),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: new Text(
-                                  S.of(context).yes,
-                                  style: TextStyle(
-                                      color: Theme.of(context).hintColor),
-                                ),
-                                onPressed: () async {
-                                  await _con.deleteAllCarts(_con.carts);
-
-                                  Navigator.of(context)
-                                      .pushNamed('/Pages', arguments: 2);
-                                },
-                              ),
-                              FlatButton(
-                                child: new Text(
-                                  S.of(context).close,
-                                  style: TextStyle(color: Colors.orange),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: Icon(Icons.delete),
-                  ),
-          ],
           leading: IconButton(
             onPressed: () {
-              if (widget.routeArgument != null) {
-                Navigator.of(context).pushReplacementNamed(
-                    widget.routeArgument.param,
+              if (widget.routeArgument.param == '/Product') {
+                Navigator.of(context).pushReplacementNamed('/Product',
                     arguments: RouteArgument(id: widget.routeArgument.id));
               } else {
                 Navigator.of(context)
@@ -127,6 +77,62 @@ class _CartWidgetState extends StateMVC<CartWidget> {
                 .headline6
                 .merge(TextStyle(letterSpacing: 1.3)),
           ),
+//          actions: [
+//            _con.carts.isEmpty
+//                ? Container()
+//                : GestureDetector(
+//                    onTap: () {
+//                      showDialog(
+//                          context: context,
+//                          builder: (context) {
+//                            return AlertDialog(
+//                              content: Text('Ürünleri silmek ister misiniz?'),
+//                              actions: [
+//                                FlatButton(
+//                                  child: Text(
+//                                    'Evet',
+//                                    style:
+//                                        Theme.of(context).textTheme.bodyText1,
+//                                  ),
+//                                  onPressed: () async {
+//
+//                                     for (var i = 0; i < 100; i++) {
+//                                      if (_con.carts.elementAt(i) == null) {
+//                                      } else {
+//                                         _con.removeFromCart(
+//                                            _con.carts.elementAt(i));
+//
+//                                      }
+//                                    }
+//                                    Navigator.push(
+//                                      context,
+//                                      MaterialPageRoute(
+//                                        builder: (context) => HomeWidget(),
+//                                      ),
+//                                    );
+//                                  },
+//                                ),
+//                                FlatButton(
+//                                  child: Text(
+//                                    'Hayır',
+//                                    style:
+//                                        Theme.of(context).textTheme.bodyText1,
+//                                  ),
+//                                  onPressed: () {
+//                                    Navigator.pop(context);
+//                                  },
+//                                ),
+//                              ],
+//                            );
+//                          });
+//
+//                    },
+//                    child: Container(
+//                      margin: EdgeInsets.only(right: 20),
+//                      child: Icon(Icons.delete),
+//                    ),
+//                  ),
+//          ]
         ),
         body: RefreshIndicator(
           onRefresh: _con.refreshCarts,
@@ -167,8 +173,6 @@ class _CartWidgetState extends StateMVC<CartWidget> {
                         return SizedBox(height: 15);
                       },
                       itemBuilder: (context, index) {
-                        print(_con.carts.length);
-                        print('ind' + '$index');
                         return Container(
                           margin: EdgeInsets.only(
                               bottom: _con.carts.length - 1 == index ? 100 : 0),

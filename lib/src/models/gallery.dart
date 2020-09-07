@@ -18,7 +18,6 @@ class Gallery {
       id = '';
       image = new Media();
       description = '';
-      print(e);
     }
   }
 }

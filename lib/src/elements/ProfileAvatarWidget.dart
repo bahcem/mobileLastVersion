@@ -13,7 +13,7 @@ class ProfileAvatarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 30),
+      padding: EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
         color: Theme.of(context).accentColor,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
@@ -21,7 +21,7 @@ class ProfileAvatarWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            height: 160,
+            height: 110,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,15 +40,15 @@ class ProfileAvatarWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(300)),
                   child: CachedNetworkImage(
-                    height: 135,
-                    width: 135,
+                    height: 90,
+                    width: 90,
                     fit: BoxFit.cover,
                     imageUrl: user.image?.url,
                     placeholder: (context, url) => Image.asset(
                       'assets/img/loading.gif',
                       fit: BoxFit.cover,
-                      height: 135,
-                      width: 135,
+                      height: 90,
+                      width: 90,
                     ),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
@@ -71,10 +71,15 @@ class ProfileAvatarWidget extends StatelessWidget {
             user.name,
             style: Theme.of(context).textTheme.headline5.merge(TextStyle(color: Theme.of(context).primaryColor)),
           ),
-          Text(
-            user.address,
-            style: Theme.of(context).textTheme.caption.merge(TextStyle(color: Theme.of(context).primaryColor)),
-          ),
+//          Padding(
+//            padding: EdgeInsets.only(left: 20,right: 20),
+//            child: Text(
+//              user.address,
+//              maxLines: 1,
+//              overflow: TextOverflow.ellipsis,
+//              style: Theme.of(context).textTheme.caption.merge(TextStyle(color: Theme.of(context).primaryColor)),
+//            ),
+//          ),
         ],
       ),
     );

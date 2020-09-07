@@ -25,7 +25,6 @@ class ProductOrder {
       product = Product.fromJSON({});
       dateTime = DateTime(0);
       options = [];
-      print(e);
     }
   }
 

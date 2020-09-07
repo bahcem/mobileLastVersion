@@ -27,7 +27,6 @@ class ProductController extends ControllerMVC {
     stream.listen((Product _product) {
       setState(() => product = _product);
     }, onError: (a) {
-      print(a);
       scaffoldKey.currentState?.showSnackBar(SnackBar(
         content: Text(S.of(context).verify_your_internet_connection),
       ));
@@ -46,7 +45,6 @@ class ProductController extends ControllerMVC {
     stream.listen((Favorite _favorite) {
       setState(() => favorite = _favorite);
     }, onError: (a) {
-      print(a);
     });
   }
 

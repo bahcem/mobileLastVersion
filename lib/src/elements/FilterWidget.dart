@@ -53,7 +53,7 @@ class _FilterWidgetState extends StateMVC<FilterWidget> {
                 shrinkWrap: true,
                 children: <Widget>[
                   ExpansionTile(
-                    title: Text(S.of(context).delivery_or_pickup),
+                    title: Text("Teslimat Türü"),
                     children: [
                       CheckboxListTile(
                         controlAffinity: ListTileControlAffinity.trailing,
@@ -144,7 +144,7 @@ class _FilterWidgetState extends StateMVC<FilterWidget> {
               color: Theme.of(context).accentColor,
               shape: StadiumBorder(),
               child: Text(
-                S.of(context).apply_filters,
+              "Onayla",
                 textAlign: TextAlign.start,
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
