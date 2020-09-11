@@ -50,15 +50,15 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 child: CachedNetworkImage(
-                  height: 90,
-                  width: 90,
+                  height: 60,
+                  width: 60,
                   fit: BoxFit.cover,
                   imageUrl: widget.cart.product.image.thumb,
                   placeholder: (context, url) => Image.asset(
                     'assets/img/loading.gif',
                     fit: BoxFit.cover,
-                    height: 90,
-                    width: 90,
+                    height: 60,
+                    width: 60,
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
@@ -105,28 +105,36 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              widget.increment();
-                            });
-                          },
-                          iconSize: 30,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          icon: Icon(Icons.add_circle_outline),
-                          color: Theme.of(context).hintColor,
+                        Container(
+                          width: 28,
+                          height: 28,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.increment();
+                              });
+                            },
+                            iconSize: 28,
+                            padding: EdgeInsets.symmetric(horizontal: 3),
+                            icon: Icon(Icons.add_circle_outline),
+                            color: Theme.of(context).hintColor,
+                          ),
                         ),
-                        Text(widget.cart.quantity.toString(), style: Theme.of(context).textTheme.subtitle1),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              widget.decrement();
-                            });
-                          },
-                          iconSize: 30,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          icon: Icon(Icons.remove_circle_outline),
-                          color: Theme.of(context).hintColor,
+                        Container(margin: EdgeInsets.only(left: 4),child: Text(widget.cart.quantity.toInt().toString(), style: Theme.of(context).textTheme.subtitle1)),
+                        Container(
+                          width: 28,
+                          height: 28,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                widget.decrement();
+                              });
+                            },
+                            iconSize: 28,
+                            padding: EdgeInsets.symmetric(horizontal: 3),
+                            icon: Icon(Icons.remove_circle_outline),
+                            color: Theme.of(context).hintColor,
+                          ),
                         ),
                       ],
                     ),

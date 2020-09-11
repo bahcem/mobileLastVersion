@@ -49,10 +49,6 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(vertical: 0),
-                leading: Icon(
-                  Icons.translate,
-                  color: Theme.of(context).hintColor,
-                ),
                 title: Text(
                   S.of(context).app_language,
                   maxLines: 1,
@@ -146,7 +142,7 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Text(
-                                _language.localName,
+                                _language.localName == "Türkçe" ? "Merhaba": "Hello",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.caption,

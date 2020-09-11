@@ -42,7 +42,7 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _con.scaffoldKey,
-      drawer: DrawerWidget(),
+    //  drawer: DrawerWidget(),
       appBar: AppBar(
         bottom: PreferredSize(
           child: Container(

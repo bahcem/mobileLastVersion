@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:markets/src/pages/map.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../generated/l10n.dart';
@@ -443,9 +444,7 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
                                   EdgeInsets.all(0),
                                   onPressed:
                                       () {
-                                    Navigator.of(context).pushNamed(
-                                        '/Pages',
-                                        arguments: new RouteArgument(id: '1', param: _con.market));
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MapWidget( routeArgument: new RouteArgument(id: '1', param: _con.market),),),);
                                   },
                                   child:
                                   Icon(

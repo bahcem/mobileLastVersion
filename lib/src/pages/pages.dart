@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:markets/src/controllers/cart_controller.dart';
+import 'package:markets/src/models/setting.dart';
+import 'package:markets/src/pages/cart.dart';
+import 'package:markets/src/pages/settings.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../elements/DrawerWidget.dart';
 import '../elements/FilterWidget.dart';
@@ -38,6 +43,9 @@ class PagesWidget extends StatefulWidget {
 }
 
 class _PagesWidgetState extends State<PagesWidget> {
+
+
+
   initState() {
     super.initState();
     _selectTab(widget.currentTab);
@@ -46,6 +54,7 @@ class _PagesWidgetState extends State<PagesWidget> {
   @override
   void didUpdateWidget(PagesWidget oldWidget) {
     _selectTab(oldWidget.currentTab);
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -54,19 +63,22 @@ class _PagesWidgetState extends State<PagesWidget> {
       widget.currentTab = tabItem;
       switch (tabItem) {
         case 0:
-          widget.currentPage = NotificationsWidget(parentScaffoldKey: widget.scaffoldKey);
+          widget.currentPage =
+              NotificationsWidget(parentScaffoldKey: widget.scaffoldKey);
           break;
         case 1:
-          widget.currentPage = MapWidget(parentScaffoldKey: widget.scaffoldKey, routeArgument: widget.routeArgument);
+          widget.currentPage =
+              OrdersWidget(parentScaffoldKey: widget.scaffoldKey);
           break;
         case 2:
-          widget.currentPage = HomeWidget(parentScaffoldKey: widget.scaffoldKey);
+          widget.currentPage =
+              HomeWidget(parentScaffoldKey: widget.scaffoldKey);
           break;
         case 3:
-          widget.currentPage = OrdersWidget(parentScaffoldKey: widget.scaffoldKey);
+          widget.currentPage = CartWidget();
           break;
         case 4:
-          widget.currentPage = FavoritesWidget(parentScaffoldKey: widget.scaffoldKey);
+          widget.currentPage = SettingsWidget();
           break;
       }
     });
@@ -78,9 +90,10 @@ class _PagesWidgetState extends State<PagesWidget> {
       onWillPop: Helper.of(context).onWillPop,
       child: Scaffold(
         key: widget.scaffoldKey,
-        drawer: DrawerWidget(),
+        //drawer: DrawerWidget(),
         endDrawer: FilterWidget(onFilter: (filter) {
-          Navigator.of(context).pushReplacementNamed('/Pages', arguments: widget.currentTab);
+          Navigator.of(context)
+              .pushReplacementNamed('/Pages', arguments: widget.currentTab);
         }),
         body: widget.currentPage,
         bottomNavigationBar: BottomNavigationBar(
@@ -89,7 +102,7 @@ class _PagesWidgetState extends State<PagesWidget> {
           selectedFontSize: 0,
           unselectedFontSize: 0,
           iconSize: 22,
-          elevation: 0,
+          elevation: 30,
           backgroundColor: Theme.of(context).primaryColor,
           //selectedIconTheme: IconThemeData(size: 28),
           unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
@@ -101,11 +114,22 @@ class _PagesWidgetState extends State<PagesWidget> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications),
-              title: Text("Bildirimler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
+              title: Text(
+                "Bildirimler",
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 11),
+              ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.location_on),
-              title: Text("Marketler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
+              icon: new Icon(
+                Icons.local_mall,
+                size: 26,
+              ),
+              title: Text(
+                "Siparişler",
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 11),
+              ),
             ),
             BottomNavigationBarItem(
                 title: Container(height: 5.0),
@@ -118,19 +142,41 @@ class _PagesWidgetState extends State<PagesWidget> {
                       Radius.circular(50),
                     ),
                     boxShadow: [
-                      BoxShadow(color: Theme.of(context).accentColor.withOpacity(0.4), blurRadius: 40, offset: Offset(0, 15)),
-                      BoxShadow(color: Theme.of(context).accentColor.withOpacity(0.4), blurRadius: 13, offset: Offset(0, 3))
+                      BoxShadow(
+                          color: Theme.of(context).accentColor.withOpacity(0.4),
+                          blurRadius: 40,
+                          offset: Offset(0, 15)),
+                      BoxShadow(
+                          color: Theme.of(context).accentColor.withOpacity(0.4),
+                          blurRadius: 13,
+                          offset: Offset(0, 3))
                     ],
                   ),
-                  child: new Icon(Icons.home, size: widget.currentTab == 2 ? 32 : 24, color: Colors.white),
+                  child: new Icon(Icons.store_mall_directory,
+                      size: widget.currentTab == 2 ? 28 : 24,
+                      color: Colors.white),
                 )),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.local_mall),
-              title: Text("Siparişler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
+              icon: Icon(
+                Icons.shopping_basket,
+                size: 26,
+              ),
+              title: Text(
+                "Sepetim",
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 11),
+              ),
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.favorite),
-              title: Text("Favoriler",style: TextStyle(color: Theme.of(context).accentColor, fontSize: 11),),
+              icon: new Icon(
+                Icons.person,
+                size: 26,
+              ),
+              title: Text(
+                "Hesabım",
+                style: TextStyle(
+                    color: Theme.of(context).accentColor, fontSize: 11),
+              ),
             ),
           ],
         ),

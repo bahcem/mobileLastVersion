@@ -54,7 +54,7 @@ class _CartWidgetState extends StateMVC<CartWidget> {
             preferredSize: Size.fromHeight(4.0),
           ),
           automaticallyImplyLeading: false,
-          leading: IconButton(
+          leading: widget.routeArgument == null ? Container():  IconButton(
             onPressed: () {
               if (widget.routeArgument.param == '/Product') {
                 Navigator.of(context).pushReplacementNamed('/Product',
@@ -77,62 +77,6 @@ class _CartWidgetState extends StateMVC<CartWidget> {
                 .headline6
                 .merge(TextStyle(letterSpacing: 1.3)),
           ),
-//          actions: [
-//            _con.carts.isEmpty
-//                ? Container()
-//                : GestureDetector(
-//                    onTap: () {
-//                      showDialog(
-//                          context: context,
-//                          builder: (context) {
-//                            return AlertDialog(
-//                              content: Text('Ürünleri silmek ister misiniz?'),
-//                              actions: [
-//                                FlatButton(
-//                                  child: Text(
-//                                    'Evet',
-//                                    style:
-//                                        Theme.of(context).textTheme.bodyText1,
-//                                  ),
-//                                  onPressed: () async {
-//
-//                                     for (var i = 0; i < 100; i++) {
-//                                      if (_con.carts.elementAt(i) == null) {
-//                                      } else {
-//                                         _con.removeFromCart(
-//                                            _con.carts.elementAt(i));
-//
-//                                      }
-//                                    }
-//                                    Navigator.push(
-//                                      context,
-//                                      MaterialPageRoute(
-//                                        builder: (context) => HomeWidget(),
-//                                      ),
-//                                    );
-//                                  },
-//                                ),
-//                                FlatButton(
-//                                  child: Text(
-//                                    'Hayır',
-//                                    style:
-//                                        Theme.of(context).textTheme.bodyText1,
-//                                  ),
-//                                  onPressed: () {
-//                                    Navigator.pop(context);
-//                                  },
-//                                ),
-//                              ],
-//                            );
-//                          });
-//
-//                    },
-//                    child: Container(
-//                      margin: EdgeInsets.only(right: 20),
-//                      child: Icon(Icons.delete),
-//                    ),
-//                  ),
-//          ]
         ),
         body: RefreshIndicator(
           onRefresh: _con.refreshCarts,

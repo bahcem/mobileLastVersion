@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:markets/src/pages/map.dart';
 
 import '../../generated/l10n.dart';
 import '../helpers/helper.dart';
@@ -159,9 +160,7 @@ class CardWidget extends StatelessWidget {
                       FlatButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/Pages',
-                              arguments:
-                              new RouteArgument(id: '1', param: market));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MapWidget(routeArgument: new RouteArgument(id: '1', param: market)),),);
                         },
                         child: Icon(Icons.directions,
                             color: Theme.of(context).primaryColor),

@@ -34,10 +34,22 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
     return Scaffold(
       key: _con.scaffoldKey,
       appBar: AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
+        bottom: _con.favorites.isEmpty
+            ? PreferredSize(
+          preferredSize: Size.fromHeight(0),
+          child: Container(),
+        )
+            : PreferredSize(
+          child: Container(
+            color: Theme.of(context).focusColor.withOpacity(0.3),
+            height: 1.0,
+          ),
+          preferredSize: Size.fromHeight(4.0),
         ),
+        //leading: new IconButton(
+        //          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
+        //          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
+        //        ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -61,21 +73,12 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SearchBarWidget(onClickFilter: (e) {
-                        widget.parentScaffoldKey.currentState.openEndDrawer();
-                      }),
-                    ),
+
                     SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 10),
                       child: ListTile(
                         contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        leading: Icon(
-                          Icons.favorite,
-                          color: Theme.of(context).hintColor,
-                        ),
                         title: Text(
                           S.of(context).favorite_products,
                           maxLines: 1,

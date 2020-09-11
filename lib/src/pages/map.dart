@@ -46,14 +46,11 @@ class _MapWidgetState extends StateMVC<MapWidget> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        leading: _con.currentMarket?.latitude == null
-            ? new IconButton(
-                icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-                onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
-              )
-            : IconButton(
+        leading:  IconButton(
                 icon: new Icon(Icons.arrow_back, color: Theme.of(context).hintColor),
-                onPressed: () => Navigator.of(context).pushNamed('/Pages', arguments: 2),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
         title: Text(
           S.of(context).maps_explorer,

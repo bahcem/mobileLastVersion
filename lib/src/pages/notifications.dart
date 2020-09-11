@@ -42,10 +42,10 @@ class _NotificationsWidgetState extends StateMVC<NotificationsWidget> {
           ),
           preferredSize: Size.fromHeight(4.0),
         ),
-        leading: new IconButton(
-          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
-        ),
+       // leading: new IconButton(
+        //          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
+        //          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
+        //        ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -57,11 +57,7 @@ class _NotificationsWidgetState extends StateMVC<NotificationsWidget> {
               .headline6
               .merge(TextStyle(letterSpacing: 1.3)),
         ),
-        actions: <Widget>[
-          new ShoppingCartButtonWidget(
-              iconColor: Theme.of(context).hintColor,
-              labelColor: Theme.of(context).accentColor),
-        ],
+
       ),
       body: currentUser.value.apiToken == null
           ? PermissionDeniedWidget()

@@ -42,7 +42,7 @@ class _CategoryWidgetState extends StateMVC<CategoryWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _con.scaffoldKey,
-      drawer: DrawerWidget(),
+     // drawer: DrawerWidget(),
       endDrawer: FilterWidget(onFilter: (filter) {
         Navigator.of(context).pushReplacementNamed('/Category',
             arguments: RouteArgument(id: widget.routeArgument.id));
