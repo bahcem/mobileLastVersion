@@ -132,7 +132,10 @@ class _SearchResultWidgetState extends StateMVC<SearchResultWidget> {
                                     heroTag: widget.heroTag,
                                   ));
                             },
-                            child: CardWidget(market: _con.markets.elementAt(index), heroTag: widget.heroTag),
+                            child: Container(
+                              padding: EdgeInsets.only(right:20),
+                              child: CardWidget(market: _con.markets.elementAt(index), heroTag: widget.heroTag),
+                            ),
                           );
                         },
                       ),

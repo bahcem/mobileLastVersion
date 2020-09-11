@@ -34,6 +34,12 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
     return Scaffold(
       key: _con.scaffoldKey,
       appBar: AppBar(
+        leading: IconButton(
+          icon : Icon(Icons.arrow_back),
+          onPressed:(){
+            Navigator.pop(context);
+          }
+        ),
         bottom: _con.favorites.isEmpty
             ? PreferredSize(
           preferredSize: Size.fromHeight(0),

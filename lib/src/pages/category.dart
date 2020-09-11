@@ -49,8 +49,8 @@ class _CategoryWidgetState extends StateMVC<CategoryWidget> {
       }),
       appBar: AppBar(
         leading: new IconButton(
-          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-          onPressed: () => _con.scaffoldKey?.currentState?.openDrawer(),
+          icon: new Icon(Icons.arrow_back, color: Theme.of(context).hintColor),
+          onPressed: () => Navigator.pop(context),
         ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
