@@ -14,6 +14,7 @@ class SignUpWidget extends StatefulWidget {
 
 class _SignUpWidgetState extends StateMVC<SignUpWidget> {
   UserController _con;
+  TextEditingController phoneCont = TextEditingController();
 
   _SignUpWidgetState() : super(UserController()) {
     _con = controller;
@@ -135,7 +136,7 @@ class _SignUpWidgetState extends StateMVC<SignUpWidget> {
                         ),
                         color: Theme.of(context).accentColor,
                         onPressed: () {
-                          _con.register();
+                          _con.register(phoneCont.text.toString());
                         },
                       ),
                       SizedBox(height: 25),

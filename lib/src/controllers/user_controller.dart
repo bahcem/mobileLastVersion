@@ -15,6 +15,8 @@ class UserController extends ControllerMVC {
   GlobalKey<ScaffoldState> scaffoldKey;
   FirebaseMessaging _firebaseMessaging;
   OverlayEntry loader;
+  var _profileSettingsFormKey;
+  TextEditingController phonCont = TextEditingController(text: "");
 
   UserController() {
     loader = Helper.overlayLoader(context);
@@ -51,14 +53,79 @@ class UserController extends ControllerMVC {
     }
   }
 
-  void register() async {
+  void register(String text) async {
     FocusScope.of(context).unfocus();
     if (loginFormKey.currentState.validate()) {
       loginFormKey.currentState.save();
       Overlay.of(context).insert(loader);
-      repository.register(user).then((value) {
+      repository.register(user, text).then((value) {
         if (value != null && value.apiToken != null) {
-          Navigator.of(scaffoldKey.currentContext).pushReplacementNamed('/Pages', arguments: 2);
+          showDialog(
+              context: context,
+              builder: (context) {
+                return SimpleDialog(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                  titlePadding:
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  title: Row(
+                    children: <Widget>[
+                      Icon(Icons.person),
+                      SizedBox(width: 10),
+                      Text(
+                        S.of(context).profile_settings,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      )
+                    ],
+                  ),
+                  children: <Widget>[
+                    Form(
+                      key: _profileSettingsFormKey,
+                      child: Column(
+                        children: <Widget>[
+                          new TextField(
+                            controller: phonCont,
+                            style:
+                            TextStyle(color: Theme.of(context).hintColor),
+                            keyboardType: TextInputType.number,
+                            decoration: getInputDecoration(
+                                hintText: '+136 269 9765',
+                                labelText: S.of(context).phone),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: <Widget>[
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(S.of(context).cancel),
+                        ),
+                        MaterialButton(
+                          onPressed: (){
+                            setState((){
+                              value.phone = phonCont.text.toString();
+                            });
+                            value.deviceToken = null;
+                            repository.update(value);
+                            Navigator.of(context)
+                                .pushNamed('/Pages', arguments: 2);
+                          },
+                          child: Text(
+                            S.of(context).save,
+                            style:
+                            TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                        ),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                );
+              });
         } else {
           scaffoldKey?.currentState?.showSnackBar(SnackBar(
             content: Text(S.of(context).wrong_email_or_password),
@@ -73,6 +140,25 @@ class UserController extends ControllerMVC {
         Helper.hideLoader(loader);
       });
     }
+  }
+
+  InputDecoration getInputDecoration({String hintText, String labelText}) {
+    return new InputDecoration(
+      hintText: hintText,
+      labelText: labelText,
+      hintStyle: Theme.of(context).textTheme.bodyText2.merge(
+        TextStyle(color: Theme.of(context).focusColor),
+      ),
+      enabledBorder: UnderlineInputBorder(
+          borderSide:
+          BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
+      focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Theme.of(context).hintColor)),
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      labelStyle: Theme.of(context).textTheme.bodyText2.merge(
+        TextStyle(color: Theme.of(context).hintColor),
+      ),
+    );
   }
 
   void resetPassword() {
