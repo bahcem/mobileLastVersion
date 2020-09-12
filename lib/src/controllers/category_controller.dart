@@ -10,6 +10,7 @@ import '../repository/category_repository.dart';
 import '../repository/product_repository.dart';
 
 class CategoryController extends ControllerMVC {
+  List<Category> categories = <Category>[];
   List<Product> products = <Product>[];
   GlobalKey<ScaffoldState> scaffoldKey;
   Category category;
@@ -20,7 +21,7 @@ class CategoryController extends ControllerMVC {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
   }
 
-  void listenForProductsByCategory({String id, String message}) async {
+  Future<void> listenForProductsByCategory({String id, String message}) async {
     final Stream<Product> stream = await getProductsByCategory(id);
     stream.listen((Product _product) {
       setState(() {
@@ -37,9 +38,10 @@ class CategoryController extends ControllerMVC {
         ));
       }
     });
+    return products;
   }
 
-  void listenForCategory({String id, String message}) async {
+  Future<void> listenForCategory({String id, String message}) async {
     final Stream<Category> stream = await getCategory(id);
     stream.listen((Category _category) {
       setState(() => category = _category);
@@ -54,6 +56,7 @@ class CategoryController extends ControllerMVC {
         ));
       }
     });
+    return category;
   }
 
   void listenForCart() async {
@@ -124,13 +127,25 @@ class CategoryController extends ControllerMVC {
   }
 
   Cart isExistInCart(Cart _cart) {
-    return carts.firstWhere((Cart oldCart) => _cart.isSame(oldCart), orElse: () => null);
+    return carts.firstWhere((Cart oldCart) => _cart.isSame(oldCart),
+        orElse: () => null);
   }
 
-  Future<void> refreshCategory() async {
-    products.clear();
-    category = new Category();
-    listenForProductsByCategory(message: S.of(context).category_refreshed_successfuly);
-    listenForCategory(message: S.of(context).category_refreshed_successfuly);
+  Future<String> refreshCategory(id) async {
+    setState(() {
+      products.clear();
+      category = new Category();
+    });
+    await listenForCategory(id: id.toString());
+    await listenForProductsByCategory(id: id.toString());
+
+    return id;
+  }
+
+  Future<void> listenForCategories() async {
+    final Stream<Category> stream = await getCategories();
+    stream.listen((Category _category) {
+      setState(() => categories.add(_category));
+    }, onError: (a) {}, onDone: () {});
   }
 }

@@ -59,8 +59,8 @@ class _DeliveryAddressesWidgetState extends StateMVC<DeliveryAddressesWidget> {
         //        ],
       ),
       floatingActionButton:
-      _con.cart != null && _con.cart.product.market.availableForDelivery
-          ? FloatingActionButton(
+      //_con.cart != null && _con.cart.product.market.availableForDelivery?
+          FloatingActionButton(
           onPressed: () async {
             LocationResult result = await showLocationPicker(
               context,
@@ -102,8 +102,8 @@ class _DeliveryAddressesWidgetState extends StateMVC<DeliveryAddressesWidget> {
           child: Icon(
             Icons.add,
             color: Theme.of(context).primaryColor,
-          ))
-          : SizedBox(height: 0),
+          )),
+      //    : SizedBox(height: 0),
       body: RefreshIndicator(
         onRefresh: _con.refreshAddresses,
         child: SingleChildScrollView(

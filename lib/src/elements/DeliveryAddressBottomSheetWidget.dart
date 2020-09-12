@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:markets/src/elements/CircularLoadingWidget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -305,14 +306,14 @@ class _DeliveryAddressBottomSheetWidgetState
             padding: EdgeInsets.symmetric(
                 vertical: 13, horizontal: config.App(context).appWidth(42)),
             decoration: BoxDecoration(
-              color: Theme.of(context).focusColor.withOpacity(0.05),
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20), topLeft: Radius.circular(20)),
             ),
             child: Container(
               width: 30,
               decoration: BoxDecoration(
-                color: Theme.of(context).focusColor.withOpacity(0.8),
+                color: Theme.of(context).focusColor.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(3),
               ),
               //child: SizedBox(height: 1,),
@@ -321,8 +322,8 @@ class _DeliveryAddressBottomSheetWidgetState
           Visibility(
             visible: _con.addresses.length == 0 ? true : false,
             child: Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 2.5,
+              child: CircularLoadingWidget(
+                height: 100,
               ),
             ),
           ),

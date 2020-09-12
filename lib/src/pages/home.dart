@@ -94,8 +94,8 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                               scaffoldKey: widget.parentScaffoldKey),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
                           ),
                         );
                         bottomSheetController.closed.then((value) {
