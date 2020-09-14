@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../elements/HomeSliderLoaderWidget.dart';
+import '../elements/HomeSliderWidget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../controllers/home_controller.dart';
@@ -9,7 +11,6 @@ import '../elements/GridWidget.dart';
 import '../elements/ProductsCarouselWidget.dart';
 import '../elements/ReviewsListWidget.dart';
 import '../elements/SearchBarWidget.dart';
-import '../elements/ShoppingCartButtonWidget.dart';
 import '../repository/settings_repository.dart' as settingsRepo;
 import '../repository/user_repository.dart';
 
@@ -53,7 +54,6 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
             );
           },
         ),
-
       ),
       body: RefreshIndicator(
         onRefresh: _con.refreshHome,
@@ -72,8 +72,9 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                   },
                 ),
               ),
+              HomeSliderWidget(slides: _con.slides),
               Padding(
-                padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.symmetric(vertical: 0),
@@ -83,14 +84,13 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                   //                  ),
                   trailing: IconButton(
                     onPressed: () {
-
                       if (currentUser.value.apiToken == null) {
                         _con.requestForCurrentLocation(context);
                       } else {
                         var bottomSheetController = widget
                             .parentScaffoldKey.currentState
                             .showBottomSheet(
-                              (context) => DeliveryAddressBottomSheetWidget(
+                          (context) => DeliveryAddressBottomSheetWidget(
                               scaffoldKey: widget.parentScaffoldKey),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.only(
@@ -122,12 +122,12 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                           color: Theme.of(context).hintColor.withOpacity(0.8),
                           height: 1.2),
                       text: settingsRepo.deliveryAddress.value.description ==
-                          null
+                              null
                           ? ""
                           : settingsRepo.deliveryAddress.value.description == ""
-                          ? ""
-                          : ("${settingsRepo.deliveryAddress.value?.description}" +
-                          " - "),
+                              ? ""
+                              : ("${settingsRepo.deliveryAddress.value?.description}" +
+                                  " - "),
                       children: <TextSpan>[
                         TextSpan(
                           text: (settingsRepo.deliveryAddress.value?.address ??

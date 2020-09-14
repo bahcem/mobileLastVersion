@@ -121,7 +121,7 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
             ProductsCarouselWidget(heroTag: 'menu_trending_product', productsList: _con.trendingProducts),
             ListTile(
               dense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              contentPadding: EdgeInsets.only(right: 20,left:20, top: 10,bottom: 0),
               title: Text(
                 S.of(context).products,
                 style: Theme.of(context).textTheme.headline4,
@@ -158,22 +158,6 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
                       selected: _selected,
                       //shape: StadiumBorder(side: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.05))),
                       showCheckmark: false,
-                      avatar: (_category.id == '0')
-                          ? null
-                          : (_category.image.url.toLowerCase().endsWith('.svg')
-                          ? Image.network(
-                        _category.image.url,
-                        color: _selected ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
-                      )
-                          : CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: _category.image.icon,
-                        placeholder: (context, url) => Image.asset(
-                          'assets/img/loading.gif',
-                          fit: BoxFit.cover,
-                        ),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      )),
                       onSelected: (bool value) {
                         setState(() {
                           if (_category.id == '0') {

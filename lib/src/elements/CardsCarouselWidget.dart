@@ -35,6 +35,7 @@ class _CardsCarouselWidgetState extends State<CardsCarouselWidget> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              print(widget.heroTag);
               Navigator.of(context).pushNamed('/Details',
                   arguments: RouteArgument(
                     id: widget.marketsList.elementAt(index).id,
