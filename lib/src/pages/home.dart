@@ -163,26 +163,56 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
               //                          ),
               CardsCarouselWidget(
                   marketsList: _con.topMarkets, heroTag: 'home_top_markets'),
-              ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                //leading: Icon(
-                //                  Icons.trending_up,
-                //                  color: Theme.of(context).hintColor,
-                //                ),
-                title: Text(
-                  S.of(context).trending_this_week,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                subtitle: Text(
-                  S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ),
-              ProductsCarouselWidget(
-                  productsList: _con.trendingProducts,
-                  heroTag: 'home_product_carousel'),
+
+              _con.trendingProducts == null
+                  ? ListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      //leading: Icon(
+                      //                  Icons.trending_up,
+                      //                  color: Theme.of(context).hintColor,
+                      //                ),
+                      title: Text(
+                        S.of(context).trending_this_week,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      subtitle: Text(
+                        S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    )
+                  : _con.trendingProducts.isEmpty
+                      ? Container()
+                      : ListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                          //leading: Icon(
+                          //                  Icons.trending_up,
+                          //                  color: Theme.of(context).hintColor,
+                          //                ),
+                          title: Text(
+                            S.of(context).trending_this_week,
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          subtitle: Text(
+                            S
+                                .of(context)
+                                .clickOnTheProductToGetMoreDetailsAboutIt,
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.caption,
+                          ),
+                        ),
+              _con.trendingProducts == null
+                  ? ProductsCarouselWidget(
+                      productsList: _con.trendingProducts,
+                      heroTag: 'home_products_carousel',
+                    )
+                  : _con.trendingProducts.isEmpty
+                      ? Container()
+                      : ProductsCarouselWidget(
+                          productsList: _con.trendingProducts,
+                          heroTag: 'home_product_carousel'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ListTile(

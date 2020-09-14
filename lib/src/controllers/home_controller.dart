@@ -40,7 +40,15 @@ class HomeController extends ControllerMVC {
   Future<void> listenForSlides() async {
     final Stream<Slide> stream = await getSlides();
     stream.listen((Slide _slide) {
-      setState(() => slides.add(_slide));
+
+      if(_slide.market.availableForDelivery == false || _slide.market.closed == true){
+
+
+      }else {
+        setState(() => slides.add(_slide));
+      }
+
+
     }, onError: (a) {
       print(a);
     }, onDone: () {});

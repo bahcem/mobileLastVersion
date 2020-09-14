@@ -52,6 +52,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                         });
                       },
                     ),
+
                     items: widget.slides.map((Slide slide) {
                       return Builder(
                         builder: (BuildContext context) {
@@ -76,21 +77,18 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                       BorderRadius.all(Radius.circular(10)),
                                   child: GestureDetector(
                                     onTap: () {
-                                      if (slide.market == null) {
-                                      } else if (slide.market != null) {
-                                        if (slide.product.id != "null") {
-                                          Navigator.of(context).pushNamed(
-                                              '/Product',
-                                              arguments: RouteArgument(
-                                                  id: slide.product.id,
-                                                  heroTag: 'home_slide'));
-                                        } else {
-                                          Navigator.of(context).pushNamed(
-                                              '/Details',
-                                              arguments: RouteArgument(
-                                                  id: slide.market.id,
-                                                  heroTag: 'home_slide'));
-                                        }
+                                      if (slide.product.id != "null") {
+                                        Navigator.of(context).pushNamed(
+                                            '/Product',
+                                            arguments: RouteArgument(
+                                                id: slide.product.id,
+                                                heroTag: 'home_slide'));
+                                      } else {
+                                        Navigator.of(context).pushNamed(
+                                            '/Details',
+                                            arguments: RouteArgument(
+                                                id: slide.market.id,
+                                                heroTag: 'home_slide'));
                                       }
                                     },
                                     child: CachedNetworkImage(
@@ -149,29 +147,18 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                             slide.button != '')
                                           FlatButton(
                                             onPressed: () {
-                                              if (slide.market != null &&
-                                                  slide.product.id != "null") {
+                                              if (slide.product.id != "null") {
                                                 Navigator.of(context).pushNamed(
                                                     '/Product',
                                                     arguments: RouteArgument(
                                                         id: slide.product.id,
                                                         heroTag: 'home_slide'));
-                                              } else if (slide.product.id ==
-                                                      "null" &&
-                                                  slide.market != null) {
-                                                Navigator.of(context).pushNamed(
-                                                    '/Details',
-                                                    arguments: RouteArgument(
-                                                        id: slide.market.id,
-                                                        heroTag:
-                                                            'home_top_markets'));
                                               } else {
                                                 Navigator.of(context).pushNamed(
                                                     '/Details',
                                                     arguments: RouteArgument(
                                                         id: slide.market.id,
-                                                        heroTag:
-                                                            'home_top_markets'));
+                                                        heroTag: 'home_slide'));
                                               }
                                             },
                                             padding: EdgeInsets.symmetric(
