@@ -14,7 +14,8 @@ class CardsCarouselLoaderWidget extends StatelessWidget {
         itemCount: 3,
         itemBuilder: (context, index) {
           return Container(
-            width: 308,
+            width: 292,
+            height: 292,
             margin: EdgeInsets.only(left: 20, right: 0, top: 5, bottom: 20),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
@@ -23,9 +24,17 @@ class CardsCarouselLoaderWidget extends StatelessWidget {
                 BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.1), blurRadius: 15, offset: Offset(0, 5)),
               ],
             ),
-            child: Image.asset(
-              'assets/img/loading_card.gif',
-              fit: BoxFit.contain,
+            child: Container(
+              width: 292,
+              height: 300,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+
+                child: Image.asset(
+                  'assets/img/loading_card.gif',
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
             ),
           );
         },
