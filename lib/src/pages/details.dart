@@ -47,8 +47,7 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
         key: _con.scaffoldKey,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Navigator.of(context).pushNamed('/Menu',
-                arguments: new RouteArgument(id: widget.routeArgument.id));
+          Navigator.pop(context);
           },
           isExtended: true,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:markets/src/pages/home.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -30,7 +31,8 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
 
   @override
   void initState() {
-    _con.market = (new Market())..id = widget.routeArgument.id;
+    _con.market = (new Market())
+      ..id = widget.routeArgument.id;
     _con.listenForTrendingProducts(widget.routeArgument.id);
     _con.listenForCategories(widget.routeArgument.id);
     selectedCategories = ['0'];
@@ -42,11 +44,15 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _con.scaffoldKey,
-    //  drawer: DrawerWidget(),
+
+      //  drawer: DrawerWidget(),
       appBar: AppBar(
         bottom: PreferredSize(
           child: Container(
-            color: Theme.of(context).focusColor.withOpacity(0.3),
+            color: Theme
+                .of(context)
+                .focusColor
+                .withOpacity(0.3),
             height: 1.0,
           ),
           preferredSize: Size.fromHeight(4.0),
@@ -54,14 +60,30 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          _con.products.isNotEmpty ? _con.products[0].market.name : '',
-          overflow: TextOverflow.fade,
-          softWrap: false,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 0)),
+        title: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed('/Details',
+                arguments: RouteArgument(
+                  id: _con.market.id,
+                ));
+          },
+          child: Text(
+            _con.products.isNotEmpty ? _con.products[0].market.name : '',
+            overflow: TextOverflow.fade,
+            softWrap: false,
+            style: Theme
+                .of(context)
+                .textTheme
+                .headline6
+                .merge(TextStyle(letterSpacing: 0)),
+          ),
         ),
         actions: <Widget>[
-          new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
+          new ShoppingCartButtonWidget(iconColor: Theme
+              .of(context)
+              .hintColor, labelColor: Theme
+              .of(context)
+              .accentColor),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -106,30 +128,53 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
 //            ),
             ListTile(
               dense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20, vertical: 10),
 
               title: Text(
-                S.of(context).featured_products,
-                style: Theme.of(context).textTheme.headline4,
+                S
+                    .of(context)
+                    .featured_products,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline4,
               ),
               subtitle: Text(
-                S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
+                S
+                    .of(context)
+                    .clickOnTheProductToGetMoreDetailsAboutIt,
                 maxLines: 2,
-                style: Theme.of(context).textTheme.caption,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .caption,
               ),
             ),
-            ProductsCarouselWidget(heroTag: 'menu_trending_product', productsList: _con.trendingProducts),
+            ProductsCarouselWidget(heroTag: 'menu_trending_product',
+                productsList: _con.trendingProducts),
             ListTile(
               dense: true,
-              contentPadding: EdgeInsets.only(right: 20,left:20, top: 10,bottom: 0),
+              contentPadding: EdgeInsets.only(
+                  right: 20, left: 20, top: 10, bottom: 0),
               title: Text(
-                S.of(context).products,
-                style: Theme.of(context).textTheme.headline4,
+                S
+                    .of(context)
+                    .products,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline4,
               ),
               subtitle: Text(
-                S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
+                S
+                    .of(context)
+                    .clickOnTheProductToGetMoreDetailsAboutIt,
                 maxLines: 2,
-                style: Theme.of(context).textTheme.caption,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .caption,
               ),
             ),
             _con.categories.isEmpty
@@ -143,18 +188,34 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
                 scrollDirection: Axis.horizontal,
                 children: List.generate(_con.categories.length, (index) {
                   var _category = _con.categories.elementAt(index);
-                  var _selected = this.selectedCategories.contains(_category.id);
+                  var _selected = this.selectedCategories.contains(
+                      _category.id);
                   return Padding(
                     padding: const EdgeInsetsDirectional.only(start: 20),
                     child: RawChip(
                       elevation: 0,
                       label: Text(_category.name),
                       labelStyle: _selected
-                          ? Theme.of(context).textTheme.bodyText2.merge(TextStyle(color: Theme.of(context).primaryColor))
-                          : Theme.of(context).textTheme.bodyText2,
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                      backgroundColor: Theme.of(context).focusColor.withOpacity(0.1),
-                      selectedColor: Theme.of(context).accentColor,
+                          ? Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2
+                          .merge(TextStyle(color: Theme
+                          .of(context)
+                          .primaryColor))
+                          : Theme
+                          .of(context)
+                          .textTheme
+                          .bodyText2,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 15),
+                      backgroundColor: Theme
+                          .of(context)
+                          .focusColor
+                          .withOpacity(0.1),
+                      selectedColor: Theme
+                          .of(context)
+                          .accentColor,
                       selected: _selected,
                       //shape: StadiumBorder(side: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.05))),
                       showCheckmark: false,
@@ -163,12 +224,14 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
                           if (_category.id == '0') {
                             this.selectedCategories = ['0'];
                           } else {
-                            this.selectedCategories.removeWhere((element) => element == '0');
+                            this.selectedCategories.removeWhere((
+                                element) => element == '0');
                           }
                           if (value) {
                             this.selectedCategories.add(_category.id);
                           } else {
-                            this.selectedCategories.removeWhere((element) => element == _category.id);
+                            this.selectedCategories.removeWhere((
+                                element) => element == _category.id);
                           }
                           _con.selectCategory(this.selectedCategories);
                         });
