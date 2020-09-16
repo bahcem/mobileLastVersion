@@ -77,6 +77,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+  - family: Yellowtail
+    fonts:
+      - asset: assets/fonts/yellowtail.regular.ttf
+        weight: 300
   - family: ProductSans
     fonts:
       - asset: assets/fonts/ProductSans-Thin.ttf

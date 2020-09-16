@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markets/src/controllers/profile_controller.dart';
-
 import 'package:mvc_pattern/mvc_pattern.dart';
-import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
-import '../controllers/user_controller.dart';
-import '../elements/BlockButtonWidget.dart';
-import '../helpers/app_config.dart' as config;
-import '../helpers/helper.dart';
-import '../repository/user_repository.dart' as userRepo;
 
 class ProfileEditPage extends StatefulWidget {
   final user;

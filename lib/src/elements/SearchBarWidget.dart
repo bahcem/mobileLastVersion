@@ -17,16 +17,24 @@ class SearchBarWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-            color: Colors.transparent,
+            boxShadow: [
+              BoxShadow(
+                  color: Theme.of(context)
+                      .focusColor
+                      .withOpacity(0.12),
+                  blurRadius: 10,
+                  offset: Offset(0, 2)),
+            ],
+            color: Colors.white,
             border: Border.all(
-              color: Theme.of(context).focusColor.withOpacity(0.2),
+              color: Theme.of(context).focusColor.withOpacity(0.3),
             ),
             borderRadius: BorderRadius.circular(4)),
         child: Row(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 12, left: 0),
-              child: Icon(Icons.search, color: Theme.of(context).accentColor),
+              child: Icon(Icons.search, color: Theme.of(context).accentColor,size: 20,),
             ),
             Expanded(
               child: Text(
@@ -41,7 +49,7 @@ class SearchBarWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 5, left: 5, top: 3, bottom: 3),
-                child: Icon(Icons.filter_list, color: Theme.of(context).accentColor),
+                child: Icon(Icons.filter_list, color: Theme.of(context).accentColor,size: 20,),
               ),
             ),
           ],

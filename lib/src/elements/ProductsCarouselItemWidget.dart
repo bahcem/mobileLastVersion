@@ -29,6 +29,15 @@ class ProductsCarouselItemWidget extends StatelessWidget {
               Hero(
                 tag: heroTag + product.id,
                 child: Container(
+                  decoration: BoxDecoration(
+                     boxShadow: [
+                       BoxShadow(
+                         color: Theme.of(context).focusColor.withOpacity(0.15),
+                         offset: Offset(0, 5),
+                         blurRadius: 15,
+                       ),
+                     ],
+                  ),
                   margin: EdgeInsetsDirectional.only(start: this.marginLeft, end: 20),
                   width: 100,
                   height: 130,

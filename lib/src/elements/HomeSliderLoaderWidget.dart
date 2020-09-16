@@ -6,12 +6,15 @@ class HomeSliderLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       height: 140,
+      margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 0),
       width: double.infinity,
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.15), blurRadius: 15, offset: Offset(0, 2)),
+          BoxShadow(
+              color: Theme.of(context).focusColor.withOpacity(0.15),
+              blurRadius: 15,
+              offset: Offset(0, 2)),
         ],
       ),
       child: ClipRRect(

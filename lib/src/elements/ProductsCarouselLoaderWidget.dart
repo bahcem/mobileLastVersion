@@ -8,7 +8,7 @@ class ProductsCarouselLoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 210,
+        height: 190,
         color: Theme.of(context).primaryColor,
         padding: EdgeInsets.symmetric(vertical: 10),
         child: ListView.builder(

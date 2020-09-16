@@ -181,7 +181,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "pickup" : MessageLookupByLibrary.simpleMessage("Teslimatı Yok"),
     "pickup_your_product_from_the_market" : MessageLookupByLibrary.simpleMessage("Bu ürünü marketten temin et"),
     "productRefreshedSuccessfuly" : MessageLookupByLibrary.simpleMessage("Ürün başarıyla yenilendi"),
-    "product_categories" : MessageLookupByLibrary.simpleMessage("Ürün Kategorileri"),
+    "product_categories" : MessageLookupByLibrary.simpleMessage("Kategoriler"),
     "products" : MessageLookupByLibrary.simpleMessage("Ürünler"),
     "products_result" : MessageLookupByLibrary.simpleMessage("Ürün sonucu"),
     "products_results" : MessageLookupByLibrary.simpleMessage("Ürün sonuçları"),

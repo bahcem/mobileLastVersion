@@ -15,9 +15,8 @@ class ProductsCarouselWidget extends StatelessWidget {
     return productsList.isEmpty
         ? ProductsCarouselLoaderWidget()
         : Container(
-            height: 210,
-            color: Theme.of(context).primaryColor,
-            padding: EdgeInsets.symmetric(vertical: 10),
+            height: 190,
+            padding: EdgeInsets.only(top: 10,bottom: 0),
             child: ListView.builder(
               itemCount: productsList.length,
               itemBuilder: (context, index) {

@@ -97,6 +97,7 @@ class _PagesWidgetState extends State<PagesWidget> {
         }),
         body: widget.currentPage,
         bottomNavigationBar: BottomNavigationBar(
+
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Theme.of(context).accentColor,
           selectedFontSize: 0,

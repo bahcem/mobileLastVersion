@@ -41,7 +41,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     options: CarouselOptions(
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 5),
-                      height: 180,
+                      height: 160,
                       viewportFraction: 1.0,
                       onPageChanged: (index, reason) {
                         setState(() {
@@ -52,13 +52,12 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                         });
                       },
                     ),
-
                     items: widget.slides.map((Slide slide) {
                       return Builder(
                         builder: (BuildContext context) {
                           return Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 20),
+                            margin: EdgeInsets.only(
+                                top: 20, left: 20, right: 20, bottom: 0),
                             height: 140,
                             decoration: BoxDecoration(
                               boxShadow: [
@@ -187,7 +186,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     }).toList(),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 22, horizontal: 42),
+                    margin: EdgeInsets.only(bottom: 12),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: widget.slides.map((Slide slide) {
@@ -195,7 +194,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                           width: 20.0,
                           height: 3.0,
                           margin: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 2.0),
+                              vertical: 0.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(8),
