@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:markets/src/controllers/profile_controller.dart';
-import 'package:markets/src/elements/PermissionDeniedWidget.dart';
-import 'package:markets/src/pages/map.dart';
-import 'package:markets/src/pages/profile_edit.dart';
-import 'package:markets/src/repository/settings_repository.dart';
+import '../controllers/profile_controller.dart';
+import '../elements/PermissionDeniedWidget.dart';
+import '../pages/map.dart';
+import '../pages/profile_edit.dart';
+import '../repository/settings_repository.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../repository/user_repository.dart';
 import 'campaign.dart';
 import 'connection.dart';
-import 'package:markets/src/pages/favorites.dart';
+import '../pages/favorites.dart';
 
 class SettingsWidget extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
   }
 
   void _effect() {
-    print('Girdim');
+
     setState(() {});
   }
 

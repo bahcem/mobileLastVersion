@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/notification_controller.dart';
 import '../elements/EmptyNotificationsWidget.dart';
 import '../elements/NotificationItemWidget.dart';
 import '../elements/PermissionDeniedWidget.dart';
-import '../elements/ShoppingCartButtonWidget.dart';
 import '../repository/user_repository.dart';
 
 class NotificationsWidget extends StatefulWidget {

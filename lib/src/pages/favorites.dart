@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/favorite_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
 import '../elements/FavoriteGridItemWidget.dart';
 import '../elements/FavoriteListItemWidget.dart';
 import '../elements/PermissionDeniedWidget.dart';
-import '../elements/SearchBarWidget.dart';
 import '../elements/ShoppingCartButtonWidget.dart';
 import '../repository/user_repository.dart';
 

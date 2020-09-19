@@ -35,7 +35,7 @@ class ProfileController extends ControllerMVC {
   }
 
   void update(User user) async {
-    print('UPDATE');
+
 
     user.deviceToken = null;
     repository.update(user).then((value) {

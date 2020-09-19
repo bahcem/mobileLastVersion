@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:markets/src/controllers/cart_controller.dart';
-import 'package:markets/src/models/setting.dart';
-import 'package:markets/src/pages/cart.dart';
-import 'package:markets/src/pages/settings.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
-
-import '../elements/DrawerWidget.dart';
+import '../pages/cart.dart';
+import '../pages/settings.dart';
 import '../elements/FilterWidget.dart';
 import '../helpers/helper.dart';
 import '../models/route_argument.dart';
-import '../pages/favorites.dart';
 import '../pages/home.dart';
-import '../pages/map.dart';
 import '../pages/notifications.dart';
 import '../pages/orders.dart';
 

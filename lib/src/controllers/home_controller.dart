@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:markets/src/models/slide.dart';
-import 'package:markets/src/repository/slider_repository.dart';
+import '../models/slide.dart';
+import '../repository/slider_repository.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../helpers/helper.dart';
 import '../models/category.dart';
@@ -45,7 +45,7 @@ class HomeController extends ControllerMVC {
         setState(() => slides.add(_slide));
       }
     }, onError: (a) {
-      print(a);
+
     }, onDone: () {});
   }
 

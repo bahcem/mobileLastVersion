@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../elements/HomeSliderLoaderWidget.dart';
 import '../elements/HomeSliderWidget.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../controllers/home_controller.dart';
 import '../elements/CardsCarouselWidget.dart';
-import '../elements/CaregoriesCarouselWidget.dart';
 import '../elements/DeliveryAddressBottomSheetWidget.dart';
 import '../elements/GridWidget.dart';
 import '../elements/ProductsCarouselWidget.dart';

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import '../elements/ProfileSettingsDialog.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/profile_controller.dart';
-import '../elements/DrawerWidget.dart';
 import '../elements/EmptyOrdersWidget.dart';
 import '../elements/OrderItemWidget.dart';
 import '../elements/PermissionDeniedWidget.dart';

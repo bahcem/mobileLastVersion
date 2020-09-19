@@ -1,8 +1,5 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-
-import '../helpers/custom_trace.dart';
 import '../helpers/helper.dart';
 import '../models/slide.dart';
 
@@ -25,8 +22,6 @@ Future<Stream<Slide>> getSlides() async {
         .map((data) => Helper.getData(data))
         .expand((data) => (data as List))
         .map((data) => Slide.fromJSON(data));
-  } catch (e) {
-    print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
-    return new Stream.value(new Slide.fromJSON({}));
+  } catch (e) {  return new Stream.value(new Slide.fromJSON({}));
   }
 }

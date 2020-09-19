@@ -78,7 +78,7 @@ class MarketController extends ControllerMVC {
   }
 
   void listenForFeaturedProducts(String idMarket) async {
-    print(idMarket);
+
     final Stream<Product> stream = await getFeaturedProductsOfMarket(idMarket);
     stream.listen((Product _product) {
       setState(() => featuredProducts.add(_product));

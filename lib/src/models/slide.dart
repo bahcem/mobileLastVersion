@@ -1,4 +1,3 @@
-import '../helpers/custom_trace.dart';
 import '../models/media.dart';
 import '../models/market.dart';
 import 'product.dart';
@@ -52,7 +51,6 @@ class Slide {
       market = Market.fromJSON({});
       product = Product.fromJSON({});
       image = Media();
-      print(CustomTrace(StackTrace.current, message: e));
     }
   }
 

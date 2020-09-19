@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:markets/src/controllers/home_controller.dart';
-import 'package:markets/src/elements/CircularLoadingWidget.dart';
-import 'package:markets/src/elements/HomeSliderLoaderWidget.dart';
-import 'package:markets/src/helpers/helper.dart';
-import 'package:markets/src/models/route_argument.dart';
+import '../controllers/home_controller.dart';
+import '../elements/CircularLoadingWidget.dart';
+import '../helpers/helper.dart';
+import '../models/route_argument.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 class CampaignScreen extends StatefulWidget {
@@ -60,7 +59,7 @@ class _CampaignScreenState extends StateMVC<CampaignScreen> {
                           ? 0
                           : _con.slides.length,
                   itemBuilder: (context, index) {
-                    print(_con.slides.elementAt(index).toMap());
+
                     return GestureDetector(
                       onTap: () {
                         if (_con.slides.elementAt(index).product.id != "null") {

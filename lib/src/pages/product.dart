@@ -35,7 +35,7 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
 
   @override
   void initState() {
-    print(widget.routeArgument.id);
+
     _con.listenForProduct(productId: widget.routeArgument.id);
     _con.listenForCart();
     _con.listenForFavorite(productId: widget.routeArgument.id);

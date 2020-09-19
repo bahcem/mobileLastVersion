@@ -4,7 +4,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../controllers/faq_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
-import '../elements/DrawerWidget.dart';
 import '../elements/FaqItemWidget.dart';
 
 class HelpWidget extends StatefulWidget {

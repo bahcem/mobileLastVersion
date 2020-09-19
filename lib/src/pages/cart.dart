@@ -7,7 +7,6 @@ import '../controllers/cart_controller.dart';
 import '../elements/CartBottomDetailsWidget.dart';
 import '../elements/CartItemWidget.dart';
 import '../elements/EmptyCartWidget.dart';
-import '../helpers/helper.dart';
 import '../models/route_argument.dart';
 import '../repository/settings_repository.dart';
 

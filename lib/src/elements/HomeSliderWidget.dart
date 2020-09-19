@@ -1,12 +1,8 @@
-import 'dart:convert';
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../helpers/app_config.dart' as config;
 import '../helpers/helper.dart';
 import '../models/route_argument.dart';
 import '../models/slide.dart';

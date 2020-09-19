@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:markets/src/controllers/profile_controller.dart';
+import '../controllers/profile_controller.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 
@@ -154,9 +154,8 @@ class _ProfileEditPageState extends StateMVC<ProfileEditPage> {
 
   void _submit() {
     if (_profileSettingsFormKey.currentState.validate()) {
-      print(_profileSettingsFormKey.currentState.widget.toString());
       _profileSettingsFormKey.currentState.save();
-      print(widget.user.value);
+
       _con.update(widget.user.value);
 
       setState(() {

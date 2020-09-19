@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:markets/src/pages/map.dart';
+import '../pages/map.dart';
 
 import '../../generated/l10n.dart';
 import '../helpers/helper.dart';
