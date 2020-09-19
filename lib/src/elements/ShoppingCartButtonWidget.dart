@@ -9,11 +9,13 @@ class ShoppingCartButtonWidget extends StatefulWidget {
   const ShoppingCartButtonWidget({
     this.iconColor,
     this.labelColor,
+    this.fromWhichPage,
     Key key,
   }) : super(key: key);
 
   final Color iconColor;
   final Color labelColor;
+  final String fromWhichPage;
 
   @override
   _ShoppingCartButtonWidgetState createState() => _ShoppingCartButtonWidgetState();
@@ -38,7 +40,7 @@ class _ShoppingCartButtonWidgetState extends StateMVC<ShoppingCartButtonWidget> 
     return FlatButton(
       onPressed: () {
         if (currentUser.value.apiToken != null) {
-          Navigator.of(context).pushNamed('/Cart', arguments: RouteArgument(param: '/Pages', id: '2'));
+          Navigator.of(context).pushNamed('/Cart', arguments: RouteArgument(param: '/Pages', id: '2',fromWhichPage: widget.fromWhichPage));
         } else {
           Navigator.of(context).pushNamed('/Login');
         }

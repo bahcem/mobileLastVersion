@@ -38,6 +38,7 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
     _con.listenForGalleries(widget.routeArgument.id);
     _con.listenForFeaturedProducts(widget.routeArgument.id);
     _con.listenForMarketReviews(id: widget.routeArgument.id);
+    print('buralar');
     super.initState();
   }
 
@@ -47,7 +48,14 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
         key: _con.scaffoldKey,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-          Navigator.pop(context);
+            if(widget.routeArgument.fromWhichPage == 'popular_markets'){
+              Navigator.of(context).pushNamed('/Menu',
+                  arguments: new RouteArgument(id: widget.routeArgument.id));
+
+            }else {
+              Navigator.pop(context);
+            }
+
           },
           isExtended: true,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -612,7 +620,7 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
                                                                       itemBuilder:
                                                                           (context,
                                                                               index) {
-                                                                        return ProductItemWidget(
+                                                                        return _con.featuredProducts.elementAt(index) == null ? Container() : ProductItemWidget(
                                                                           heroTag:
                                                                               'details_featured_product',
                                                                           product: _con

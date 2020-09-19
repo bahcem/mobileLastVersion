@@ -54,6 +54,7 @@ class Cart {
         _same &= cart.options.contains(_option);
       });
     }
+    print(_same);
     return _same;
   }
 

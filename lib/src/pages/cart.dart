@@ -36,37 +36,68 @@ class _CartWidgetState extends StateMVC<CartWidget> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: Helper.of(context).onWillPop,
+      // ignore: missing_return
+      onWillPop: () async{
+        if (widget.routeArgument.param == '/Product') {
+          Navigator.pop(context);
+        } else if (widget.routeArgument.fromWhichPage ==
+            'not_home') {
+          Navigator.pop(context);
+        } else if (widget.routeArgument.fromWhichPage !=
+            'not_home' ||
+            widget.routeArgument.fromWhichPage != "" ||
+            widget.routeArgument.fromWhichPage != null) {
+          await Navigator.of(context).pushNamed('/Menu',
+              arguments: new RouteArgument(
+                  id: widget.routeArgument.fromWhichPage));
+          Navigator.pop(context);
+        } else {
+          Navigator.of(context)
+              .pushReplacementNamed('/Pages', arguments: 2);
+        }
+      },
       child: Scaffold(
         key: _con.scaffoldKey,
         bottomNavigationBar: CartBottomDetailsWidget(con: _con),
         appBar: AppBar(
           bottom: _con.carts.isEmpty
               ? PreferredSize(
-            preferredSize: Size.fromHeight(0),
-            child: Container(),
-          )
+                  preferredSize: Size.fromHeight(0),
+                  child: Container(),
+                )
               : PreferredSize(
-            child: Container(
-              color: Theme.of(context).focusColor.withOpacity(0.3),
-              height: 1.0,
-            ),
-            preferredSize: Size.fromHeight(4.0),
-          ),
+                  child: Container(
+                    color: Theme.of(context).focusColor.withOpacity(0.3),
+                    height: 1.0,
+                  ),
+                  preferredSize: Size.fromHeight(4.0),
+                ),
           automaticallyImplyLeading: false,
-          leading: widget.routeArgument == null ? Container():  IconButton(
-            onPressed: () {
-              if (widget.routeArgument.param == '/Product') {
-                Navigator.of(context).pushReplacementNamed('/Product',
-                    arguments: RouteArgument(id: widget.routeArgument.id));
-              } else {
-                Navigator.of(context)
-                    .pushReplacementNamed('/Pages', arguments: 2);
-              }
-            },
-            icon: Icon(Icons.arrow_back),
-            color: Theme.of(context).hintColor,
-          ),
+          leading: widget.routeArgument == null
+              ? Container()
+              : IconButton(
+                  onPressed: () async {
+                    if (widget.routeArgument.param == '/Product') {
+                      Navigator.pop(context);
+                    } else if (widget.routeArgument.fromWhichPage ==
+                        'not_home') {
+                      Navigator.pop(context);
+                    } else if (widget.routeArgument.fromWhichPage !=
+                            'not_home' ||
+                        widget.routeArgument.fromWhichPage != "" ||
+                        widget.routeArgument.fromWhichPage != null) {
+                      await Navigator.of(context).pushNamed('/Menu',
+                          arguments: new RouteArgument(
+                              id: widget.routeArgument.fromWhichPage));
+                      Navigator.pop(context);
+                    } else {
+                      Navigator.of(context)
+                          .pushReplacementNamed('/Pages', arguments: 2);
+                    }
+                  },
+                  icon: Icon(Icons.arrow_back),
+                  color: Theme.of(context).hintColor,
+                ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,

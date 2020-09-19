@@ -25,7 +25,7 @@ class SearchBarWidget extends StatelessWidget {
                   blurRadius: 10,
                   offset: Offset(0, 2)),
             ],
-            color: Colors.white,
+            color:Theme.of(context).scaffoldBackgroundColor,
             border: Border.all(
               color: Theme.of(context).focusColor.withOpacity(0.3),
             ),

@@ -107,77 +107,77 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  alignment: Helper.getAlignmentDirectional(
-                                      slide.textPosition),
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Container(
-                                    width: config.App(context).appWidth(40),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        if (slide.text != null &&
-                                            slide.text != '')
-                                          Text(
-                                            slide.text,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline6
-                                                .merge(
-                                                  TextStyle(
-                                                    fontSize: 14,
-                                                    height: 1,
-                                                    color: Helper.of(context)
-                                                        .getColorFromHex(
-                                                            slide.textColor),
-                                                  ),
-                                                ),
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.fade,
-                                            maxLines: 3,
-                                          ),
-                                        if (slide.button != null &&
-                                            slide.button != '')
-                                          FlatButton(
-                                            onPressed: () {
-                                              if (slide.product.id != "null") {
-                                                Navigator.of(context).pushNamed(
-                                                    '/Product',
-                                                    arguments: RouteArgument(
-                                                        id: slide.product.id,
-                                                        heroTag: 'home_slide'));
-                                              } else {
-                                                Navigator.of(context).pushNamed(
-                                                    '/Details',
-                                                    arguments: RouteArgument(
-                                                        id: slide.market.id,
-                                                        heroTag: 'home_slide'));
-                                              }
-                                            },
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            color: Helper.of(context)
-                                                .getColorFromHex(
-                                                    slide.buttonColor),
-                                            shape: StadiumBorder(),
-                                            child: Text(
-                                              slide.button,
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                               // Container(
+                                //                                  alignment: Helper.getAlignmentDirectional(
+                                //                                      slide.textPosition),
+                                //                                  width: double.infinity,
+                                //                                  padding: const EdgeInsets.symmetric(
+                                //                                      horizontal: 20),
+                                //                                  child: Container(
+                                //                                    width: config.App(context).appWidth(40),
+                                //                                    child: Column(
+                                //                                      crossAxisAlignment:
+                                //                                          CrossAxisAlignment.stretch,
+                                //                                      mainAxisSize: MainAxisSize.max,
+                                //                                      mainAxisAlignment:
+                                //                                          MainAxisAlignment.center,
+                                //                                      children: <Widget>[
+                                //                                        if (slide.text != null &&
+                                //                                            slide.text != '')
+                                //                                          Text(
+                                //                                            slide.text,
+                                //                                            style: Theme.of(context)
+                                //                                                .textTheme
+                                //                                                .headline6
+                                //                                                .merge(
+                                //                                                  TextStyle(
+                                //                                                    fontSize: 14,
+                                //                                                    height: 1,
+                                //                                                    color: Helper.of(context)
+                                //                                                        .getColorFromHex(
+                                //                                                            slide.textColor),
+                                //                                                  ),
+                                //                                                ),
+                                //                                            textAlign: TextAlign.center,
+                                //                                            overflow: TextOverflow.fade,
+                                //                                            maxLines: 3,
+                                //                                          ),
+                                //                                        if (slide.button != null &&
+                                //                                            slide.button != '')
+                                //                                          FlatButton(
+                                //                                            onPressed: () {
+                                //                                              if (slide.product.id != "null") {
+                                //                                                Navigator.of(context).pushNamed(
+                                //                                                    '/Product',
+                                //                                                    arguments: RouteArgument(
+                                //                                                        id: slide.product.id,
+                                //                                                        heroTag: 'home_slide'));
+                                //                                              } else {
+                                //                                                Navigator.of(context).pushNamed(
+                                //                                                    '/Details',
+                                //                                                    arguments: RouteArgument(
+                                //                                                        id: slide.market.id,
+                                //                                                        heroTag: 'home_slide'));
+                                //                                              }
+                                //                                            },
+                                //                                            padding: EdgeInsets.symmetric(
+                                //                                                vertical: 5),
+                                //                                            color: Helper.of(context)
+                                //                                                .getColorFromHex(
+                                //                                                    slide.buttonColor),
+                                //                                            shape: StadiumBorder(),
+                                //                                            child: Text(
+                                //                                              slide.button,
+                                //                                              textAlign: TextAlign.start,
+                                //                                              style: TextStyle(
+                                //                                                  color: Theme.of(context)
+                                //                                                      .primaryColor),
+                                //                                            ),
+                                //                                          ),
+                                //                                      ],
+                                //                                    ),
+                                //                                  ),
+                                //                                ),
                               ],
                             ),
                           );

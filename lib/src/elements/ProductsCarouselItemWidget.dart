@@ -17,8 +17,9 @@ class ProductsCarouselItemWidget extends StatelessWidget {
     return InkWell(
       splashColor: Theme.of(context).accentColor.withOpacity(0.08),
       highlightColor: Colors.transparent,
-      onTap: () {
-        Navigator.of(context).pushNamed('/Product', arguments: RouteArgument(id: product.id, heroTag: heroTag));
+      onTap: () async {
+        await Navigator.of(context).pushNamed('/Product', arguments: RouteArgument(id: product.id, heroTag: this.heroTag, fromWhichPage: 'menu_list'));
+        Navigator.pop(context);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
