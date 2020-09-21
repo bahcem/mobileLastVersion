@@ -24,7 +24,14 @@ class SplashScreenController extends ControllerMVC {
   @override
   void initState() {
     super.initState();
-    firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
+   try{
+     print(firebaseMessaging);
+     print(firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true)).toString());
+     firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
+   }catch(e){
+     print(e);
+   }
+
     configureFirebase(firebaseMessaging);
     settingRepo.setting.addListener(() {
       if (settingRepo.setting.value.appName != null && settingRepo.setting.value.appName != '' && settingRepo.setting.value.mainColor != null) {
@@ -49,31 +56,39 @@ class SplashScreenController extends ControllerMVC {
 
   void configureFirebase(FirebaseMessaging _firebaseMessaging) {
     try {
+      print(_firebaseMessaging);
       _firebaseMessaging.configure(
         onMessage: notificationOnMessage,
         onLaunch: notificationOnLaunch,
         onResume: notificationOnResume,
       );
+
+
+
     } catch (e) {
+      print(e);
        }
   }
 
   Future notificationOnResume(Map<String, dynamic> message) async {
+    print('ON RESUME');
     try {
       if (message['data']['id'] == "orders") {
-        settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 3);
+        settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 1);
       }
     } catch (e) {
     }
   }
 
   Future notificationOnLaunch(Map<String, dynamic> message) async {
+
+    print('ON LAUNCH');
     String messageId = await settingRepo.getMessageId();
     try {
       if (messageId != message['google.message_id']) {
         if (message['data']['id'] == "orders") {
           await settingRepo.saveMessageId(message['google.message_id']);
-          settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 3);
+          settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 1);
         }
       }
     } catch (e) {
@@ -81,6 +96,7 @@ class SplashScreenController extends ControllerMVC {
   }
 
   Future notificationOnMessage(Map<String, dynamic> message) async {
+    print('ON MESSAGE');
     Fluttertoast.showToast(
       msg: message['notification']['title'],
       toastLength: Toast.LENGTH_LONG,

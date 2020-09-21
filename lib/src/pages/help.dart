@@ -21,7 +21,7 @@ class _HelpWidgetState extends StateMVC<HelpWidget> {
   @override
   Widget build(BuildContext context) {
     return _con.faqs.isEmpty
-        ? CircularLoadingWidget(height: 500)
+        ? Material(color: Theme.of(context).scaffoldBackgroundColor,child: CircularLoadingWidget(height: 500))
         : DefaultTabController(
       length: _con.faqs.length,
       child: Scaffold(

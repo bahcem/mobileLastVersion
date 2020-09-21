@@ -41,6 +41,7 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
     return WillPopScope(
       // ignore: missing_return
       onWillPop: (){
+
         Navigator.of(context).pushNamed('/Pages',arguments: 2);
       },
       child: Scaffold(
@@ -69,6 +70,7 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
               Navigator.of(context).pushNamed(
                   '/Details',
                   arguments: RouteArgument(
+                    fromWhichPage: 'menu_list',
                       id: widget.routeArgument.id,
                       heroTag: 'home_slide'));
 
@@ -258,6 +260,8 @@ class _MenuWidgetState extends StateMVC<MenuWidget> {
                   return SizedBox(height: 10);
                 },
                 itemBuilder: (context, index) {
+
+                  print(_con.products.elementAt(index).toMap());
                   return ProductItemWidget(
                     heroTag: 'menu_list',
                     product: _con.products.elementAt(index),

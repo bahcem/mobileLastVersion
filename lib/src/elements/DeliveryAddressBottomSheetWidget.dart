@@ -70,6 +70,7 @@ class _DeliveryAddressBottomSheetWidgetState
                       myLocationButtonEnabled: true,
                       //resultCardAlignment: Alignment.bottomCenter,
                     );
+                    print(result);
                     //_con.addAddress(new Address.fromJSON({
                     //                      'address': result.address,
                     //                      'latitude': result.latLng.latitude,

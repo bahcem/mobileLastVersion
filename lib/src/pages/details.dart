@@ -52,8 +52,11 @@ class _DetailsWidgetState extends StateMVC<DetailsWidget> {
               Navigator.of(context).pushNamed('/Menu',
                   arguments: new RouteArgument(id: widget.routeArgument.id));
 
-            }else {
+            }else if(widget.routeArgument.fromWhichPage== 'menu_list') {
               Navigator.pop(context);
+            }else {
+              Navigator.of(context).pushNamed('/Menu',
+                  arguments: new RouteArgument(id: widget.routeArgument.id));
             }
 
           },

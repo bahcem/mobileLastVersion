@@ -300,7 +300,7 @@ class Helper {
     DateTime now = DateTime.now();
     if (currentBackPressTime == null || now.difference(currentBackPressTime) > Duration(seconds: 2)) {
       currentBackPressTime = now;
-      Fluttertoast.showToast(msg: S.of(context).tapAgainToLeave);
+      Fluttertoast.showToast(msg: S.of(context).tapAgainToLeave,);
       return Future.value(false);
     }
     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
