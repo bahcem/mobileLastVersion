@@ -25,8 +25,7 @@ class UserController extends ControllerMVC {
     _firebaseMessaging = FirebaseMessaging();
     _firebaseMessaging.getToken().then((String _deviceToken) {
       user.deviceToken = _deviceToken;
-    }).catchError((e) {
-    });
+    }).catchError((e) {});
   }
 
   void login() async {
@@ -36,7 +35,8 @@ class UserController extends ControllerMVC {
       Overlay.of(context).insert(loader);
       repository.login(user).then((value) {
         if (value != null && value.apiToken != null) {
-          Navigator.of(scaffoldKey.currentContext).pushReplacementNamed('/Pages', arguments: 2);
+          Navigator.of(scaffoldKey.currentContext)
+              .pushReplacementNamed('/Pages', arguments: 2);
         } else {
           scaffoldKey?.currentState?.showSnackBar(SnackBar(
             content: Text(S.of(context).wrong_email_or_password),
@@ -53,79 +53,15 @@ class UserController extends ControllerMVC {
     }
   }
 
-  void register(String text) async {
+  void register() async {
     FocusScope.of(context).unfocus();
     if (loginFormKey.currentState.validate()) {
       loginFormKey.currentState.save();
       Overlay.of(context).insert(loader);
-      repository.register(user, text).then((value) {
+      print(user);
+      repository.register(user).then((value) {
         if (value != null && value.apiToken != null) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return SimpleDialog(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                  titlePadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  title: Row(
-                    children: <Widget>[
-                      Icon(Icons.person),
-                      SizedBox(width: 10),
-                      Text(
-                        S.of(context).profile_settings,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      )
-                    ],
-                  ),
-                  children: <Widget>[
-                    Form(
-                      key: _profileSettingsFormKey,
-                      child: Column(
-                        children: <Widget>[
-                          new TextField(
-                            controller: phonCont,
-                            style:
-                            TextStyle(color: Theme.of(context).hintColor),
-                            keyboardType: TextInputType.number,
-                            decoration: getInputDecoration(
-                                hintText: '+136 269 9765',
-                                labelText: S.of(context).phone),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      children: <Widget>[
-                        MaterialButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(S.of(context).cancel),
-                        ),
-                        MaterialButton(
-                          onPressed: (){
-                            setState((){
-                              value.phone = phonCont.text.toString();
-                            });
-                            value.deviceToken = null;
-                            repository.update(value);
-                            Navigator.of(context)
-                                .pushNamed('/Pages', arguments: 2);
-                          },
-                          child: Text(
-                            S.of(context).save,
-                            style:
-                            TextStyle(color: Theme.of(context).accentColor),
-                          ),
-                        ),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.end,
-                    ),
-                    SizedBox(height: 10),
-                  ],
-                );
-              });
+          Navigator.of(context).pushNamed('/Pages', arguments: 2);
         } else {
           scaffoldKey?.currentState?.showSnackBar(SnackBar(
             content: Text(S.of(context).wrong_email_or_password),
@@ -147,17 +83,17 @@ class UserController extends ControllerMVC {
       hintText: hintText,
       labelText: labelText,
       hintStyle: Theme.of(context).textTheme.bodyText2.merge(
-        TextStyle(color: Theme.of(context).focusColor),
-      ),
+            TextStyle(color: Theme.of(context).focusColor),
+          ),
       enabledBorder: UnderlineInputBorder(
           borderSide:
-          BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
+              BorderSide(color: Theme.of(context).hintColor.withOpacity(0.2))),
       focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).hintColor)),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       labelStyle: Theme.of(context).textTheme.bodyText2.merge(
-        TextStyle(color: Theme.of(context).hintColor),
-      ),
+            TextStyle(color: Theme.of(context).hintColor),
+          ),
     );
   }
 
@@ -169,11 +105,13 @@ class UserController extends ControllerMVC {
       repository.resetPassword(user).then((value) {
         if (value != null && value == true) {
           scaffoldKey?.currentState?.showSnackBar(SnackBar(
-            content: Text(S.of(context).your_reset_link_has_been_sent_to_your_email),
+            content:
+                Text(S.of(context).your_reset_link_has_been_sent_to_your_email),
             action: SnackBarAction(
               label: S.of(context).login,
               onPressed: () {
-                Navigator.of(scaffoldKey.currentContext).pushReplacementNamed('/Login');
+                Navigator.of(scaffoldKey.currentContext)
+                    .pushReplacementNamed('/Login');
               },
             ),
             duration: Duration(seconds: 10),

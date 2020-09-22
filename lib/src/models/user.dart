@@ -26,11 +26,9 @@ class User {
       email = jsonMap['email'] != null ? jsonMap['email'] : '';
       apiToken = jsonMap['api_token'];
       deviceToken = jsonMap['device_token'];
-      try {
-        phone = jsonMap['custom_fields']['phone']['view'];
-      } catch (e) {
-        phone = "";
-      }
+      phone = jsonMap['phone'];
+
+
       try {
         address = jsonMap['custom_fields']['address']['view'];
       } catch (e) {

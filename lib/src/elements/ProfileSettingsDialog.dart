@@ -53,7 +53,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
                           keyboardType: TextInputType.emailAddress,
-                          decoration: getInputDecoration(hintText: 'johndo@gmail.com', labelText: S.of(context).email_address),
+                          decoration: getInputDecoration(hintText: 'seyfullahse@gmail.com', labelText: S.of(context).email_address),
                           initialValue: widget.user.email,
                           validator: (input) => !input.contains('@') ? S.of(context).not_a_valid_email : null,
                           onSaved: (input) => widget.user.email = input,
