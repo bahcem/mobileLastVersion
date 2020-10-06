@@ -11,6 +11,7 @@ import '../elements/ReviewsListWidget.dart';
 import '../elements/SearchBarWidget.dart';
 import '../repository/settings_repository.dart' as settingsRepo;
 import '../repository/user_repository.dart';
+import 'all_markets.dart';
 
 class HomeWidget extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
@@ -38,7 +39,7 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
 //        ),
         actions: [
           Container(
-            padding: EdgeInsets.only(top: 10,bottom: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 10),
             child: GestureDetector(
               onTap: () {
                 if (currentUser.value.apiToken == null) {
@@ -74,8 +75,7 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                     Radius.circular(16),
                   ),
                   border: Border.all(
-                      color: Theme.of(context).accentColor,
-                      width: 1.2),
+                      color: Theme.of(context).accentColor, width: 1.2),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,15 +86,20 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         text: TextSpan(
-                          style: Theme.of(context).textTheme.bodyText2.merge(TextStyle(fontWeight: FontWeight.w900)),
-                          text: settingsRepo.deliveryAddress.value.description ==
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              .merge(TextStyle(fontWeight: FontWeight.w900)),
+                          text: settingsRepo
+                                      .deliveryAddress.value.description ==
                                   null
                               ? ""
-                              : settingsRepo.deliveryAddress.value.description ==
+                              : settingsRepo
+                                          .deliveryAddress.value.description ==
                                       ""
                                   ? ""
-                                  : settingsRepo.deliveryAddress.value.description
-                                              .length <
+                                  : settingsRepo.deliveryAddress.value
+                                              .description.length <
                                           2
                                       ? "${settingsRepo.deliveryAddress.value.description}" +
                                           " - "
@@ -103,7 +108,8 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                           children: <TextSpan>[
                             TextSpan(
                               style: Theme.of(context).textTheme.bodyText2,
-                              text: settingsRepo.deliveryAddress.value?.address ==
+                              text: settingsRepo
+                                          .deliveryAddress.value?.address ==
                                       null
                                   ? "Adres Seçin"
                                   : (settingsRepo.deliveryAddress.value?.address
@@ -139,10 +145,12 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
               margin: EdgeInsets.only(left: 4),
               child: Text(
                 value.appName ?? S.of(context).home,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .merge(TextStyle(letterSpacing: 1.3,fontFamily: 'Yellowtail',fontSize: 32,fontWeight: FontWeight.w200,color: Theme.of(context).accentColor.withOpacity(1))),
+                style: Theme.of(context).textTheme.headline6.merge(TextStyle(
+                    letterSpacing: 1.3,
+                    fontFamily: 'Yellowtail',
+                    fontSize: 32,
+                    fontWeight: FontWeight.w200,
+                    color: Theme.of(context).accentColor.withOpacity(1))),
               ),
             );
           },
@@ -180,7 +188,23 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                     S.of(context).top_markets,
                     style: Theme.of(context).textTheme.headline4,
                   ),
-
+                  trailing: _con.topMarkets== null || _con.topMarkets.isEmpty ? Container(width: 0,height: 0,) : GestureDetector(onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> AllMarketsScreen(data:_con.topMarkets,heroTag: 'home_top_markets',),),);
+                  },
+                      child: Container(padding: EdgeInsets.only(top: 8,bottom: 8,right: 10,left: 10), decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(0.12),
+                                blurRadius: 10,
+                                offset: Offset(0, 2)),
+                          ],
+                          color:Theme.of(context).scaffoldBackgroundColor,
+                          border: Border.all(
+                            color: Theme.of(context).focusColor.withOpacity(0.3),
+                          ),
+                          borderRadius: BorderRadius.circular(4)),child: Text("Tamamı",style: TextStyle(fontSize: 12,color: Theme.of(context).accentColor,fontWeight: FontWeight.w400),))),
                 ),
               ),
               //Text(
@@ -204,7 +228,7 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
               CardsCarouselWidget(
                   marketsList: _con.topMarkets, heroTag: 'home_top_markets'),
 
-          //Padding(
+              //Padding(
               //                padding: const EdgeInsets.symmetric(horizontal: 20),
               //                child: ListTile(
               //                  dense: true,
@@ -221,57 +245,57 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
               //              ),
 
               //CategoriesCarouselWidget(
-                //categories: _con.categories,
+              //categories: _con.categories,
               //),
               _con.trendingProducts == null
                   ? ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                //leading: Icon(
-                //                  Icons.trending_up,
-                //                  color: Theme.of(context).hintColor,
-                //                ),
-                title: Text(
-                  S.of(context).trending_this_week,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                subtitle: Text(
-                  S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              )
+                      dense: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                      //leading: Icon(
+                      //                  Icons.trending_up,
+                      //                  color: Theme.of(context).hintColor,
+                      //                ),
+                      title: Text(
+                        S.of(context).trending_this_week,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      subtitle: Text(
+                        S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    )
                   : _con.trendingProducts.isEmpty
-                  ? Container()
-                  : ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                //leading: Icon(
-                //                  Icons.trending_up,
-                //                  color: Theme.of(context).hintColor,
-                //                ),
-                title: Text(
-                  S.of(context).trending_this_week,
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                subtitle: Text(
-                  S
-                      .of(context)
-                      .clickOnTheProductToGetMoreDetailsAboutIt,
-                  maxLines: 2,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              ),
+                      ? Container()
+                      : ListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                          //leading: Icon(
+                          //                  Icons.trending_up,
+                          //                  color: Theme.of(context).hintColor,
+                          //                ),
+                          title: Text(
+                            S.of(context).trending_this_week,
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
+                          subtitle: Text(
+                            S
+                                .of(context)
+                                .clickOnTheProductToGetMoreDetailsAboutIt,
+                            maxLines: 2,
+                            style: Theme.of(context).textTheme.caption,
+                          ),
+                        ),
               _con.trendingProducts == null
                   ? ProductsCarouselWidget(
-                productsList: _con.trendingProducts,
-                heroTag: 'home_products_carousel',
-              )
+                      productsList: _con.trendingProducts,
+                      heroTag: 'home_products_carousel',
+                    )
                   : _con.trendingProducts.isEmpty
-                  ? Container()
-                  : ProductsCarouselWidget(
-                  productsList: _con.trendingProducts,
-                  heroTag: 'home_product_carousel'),
+                      ? Container()
+                      : ProductsCarouselWidget(
+                          productsList: _con.trendingProducts,
+                          heroTag: 'home_product_carousel'),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                 child: ListTile(

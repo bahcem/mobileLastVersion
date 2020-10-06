@@ -23,6 +23,7 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
     _con = controller;
   }
 
+
   void _effect() {
 
     setState(() {});
@@ -350,6 +351,33 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                               SizedBox(width: 16),
                               Text(
                                 "İletişim",
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width - 40,
+                          height: 0.8,
+                          color: Color.fromRGBO(223, 225, 229, 1),
+                        ),
+                        ListTile(
+                          trailing: Icon(
+                            Icons.keyboard_arrow_right,
+                            size: 24,
+                            color: Theme.of(context).focusColor,
+                          ),
+                          onTap: () {},
+                          title: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color:
+                                Theme.of(context).focusColor.withOpacity(1),
+                              ),
+                              SizedBox(width: 16),
+                              Text(
+                                "Değerlendir",
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                             ],
