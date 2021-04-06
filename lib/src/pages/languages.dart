@@ -22,7 +22,6 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         bottom: PreferredSize(
           child: Container(
             color: Theme.of(context).focusColor.withOpacity(0.3),
@@ -30,13 +29,20 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
           ),
           preferredSize: Size.fromHeight(4.0),
         ),
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           S.of(context).languages,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
         ),
-
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 10),
@@ -69,7 +75,10 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
               },
               itemBuilder: (context, index) {
                 Language _language = languagesList.languages.elementAt(index);
-                settingRepo.getDefaultLanguage(settingRepo.setting.value.mobileLanguage.value.languageCode).then((_langCode) {
+                settingRepo
+                    .getDefaultLanguage(settingRepo
+                        .setting.value.mobileLanguage.value.languageCode)
+                    .then((_langCode) {
                   if (_langCode == _language.code) {
                     setState(() {
                       _language.selected = true;
@@ -80,9 +89,11 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                   onTap: () async {
                     var _lang = _language.code.split("_");
                     if (_lang.length > 1)
-                      settingRepo.setting.value.mobileLanguage.value = new Locale(_lang.elementAt(0), _lang.elementAt(1));
+                      settingRepo.setting.value.mobileLanguage.value =
+                          new Locale(_lang.elementAt(0), _lang.elementAt(1));
                     else
-                      settingRepo.setting.value.mobileLanguage.value = new Locale(_lang.elementAt(0));
+                      settingRepo.setting.value.mobileLanguage.value =
+                          new Locale(_lang.elementAt(0));
                     // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
                     settingRepo.setting.notifyListeners();
                     languagesList.languages.forEach((_l) {
@@ -98,7 +109,11 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor.withOpacity(0.9),
                       boxShadow: [
-                        BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.1), blurRadius: 5, offset: Offset(0, 2)),
+                        BoxShadow(
+                            color:
+                                Theme.of(context).focusColor.withOpacity(0.1),
+                            blurRadius: 5,
+                            offset: Offset(0, 2)),
                       ],
                     ),
                     child: Row(
@@ -111,21 +126,29 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                               height: 40,
                               width: 40,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(40)),
-                                image: DecorationImage(image: AssetImage(_language.flag), fit: BoxFit.cover),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                                image: DecorationImage(
+                                    image: AssetImage(_language.flag),
+                                    fit: BoxFit.cover),
                               ),
                             ),
                             Container(
                               height: _language.selected ? 40 : 0,
                               width: _language.selected ? 40 : 0,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(40)),
-                                color: Theme.of(context).accentColor.withOpacity(_language.selected ? 0.85 : 0),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40)),
+                                color: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(_language.selected ? 0.85 : 0),
                               ),
                               child: Icon(
                                 Icons.check,
                                 size: _language.selected ? 24 : 0,
-                                color: Theme.of(context).primaryColor.withOpacity(_language.selected ? 0.85 : 0),
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(_language.selected ? 0.85 : 0),
                               ),
                             ),
                           ],
@@ -142,7 +165,9 @@ class _LanguagesWidgetState extends State<LanguagesWidget> {
                                 style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Text(
-                                _language.localName == "Türkçe" ? "Merhaba": "Hello",
+                                _language.localName == "Türkçe"
+                                    ? "Merhaba"
+                                    : "Hello",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: Theme.of(context).textTheme.caption,

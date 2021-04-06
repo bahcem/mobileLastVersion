@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import '../pages/pages.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -15,7 +16,6 @@ class UserController extends ControllerMVC {
   GlobalKey<ScaffoldState> scaffoldKey;
   FirebaseMessaging _firebaseMessaging;
   OverlayEntry loader;
-  var _profileSettingsFormKey;
   TextEditingController phonCont = TextEditingController(text: "");
 
   UserController() {
@@ -58,10 +58,15 @@ class UserController extends ControllerMVC {
     if (loginFormKey.currentState.validate()) {
       loginFormKey.currentState.save();
       Overlay.of(context).insert(loader);
-      print(user);
       repository.register(user).then((value) {
         if (value != null && value.apiToken != null) {
-          Navigator.of(context).pushNamed('/Pages', arguments: 2);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => PagesWidget(
+                currentTab: 0,
+              ),
+            ),
+          );
         } else {
           scaffoldKey?.currentState?.showSnackBar(SnackBar(
             content: Text(S.of(context).wrong_email_or_password),

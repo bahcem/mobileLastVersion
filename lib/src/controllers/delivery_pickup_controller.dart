@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../pages/payment_methods.dart';
 import '../../generated/l10n.dart';
 import '../models/address.dart' as model;
 import '../models/payment_method.dart';
@@ -84,6 +84,7 @@ class DeliveryPickupController extends CartController {
 
   @override
   void goCheckout(BuildContext context) {
-    Navigator.of(context).pushNamed(getSelectedMethod().route);
+    print('go');
+    Navigator.of(context,rootNavigator: false).push(MaterialPageRoute(builder: (context)=>PaymentMethodsWidget(),fullscreenDialog: false),);
   }
 }

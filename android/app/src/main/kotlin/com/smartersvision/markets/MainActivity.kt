@@ -1,4 +1,4 @@
-package com.bahcema
+package com.bizimkapici
 
 import android.os.Bundle
 import io.flutter.app.FlutterActivity

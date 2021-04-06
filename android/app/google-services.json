@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "346067498192",
-    "firebase_url": "https://bahcem-c46a4.firebaseio.com",
-    "project_id": "bahcem-c46a4",
-    "storage_bucket": "bahcem-c46a4.appspot.com"
+    "project_number": "924628266029",
+    "project_id": "bizim-kapici",
+    "storage_bucket": "bizim-kapici.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:346067498192:android:08a356fb78a6609f4edad5",
+        "mobilesdk_app_id": "1:924628266029:android:1137cb53e9477e7ee3dca4",
         "android_client_info": {
-          "package_name": "com.bahcema"
+          "package_name": "com.bizimkapici"
         }
       },
       "oauth_client": [
         {
-          "client_id": "346067498192-1bsjqmklourht9b8jlj444udqj2lfine.apps.googleusercontent.com",
+          "client_id": "924628266029-0e5oiolg528biihau10t8ipeh5bmisab.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhmftjDQ-DwEN8DUVZWNiVvxujLK-B-Wo"
+          "current_key": "AIzaSyDPtX0HbFexdbDSxOZrQ05e7FMaKUdpD4c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "346067498192-1bsjqmklourht9b8jlj444udqj2lfine.apps.googleusercontent.com",
+              "client_id": "924628266029-0e5oiolg528biihau10t8ipeh5bmisab.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

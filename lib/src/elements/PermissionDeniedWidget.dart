@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../pages/login.dart';
+import '../pages/signup.dart';
 
 import '../../generated/l10n.dart';
 import '../helpers/app_config.dart' as config;
@@ -83,7 +85,7 @@ class _PermissionDeniedWidgetState extends State<PermissionDeniedWidget> {
           SizedBox(height: 50),
           FlatButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/Login');
+              Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(builder: (context)=>LoginWidget(),fullscreenDialog: true),);
             },
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 70),
             color: Theme.of(context).accentColor.withOpacity(1),
@@ -96,7 +98,7 @@ class _PermissionDeniedWidgetState extends State<PermissionDeniedWidget> {
           SizedBox(height: 20),
           FlatButton(
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/SignUp');
+              Navigator.of(context,rootNavigator: true).push(MaterialPageRoute(builder: (context)=>SignUpWidget(),fullscreenDialog: true),);
             },
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 25),
             shape: StadiumBorder(),

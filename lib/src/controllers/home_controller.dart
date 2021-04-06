@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../pages/global.dart';
 import '../models/slide.dart';
 import '../repository/slider_repository.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -16,6 +17,7 @@ class HomeController extends ControllerMVC {
   List<Category> categories = <Category>[];
   List<Slide> slides = <Slide>[];
   List<Market> topMarkets = <Market>[];
+  List<Market> fieldMarkets = <Market>[];
   List<Market> popularMarkets = <Market>[];
   List<Review> recentReviews = <Review>[];
   List<Product> trendingProducts = <Product>[];
@@ -44,9 +46,7 @@ class HomeController extends ControllerMVC {
       } else {
         setState(() => slides.add(_slide));
       }
-    }, onError: (a) {
-
-    }, onDone: () {});
+    }, onError: (a) {}, onDone: () {});
   }
 
   Future<void> listenForTopMarkets() async {
@@ -107,5 +107,15 @@ class HomeController extends ControllerMVC {
     await listenForCategories();
     await listenForPopularMarkets();
     await listenForRecentReviews();
+  }
+
+  Future<void> refreshSpecial() async {
+    if (refreshGlobal == false) {
+    } else {
+      setState(() {
+        topMarkets = <Market>[];
+      });
+      await listenForTopMarkets();
+    }
   }
 }

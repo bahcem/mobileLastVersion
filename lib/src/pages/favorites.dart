@@ -6,7 +6,6 @@ import '../elements/CircularLoadingWidget.dart';
 import '../elements/FavoriteGridItemWidget.dart';
 import '../elements/FavoriteListItemWidget.dart';
 import '../elements/PermissionDeniedWidget.dart';
-import '../elements/ShoppingCartButtonWidget.dart';
 import '../repository/user_repository.dart';
 
 class FavoritesWidget extends StatefulWidget {
@@ -32,39 +31,34 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
     return Scaffold(
       key: _con.scaffoldKey,
       appBar: AppBar(
-        leading: IconButton(
-          icon : Icon(Icons.arrow_back),
-          onPressed:(){
-            Navigator.pop(context);
-          }
-        ),
         bottom: _con.favorites.isEmpty
             ? PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: Container(),
-        )
+                preferredSize: Size.fromHeight(0),
+                child: Container(),
+              )
             : PreferredSize(
-          child: Container(
-            color: Theme.of(context).focusColor.withOpacity(0.3),
-            height: 1.0,
-          ),
-          preferredSize: Size.fromHeight(4.0),
-        ),
-        //leading: new IconButton(
-        //          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-        //          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
-        //        ),
+                child: Container(
+                  color: Theme.of(context).focusColor.withOpacity(0.3),
+                  height: 1.0,
+                ),
+                preferredSize: Size.fromHeight(4.0),
+              ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           S.of(context).favorites,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
         ),
-        actions: <Widget>[
-          new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
-        ],
+        leading: IconButton(
+          icon:
+              new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: currentUser.value.apiToken == null
           ? PermissionDeniedWidget()
@@ -77,7 +71,6 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-
                     SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.only(left: 20, right: 10),
@@ -100,7 +93,9 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
                               },
                               icon: Icon(
                                 Icons.format_list_bulleted,
-                                color: this.layout == 'list' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                                color: this.layout == 'list'
+                                    ? Theme.of(context).accentColor
+                                    : Theme.of(context).focusColor,
                               ),
                             ),
                             IconButton(
@@ -111,7 +106,9 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
                               },
                               icon: Icon(
                                 Icons.apps,
-                                color: this.layout == 'grid' ? Theme.of(context).accentColor : Theme.of(context).focusColor,
+                                color: this.layout == 'grid'
+                                    ? Theme.of(context).accentColor
+                                    : Theme.of(context).focusColor,
                               ),
                             )
                           ],
@@ -151,9 +148,14 @@ class _FavoritesWidgetState extends StateMVC<FavoritesWidget> {
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               // Create a grid with 2 columns. If you change the scrollDirection to
                               // horizontal, this produces 2 rows.
-                              crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 4,
+                              crossAxisCount:
+                                  MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 2
+                                      : 4,
                               // Generate 100 widgets that display their index in the List.
-                              children: List.generate(_con.favorites.length, (index) {
+                              children:
+                                  List.generate(_con.favorites.length, (index) {
                                 return FavoriteGridItemWidget(
                                   heroTag: 'favorites_grid',
                                   favorite: _con.favorites.elementAt(index),

@@ -5,10 +5,6 @@ import '../../generated/l10n.dart';
 import '../controllers/home_controller.dart';
 import '../elements/CardsCarouselWidget.dart';
 import '../elements/DeliveryAddressBottomSheetWidget.dart';
-import '../elements/GridWidget.dart';
-import '../elements/ProductsCarouselWidget.dart';
-import '../elements/ReviewsListWidget.dart';
-import '../elements/SearchBarWidget.dart';
 import '../repository/settings_repository.dart' as settingsRepo;
 import '../repository/user_repository.dart';
 import 'all_markets.dart';
@@ -30,13 +26,16 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant StatefulWidget oldWidget) {
+
+    _con.refreshSpecial();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-//        leading: new IconButton(
-//          icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-//          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
-//        ),
         actions: [
           Container(
             padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -135,47 +134,36 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
           ),
         ],
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: false,
-        title: ValueListenableBuilder(
-          valueListenable: settingsRepo.setting,
-          builder: (context, value, child) {
-            return Container(
-              margin: EdgeInsets.only(left: 4),
-              child: Text(
-                value.appName ?? S.of(context).home,
-                style: Theme.of(context).textTheme.headline6.merge(TextStyle(
-                    letterSpacing: 1.3,
-                    fontFamily: 'Yellowtail',
-                    fontSize: 32,
-                    fontWeight: FontWeight.w200,
-                    color: Theme.of(context).accentColor.withOpacity(1))),
-              ),
-            );
-          },
+        title: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color.fromRGBO(255, 228, 121, 1)),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(4.0),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  'assets/img/bk.png',
+                  width: 32,
+                  height: 32,
+                )),
+          ),
         ),
       ),
       body: RefreshIndicator(
         onRefresh: _con.refreshHome,
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SearchBarWidget(
-                  onClickFilter: (event) {
-                    widget.parentScaffoldKey.currentState.openEndDrawer();
-                  },
-                ),
-              ),
               HomeSliderWidget(slides: _con.slides),
               Padding(
-                padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 0, left: 20, right: 12),
                 child: ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.only(top: 10),
@@ -186,12 +174,27 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
 
                   title: Text(
                     S.of(context).top_markets,
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .merge(TextStyle(fontSize: 18)),
                   ),
-                  trailing: _con.topMarkets== null || _con.topMarkets.isEmpty ? Container(width: 0,height: 0,) : GestureDetector(onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> AllMarketsScreen(data:_con.topMarkets,heroTag: 'home_top_markets',),),);
-                  },
-                      child: Container(padding: EdgeInsets.only(top: 8,bottom: 8,right: 10,left: 10), decoration: BoxDecoration(
+                  trailing: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllMarketsScreen(
+                            marketList: _con.topMarkets,
+                            heroTag: 'home_top_markets',
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: 8, bottom: 8, right: 10, left: 10),
+                      decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
                                 color: Theme.of(context)
@@ -200,143 +203,24 @@ class _HomeWidgetState extends StateMVC<HomeWidget> {
                                 blurRadius: 10,
                                 offset: Offset(0, 2)),
                           ],
-                          color:Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme.of(context).accentColor,
                           border: Border.all(
-                            color: Theme.of(context).focusColor.withOpacity(0.3),
+                            color: Theme.of(context).accentColor,
                           ),
-                          borderRadius: BorderRadius.circular(4)),child: Text("Tamamı",style: TextStyle(fontSize: 12,color: Theme.of(context).accentColor,fontWeight: FontWeight.w400),))),
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Text(
+                        "Tüm Mağazalar",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              //Text(
-              //                            (settingsRepo.deliveryAddress.value?.description ??
-              //                                "" ),
-              //                            style: TextStyle(
-              //                                fontSize: 14.0,
-              //                                fontWeight: FontWeight.w600,
-              //                                color: Theme.of(context).focusColor,
-              //                                height: 1.2),
-              //                          ),
-              //                          Text(
-              //                            (settingsRepo.deliveryAddress.value?.address ??
-              //                                S.of(context).unknown),
-              //                            style: TextStyle(
-              //                                fontSize: 14.0,
-              //                                fontWeight: FontWeight.w300,
-              //                                color: Theme.of(context).focusColor,
-              //                                height: 1.2),
-              //                          ),
               CardsCarouselWidget(
                   marketsList: _con.topMarkets, heroTag: 'home_top_markets'),
-
-              //Padding(
-              //                padding: const EdgeInsets.symmetric(horizontal: 20),
-              //                child: ListTile(
-              //                  dense: true,
-              //                  contentPadding: EdgeInsets.symmetric(vertical: 0),
-              //                  //leading: Icon(
-              //                  //                    Icons.category,
-              //                  //                    color: Theme.of(context).hintColor,
-              //                  //                  ),
-              //                  title: Text(
-              //                    S.of(context).product_categories,
-              //                    style: Theme.of(context).textTheme.headline4,
-              //                  ),
-              //                ),
-              //              ),
-
-              //CategoriesCarouselWidget(
-              //categories: _con.categories,
-              //),
-              _con.trendingProducts == null
-                  ? ListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      //leading: Icon(
-                      //                  Icons.trending_up,
-                      //                  color: Theme.of(context).hintColor,
-                      //                ),
-                      title: Text(
-                        S.of(context).trending_this_week,
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                      subtitle: Text(
-                        S.of(context).clickOnTheProductToGetMoreDetailsAboutIt,
-                        maxLines: 2,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    )
-                  : _con.trendingProducts.isEmpty
-                      ? Container()
-                      : ListTile(
-                          dense: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                          //leading: Icon(
-                          //                  Icons.trending_up,
-                          //                  color: Theme.of(context).hintColor,
-                          //                ),
-                          title: Text(
-                            S.of(context).trending_this_week,
-                            style: Theme.of(context).textTheme.headline4,
-                          ),
-                          subtitle: Text(
-                            S
-                                .of(context)
-                                .clickOnTheProductToGetMoreDetailsAboutIt,
-                            maxLines: 2,
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ),
-              _con.trendingProducts == null
-                  ? ProductsCarouselWidget(
-                      productsList: _con.trendingProducts,
-                      heroTag: 'home_products_carousel',
-                    )
-                  : _con.trendingProducts.isEmpty
-                      ? Container()
-                      : ProductsCarouselWidget(
-                          productsList: _con.trendingProducts,
-                          heroTag: 'home_product_carousel'),
-              Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                child: ListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 0),
-                  //leading: Icon(
-                  //                    Icons.trending_up,
-                  //                    color: Theme.of(context).hintColor,
-                  //                  ),
-                  title: Text(
-                    S.of(context).most_popular,
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridWidget(
-                  marketsList: _con.popularMarkets,
-                  heroTag: 'home_markets',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10),
-                  //leading: Icon(
-                  //                    Icons.recent_actors,
-                  //                    color: Theme.of(context).hintColor,
-                  //                  ),
-                  title: Text(
-                    S.of(context).recent_reviews,
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ReviewsListWidget(reviewsList: _con.recentReviews),
-              ),
             ],
           ),
         ),

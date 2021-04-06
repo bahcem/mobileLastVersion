@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/order_success.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -7,7 +8,6 @@ import '../elements/CircularLoadingWidget.dart';
 import '../elements/CreditCardsWidget.dart';
 import '../helpers/helper.dart';
 import '../models/route_argument.dart';
-import '../repository/settings_repository.dart';
 
 class CheckoutWidget extends StatefulWidget {
 //  RouteArgument routeArgument;
@@ -39,7 +39,10 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
         centerTitle: true,
         title: Text(
           S.of(context).checkout,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          style: Theme.of(context)
+              .textTheme
+              .headline6
+              .merge(TextStyle(letterSpacing: 1.3)),
         ),
       ),
       body: _con.carts.isEmpty
@@ -83,34 +86,7 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                               _con.updateCreditCard(creditCard);
                             }),
                         SizedBox(height: 40),
-                        setting.value.payPalEnabled
-                            ? Text(
-                                S.of(context).or_checkout_with,
-                                style: Theme.of(context).textTheme.caption,
-                              )
-                            : SizedBox(
-                                height: 0,
-                              ),
                         SizedBox(height: 40),
-                        setting.value.payPalEnabled
-                            ? SizedBox(
-                                width: 320,
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacementNamed('/PayPal');
-                                  },
-                                  padding: EdgeInsets.symmetric(vertical: 12),
-                                  color: Theme.of(context).focusColor.withOpacity(0.2),
-                                  shape: StadiumBorder(),
-                                  child: Image.asset(
-                                    'assets/img/paypal2.png',
-                                    height: 28,
-                                  ),
-                                ),
-                              )
-                            : SizedBox(
-                                height: 0,
-                              ),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -123,8 +99,17 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     decoration: BoxDecoration(
                         color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-                        boxShadow: [BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.15), offset: Offset(0, -2), blurRadius: 5.0)]),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Theme.of(context)
+                                  .focusColor
+                                  .withOpacity(0.15),
+                              offset: Offset(0, -2),
+                              blurRadius: 5.0)
+                        ]),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width - 40,
                       child: Column(
@@ -139,7 +124,8 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
-                              Helper.getPrice(_con.subTotal, context, style: Theme.of(context).textTheme.subtitle1)
+                              Helper.getPrice(_con.subTotal, context,
+                                  style: Theme.of(context).textTheme.subtitle1)
                             ],
                           ),
                           SizedBox(height: 3),
@@ -151,7 +137,10 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
-                              Helper.getPrice(_con.carts[0].product.market.deliveryFee, context, style: Theme.of(context).textTheme.subtitle1)
+                              Helper.getPrice(
+                                  _con.carts[0].product.market.deliveryFee,
+                                  context,
+                                  style: Theme.of(context).textTheme.subtitle1)
                             ],
                           ),
                           SizedBox(height: 3),
@@ -163,7 +152,8 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ),
-                              Helper.getPrice(_con.taxAmount, context, style: Theme.of(context).textTheme.subtitle1)
+                              Helper.getPrice(_con.taxAmount, context,
+                                  style: Theme.of(context).textTheme.subtitle1)
                             ],
                           ),
                           Divider(height: 30),
@@ -175,7 +165,8 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                               ),
-                              Helper.getPrice(_con.total, context, style: Theme.of(context).textTheme.headline6)
+                              Helper.getPrice(_con.total, context,
+                                  style: Theme.of(context).textTheme.headline6)
                             ],
                           ),
                           SizedBox(height: 20),
@@ -184,10 +175,21 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                             child: FlatButton(
                               onPressed: () {
                                 if (_con.creditCard.validated()) {
-                                  Navigator.of(context).pushNamed('/OrderSuccess', arguments: new RouteArgument(param: 'Credit Card (Stripe Gateway)'));
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => OrderSuccessWidget(
+                                        routeArgument: RouteArgument(
+                                            param:
+                                                'Credit Card (Stripe Gateway)'),
+                                      ),
+                                    ),
+                                  );
                                 } else {
-                                  _con.scaffoldKey?.currentState?.showSnackBar(SnackBar(
-                                    content: Text(S.of(context).your_credit_card_not_valid),
+                                  _con.scaffoldKey?.currentState
+                                      ?.showSnackBar(SnackBar(
+                                    content: Text(S
+                                        .of(context)
+                                        .your_credit_card_not_valid),
                                   ));
                                 }
                               },
@@ -197,7 +199,8 @@ class _CheckoutWidgetState extends StateMVC<CheckoutWidget> {
                               child: Text(
                                 S.of(context).confirm_payment,
                                 textAlign: TextAlign.start,
-                                style: TextStyle(color: Theme.of(context).primaryColor),
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
                               ),
                             ),
                           ),

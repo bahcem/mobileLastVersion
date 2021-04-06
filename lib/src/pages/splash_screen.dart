@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../pages/home_first.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../controllers/splash_screen_controller.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +31,13 @@ class SplashScreenState extends StateMVC<SplashScreen> {
       });
       if (progress == 100) {
         try {
-          Navigator.of(context).pushReplacementNamed('/Pages', arguments: 2);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeFirstWidget(
+                        parentScaffoldKey: _con.scaffoldKey,
+                      )),
+              (route) => false);
         } catch (e) {}
       }
     });
@@ -40,29 +46,33 @@ class SplashScreenState extends StateMVC<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(255, 228, 121, 1),
       key: _con.scaffoldKey,
-      body: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Image.asset(
-                'assets/img/logo.png',
-                width: 150,
-                fit: BoxFit.cover,
-              ),
-              SizedBox(height: 50),
-              CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).hintColor),
-              ),
-            ],
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/img/splash.png',
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
           ),
-        ),
+          Container(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/img/bk.png',
+                    width: 150,
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

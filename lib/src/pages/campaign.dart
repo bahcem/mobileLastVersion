@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
+import '../pages/product.dart';
 import '../controllers/home_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
 import '../helpers/helper.dart';
@@ -34,15 +36,20 @@ class _CampaignScreenState extends StateMVC<CampaignScreen> {
           ),
           preferredSize: Size.fromHeight(4.0),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           'Kampanyalar',
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
+        ),
+        leading: IconButton(
+          icon:
+          new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: _con.slides == null
@@ -59,33 +66,54 @@ class _CampaignScreenState extends StateMVC<CampaignScreen> {
                           ? 0
                           : _con.slides.length,
                   itemBuilder: (context, index) {
-
                     return GestureDetector(
                       onTap: () {
                         if (_con.slides.elementAt(index).product.id != "null") {
-                          Navigator.of(context).pushNamed(
-                              '/Product',
-                              arguments: RouteArgument(
-                                  id: _con.slides.elementAt(index).product.id,
-                                  heroTag: 'home_slide'));
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => ProductWidget(
+                                      routeArgument: RouteArgument(
+                                        id: _con.slides
+                                            .elementAt(index)
+                                            .product
+                                            .id,
+                                        heroTag: 'home_slide',
+                                      ),
+                                    ),
+                                fullscreenDialog: true),
+                          );
                         } else {
-                          Navigator.of(context).pushNamed(
-                              '/Details',
-                              arguments: RouteArgument(
-                                  id: _con.slides.elementAt(index).market.id,
-                                  heroTag: 'home_slide'));
+                          Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => MenuWidget(
+                                      routeArgument: RouteArgument(
+                                        id: _con.slides
+                                            .elementAt(index)
+                                            .market
+                                            .id,
+                                        heroTag: 'home_slide',
+                                      ),
+                                    ),
+                                fullscreenDialog: true),
+                          );
                         }
                       },
                       child: Container(
-                        margin: EdgeInsets.only(left: 20,right: 20,top: 12,bottom: _con.slides.length == index +1 ? 20 : 0),
-                        padding: EdgeInsets.only(left: 10,right: 10, top: 10,bottom:10),
+                        margin: EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                            top: 12,
+                            bottom: _con.slides.length == index + 1 ? 20 : 0),
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 10, bottom: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
-                                color:
-                                    Theme.of(context).focusColor.withOpacity(0.2),
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(0.2),
                                 blurRadius: 15,
                                 offset: Offset(0, 2)),
                           ],
@@ -94,12 +122,14 @@ class _CampaignScreenState extends StateMVC<CampaignScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                               child: CachedNetworkImage(
                                 height: 140,
                                 width: double.infinity,
                                 fit: BoxFit.cover,
-                                imageUrl: _con.slides.elementAt(index).image.url,
+                                imageUrl:
+                                    _con.slides.elementAt(index).image.url,
                                 placeholder: (context, url) => Image.asset(
                                   'assets/img/loading.gif',
                                   fit: BoxFit.cover,
@@ -110,32 +140,44 @@ class _CampaignScreenState extends StateMVC<CampaignScreen> {
                                     Icon(Icons.error),
                               ),
                             ),
-                             _con.slides.elementAt(index).text == "" ? Container(): SizedBox(
-                              height: 10,
-                            ),
-                            _con.slides.elementAt(index).text == "" ? Container():  Text(
-                              "${_con.slides.elementAt(index).button}",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Helper.of(context)
-                                      .getColorFromHex(_con.slides.elementAt(index).buttonColor),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            _con.slides.elementAt(index).text == "" ? Container():SizedBox(
-                              height: 2,
-                            ),
-                            _con.slides.elementAt(index).text == "" ? Container(): Text(
-                              "${_con.slides.elementAt(index).text}",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Helper.of(context)
-                                      .getColorFromHex(_con.slides.elementAt(index).textColor),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w300),
-                            ),
+                            _con.slides.elementAt(index).text == ""
+                                ? Container()
+                                : SizedBox(
+                                    height: 10,
+                                  ),
+                            _con.slides.elementAt(index).text == ""
+                                ? Container()
+                                : Text(
+                                    "${_con.slides.elementAt(index).button}",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Helper.of(context)
+                                            .getColorFromHex(_con.slides
+                                                .elementAt(index)
+                                                .buttonColor),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                            _con.slides.elementAt(index).text == ""
+                                ? Container()
+                                : SizedBox(
+                                    height: 2,
+                                  ),
+                            _con.slides.elementAt(index).text == ""
+                                ? Container()
+                                : Text(
+                                    "${_con.slides.elementAt(index).text}",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Helper.of(context)
+                                            .getColorFromHex(_con.slides
+                                                .elementAt(index)
+                                                .textColor),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300),
+                                  ),
                           ],
                         ),
                       ),

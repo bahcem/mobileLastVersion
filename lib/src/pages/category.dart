@@ -189,8 +189,9 @@ class _CategoryWidgetState extends StateMVC<CategoryWidget> {
                                         .bodyText2
                                         .merge(
                                           TextStyle(
-                                              color: Theme.of(context)
-                                                  .accentColor, fontWeight: FontWeight.w700),
+                                              color:
+                                                  Theme.of(context).accentColor,
+                                              fontWeight: FontWeight.w700),
                                         )
                                     : Theme.of(context).textTheme.bodyText2,
                               ),
@@ -280,41 +281,16 @@ class _CategoryWidgetState extends StateMVC<CategoryWidget> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 20,
                                 padding: EdgeInsets.symmetric(horizontal: 20),
-                                // Create a grid with 2 columns. If you change the scrollDirection to
-                                // horizontal, this produces 2 rows.
                                 crossAxisCount:
                                     MediaQuery.of(context).orientation ==
                                             Orientation.portrait
                                         ? 2
                                         : 4,
-                                // Generate 100 widgets that display their index in the List.
                                 children: List.generate(_con.products.length,
                                     (index) {
                                   return ProductGridItemWidget(
                                     heroTag: 'category_grid',
                                     product: _con.products.elementAt(index),
-                                    //                              onPressed: () {
-                                    //                                if (currentUser.value.apiToken == null) {
-                                    //                                  Navigator.of(context).pushNamed('/Login');
-                                    //                                } else {
-                                    //                                  if (_con.isSameMarkets(_con.products.elementAt(index))) {
-                                    //                                    _con.addToCart(_con.products.elementAt(index));
-                                    //                                  } else {
-                                    //                                    showDialog(
-                                    //                                      context: context,
-                                    //                                      builder: (BuildContext context) {
-                                    //                                        // return object of type Dialog
-                                    //                                        return AddToCartAlertDialogWidget(
-                                    //                                            oldProduct: _con.carts.elementAt(0)?.product,
-                                    //                                            newProduct: _con.products.elementAt(index),
-                                    //                                            onPressed: (product, {reset: true}) {
-                                    //                                              return _con.addToCart(_con.products.elementAt(index), reset: true);
-                                    //                                            });
-                                    //                                      },
-                                    //                                    );
-                                    //                                  }
-                                    //                                }
-                                    //                              }
                                   );
                                 }),
                               ),

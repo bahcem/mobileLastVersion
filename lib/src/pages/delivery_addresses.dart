@@ -44,65 +44,67 @@ class _DeliveryAddressesWidgetState extends StateMVC<DeliveryAddressesWidget> {
           ),
           preferredSize: Size.fromHeight(4.0),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           S.of(context).delivery_addresses,
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
         ),
-        // actions: <Widget>[
-        //          new ShoppingCartButtonWidget(iconColor: Theme.of(context).hintColor, labelColor: Theme.of(context).accentColor),
-        //        ],
+        leading: IconButton(
+          icon:
+          new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       floatingActionButton:
-      //_con.cart != null && _con.cart.product.market.availableForDelivery?
+          //_con.cart != null && _con.cart.product.market.availableForDelivery?
           FloatingActionButton(
-          onPressed: () async {
-            LocationResult result = await showLocationPicker(
-              context,
-              setting.value.googleMapsKey,
-              initialCenter: LatLng(
-                  deliveryAddress.value?.latitude ?? 0,
-                  deliveryAddress.value?.longitude ?? 0),
-              //automaticallyAnimateToCurrentLocation: true,
-              //mapStylePath: 'assets/mapStyle.json',
-              myLocationButtonEnabled: true,
-              //resultCardAlignment: Alignment.bottomCenter,
-            );
-            //_con.addAddress(new Address.fromJSON({
-            //                  'address': result.address,
-            //                  'latitude': result.latLng.latitude,
-            //                  'longitude': result.latLng.longitude,
-            //                }));
+              onPressed: () async {
+                LocationResult result = await showLocationPicker(
+                  context,
+                  setting.value.googleMapsKey,
+                  initialCenter: LatLng(deliveryAddress.value?.latitude ?? 0,
+                      deliveryAddress.value?.longitude ?? 0),
+                  //automaticallyAnimateToCurrentLocation: true,
+                  //mapStylePath: 'assets/mapStyle.json',
+                  myLocationButtonEnabled: true,
+                  //resultCardAlignment: Alignment.bottomCenter,
+                );
+                //_con.addAddress(new Address.fromJSON({
+                //                  'address': result.address,
+                //                  'latitude': result.latLng.latitude,
+                //                  'longitude': result.latLng.longitude,
+                //                }));
 
-            if (result.address == null) {
-            } else {
-              DeliveryAddressDialog(
-                context: context,
-                address: Address.fromJSON({
-                  'address': result.address,
-                }),
-                onChanged: (Address _address) {
-                  _con.addAddress(Address.fromJSON({
-                    'description': _address.description,
-                    'address': result.address,
-                    'latitude': result.latLng.latitude,
-                    'longitude': result.latLng.longitude
-                  }));
-                },
-              );
-            }
-            //setState(() => _pickedLocation = result);
-          },
-          backgroundColor: Theme.of(context).accentColor,
-          child: Icon(
-            Icons.add,
-            color: Theme.of(context).primaryColor,
-          )),
+                if (result.address == null) {
+                } else {
+                  DeliveryAddressDialog(
+                    context: context,
+                    address: Address.fromJSON({
+                      'address': result.address,
+                    }),
+                    onChanged: (Address _address) {
+                      _con.addAddress(Address.fromJSON({
+                        'description': _address.description,
+                        'address': result.address,
+                        'latitude': result.latLng.latitude,
+                        'longitude': result.latLng.longitude,
+                        'extra_address': _address.extra_address
+                      }));
+                    },
+                  );
+                }
+                //setState(() => _pickedLocation = result);
+              },
+              backgroundColor: Theme.of(context).accentColor,
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).primaryColor,
+              )),
       //    : SizedBox(height: 0),
       body: RefreshIndicator(
         onRefresh: _con.refreshAddresses,
@@ -139,41 +141,41 @@ class _DeliveryAddressesWidgetState extends StateMVC<DeliveryAddressesWidget> {
               _con.addresses.isEmpty
                   ? CircularLoadingWidget(height: 250)
                   : ListView.separated(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                primary: false,
-                itemCount: _con.addresses.length,
-                separatorBuilder: (context, index) {
-                  return SizedBox(height: 15);
-                },
-                itemBuilder: (context, index) {
-                  return DeliveryAddressesItemWidget(
-                    address: _con.addresses.elementAt(index),
-                    onPressed: (Address _address) {
-                      DeliveryAddressDialog(
-                        context: context,
-                        address: _address,
-                        onChanged: (Address _address) {
-                          _con.updateAddress(_address);
-                        },
-                      );
-                    },
-                    onLongPress: (Address _address) {
-                      DeliveryAddressDialog(
-                        context: context,
-                        address: _address,
-                        onChanged: (Address _address) {
-                          _con.updateAddress(_address);
-                        },
-                      );
-                    },
-                    onDismissed: (Address _address) {
-                      _con.removeDeliveryAddress(_address);
-                    },
-                  );
-                },
-              ),
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemCount: _con.addresses.length,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: 15);
+                      },
+                      itemBuilder: (context, index) {
+                        return DeliveryAddressesItemWidget(
+                          address: _con.addresses.elementAt(index),
+                          onPressed: (Address _address) {
+                            DeliveryAddressDialog(
+                              context: context,
+                              address: _address,
+                              onChanged: (Address _address) {
+                                _con.updateAddress(_address);
+                              },
+                            );
+                          },
+                          onLongPress: (Address _address) {
+                            DeliveryAddressDialog(
+                              context: context,
+                              address: _address,
+                              onChanged: (Address _address) {
+                                _con.updateAddress(_address);
+                              },
+                            );
+                          },
+                          onDismissed: (Address _address) {
+                            _con.removeDeliveryAddress(_address);
+                          },
+                        );
+                      },
+                    ),
             ],
           ),
         ),

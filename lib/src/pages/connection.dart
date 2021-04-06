@@ -56,12 +56,12 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     Padding(
 
                       padding:  EdgeInsets.only(left: 0,right: 0, bottom: 4),
-                      child: Text('Adres: Şişli/İstanbul'),
+                      child: Text('Adres: Karesi/Balıkesir'),
                     ),
                     Padding(
 
                       padding:  EdgeInsets.only(left: 0,right: 0, bottom: 4),
-                      child: Text('E posta: hello@bahcemapp.com'),
+                      child: Text('E posta: hello@bizimkapici.com'),
                     ),
                     Padding(
                       padding:  EdgeInsets.only(left: 0,right: 0, bottom: 16),
@@ -69,8 +69,8 @@ class _ConnectionPageState extends State<ConnectionPage> {
                         children: [
                           Text('Müşteri Hizmetleri: '),
                           GestureDetector(onTap: (){
-                            launch("tel://0212 813 66 16");
-                          },child: Text('0212 813 66 16',style: TextStyle(decoration: TextDecoration.underline),)),
+                            launch("tel://0212 888 88 88");
+                          },child: Text('0212 888 88 88',style: TextStyle(decoration: TextDecoration.underline),)),
                         ],
                       ),
                     ),

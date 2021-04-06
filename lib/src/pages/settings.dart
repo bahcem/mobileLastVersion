@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import '../pages/delivery_addresses.dart';
+import '../pages/help.dart';
+import '../pages/languages.dart';
+import '../pages/login.dart';
+import '../pages/orders.dart';
+import '../pages/signup.dart';
 import '../controllers/profile_controller.dart';
 import '../elements/PermissionDeniedWidget.dart';
 import '../pages/map.dart';
@@ -8,7 +14,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../repository/user_repository.dart';
 import 'campaign.dart';
-import 'connection.dart';
 import '../pages/favorites.dart';
 
 class SettingsWidget extends StatefulWidget {
@@ -23,9 +28,7 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
     _con = controller;
   }
 
-
   void _effect() {
-
     setState(() {});
   }
 
@@ -41,15 +44,13 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                 height: 1.0,
               ),
               preferredSize: Size.fromHeight(4.0)),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).accentColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
-            "Hesabım",
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                .merge(TextStyle(letterSpacing: 1.3)),
+            'Hesabım',
+            style: TextStyle(
+                color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
           ),
         ),
         body: currentUser.value.id == null
@@ -66,13 +67,13 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context, rootNavigator: false).push(
                         MaterialPageRoute(
-                          builder: (context) => ProfileEditPage(
-                            user: currentUser,
-                            effectFunc: _effect,
-                          ),
-                        ),
+                            builder: (context) => ProfileEditPage(
+                                  user: currentUser,
+                                  effectFunc: _effect,
+                                ),
+                            fullscreenDialog: false),
                       );
                     },
                     child: Container(
@@ -103,11 +104,11 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                                   currentUser.value.email,
                                   style: Theme.of(context).textTheme.caption,
                                 ),
-                                Text(
-                                  currentUser.value.phone,
-                                  textAlign: TextAlign.left,
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
+                                //Text(
+                                //                                   currentUser.value.phone,
+                                //                                   textAlign: TextAlign.left,
+                                //                                   style: Theme.of(context).textTheme.caption,
+                                //                                 ),
                               ],
                               crossAxisAlignment: CrossAxisAlignment.start,
                             ),
@@ -117,7 +118,7 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                               height: 55,
                               child: CircleAvatar(
                                 backgroundImage:
-                                    NetworkImage(currentUser.value.image.thumb),
+                                    AssetImage('assets/img/empty_user.png'),
                               )),
                         ],
                       ),
@@ -139,8 +140,12 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                       children: [
                         ListTile(
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed('/DeliveryAddresses');
+                            Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DeliveryAddressesWidget(),
+                                  fullscreenDialog: true),
+                            );
                           },
                           title: Row(
                             children: [
@@ -175,11 +180,10 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                             color: Theme.of(context).focusColor,
                           ),
                           onTap: () {
-                            Navigator.push(
-                              context,
+                            Navigator.of(context, rootNavigator: false).push(
                               MaterialPageRoute(
-                                builder: (context) => CampaignScreen(),
-                              ),
+                                  builder: (context) => CampaignScreen(),
+                                  fullscreenDialog: false),
                             );
                           },
                           title: Row(
@@ -187,7 +191,7 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                               Icon(
                                 Icons.stars,
                                 color:
-                                Theme.of(context).focusColor.withOpacity(1),
+                                    Theme.of(context).focusColor.withOpacity(1),
                               ),
                               SizedBox(width: 16),
                               Text(
@@ -209,10 +213,10 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                             color: Theme.of(context).focusColor,
                           ),
                           onTap: () {
-                            Navigator.of(context).push(
+                            Navigator.of(context, rootNavigator: false).push(
                               MaterialPageRoute(
-                                builder: (context) => FavoritesWidget(),
-                              ),
+                                  builder: (context) => FavoritesWidget(),
+                                  fullscreenDialog: false),
                             );
                           },
                           title: Row(
@@ -242,8 +246,11 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                             color: Theme.of(context).focusColor,
                           ),
                           onTap: () {
-                            Navigator.of(context)
-                                .pushNamed('/Pages', arguments: 1);
+                            Navigator.of(context, rootNavigator: false).push(
+                              MaterialPageRoute(
+                                  builder: (context) => OrdersWidget(),
+                                  fullscreenDialog: false),
+                            );
                           },
                           title: Row(
                             children: [
@@ -272,10 +279,10 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                             color: Theme.of(context).focusColor,
                           ),
                           onTap: () {
-                            Navigator.of(context).push(
+                            Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                builder: (context) => MapWidget(),
-                              ),
+                                  builder: (context) => MapWidget(),
+                                  fullscreenDialog: true),
                             );
                           },
                           title: Row(
@@ -305,7 +312,11 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                             color: Theme.of(context).focusColor,
                           ),
                           onTap: () {
-                            Navigator.of(context).pushNamed('/Help');
+                            Navigator.of(context, rootNavigator: false).push(
+                              MaterialPageRoute(
+                                  builder: (context) => HelpWidget(),
+                                  fullscreenDialog: false),
+                            );
                           },
                           title: Row(
                             children: [
@@ -327,63 +338,62 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                           height: 0.8,
                           color: Color.fromRGBO(223, 225, 229, 1),
                         ),
-                        ListTile(
-                          trailing: Icon(
-                            Icons.keyboard_arrow_right,
-                            size: 24,
-                            color: Theme.of(context).focusColor,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ConnectionPage(),
-                              ),
-                            );
-                          },
-                          title: Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                color:
-                                    Theme.of(context).focusColor.withOpacity(1),
-                              ),
-                              SizedBox(width: 16),
-                              Text(
-                                "İletişim",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width - 40,
-                          height: 0.8,
-                          color: Color.fromRGBO(223, 225, 229, 1),
-                        ),
-                        ListTile(
-                          trailing: Icon(
-                            Icons.keyboard_arrow_right,
-                            size: 24,
-                            color: Theme.of(context).focusColor,
-                          ),
-                          onTap: () {},
-                          title: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color:
-                                Theme.of(context).focusColor.withOpacity(1),
-                              ),
-                              SizedBox(width: 16),
-                              Text(
-                                "Değerlendir",
-                                style: Theme.of(context).textTheme.subtitle1,
-                              ),
-                            ],
-                          ),
-                        ),
-
+                        //ListTile(
+                        //                           trailing: Icon(
+                        //                             Icons.keyboard_arrow_right,
+                        //                             size: 24,
+                        //                             color: Theme.of(context).focusColor,
+                        //                           ),
+                        //                           onTap: () {
+                        //                             Navigator.push(
+                        //                               context,
+                        //                               MaterialPageRoute(
+                        //                                 builder: (context) => ConnectionPage(),
+                        //                               ),
+                        //                             );
+                        //                           },
+                        //                           title: Row(
+                        //                             children: [
+                        //                               Icon(
+                        //                                 Icons.phone,
+                        //                                 color:
+                        //                                     Theme.of(context).focusColor.withOpacity(1),
+                        //                               ),
+                        //                               SizedBox(width: 16),
+                        //                               Text(
+                        //                                 "İletişim",
+                        //                                 style: Theme.of(context).textTheme.subtitle1,
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                         ),
+                        //                         Container(
+                        //                           width: MediaQuery.of(context).size.width - 40,
+                        //                           height: 0.8,
+                        //                           color: Color.fromRGBO(223, 225, 229, 1),
+                        //                         ),
+                        //ListTile(
+                        //                           trailing: Icon(
+                        //                             Icons.keyboard_arrow_right,
+                        //                             size: 24,
+                        //                             color: Theme.of(context).focusColor,
+                        //                           ),
+                        //                           onTap: () {},
+                        //                           title: Row(
+                        //                             children: [
+                        //                               Icon(
+                        //                                 Icons.star,
+                        //                                 color:
+                        //                                 Theme.of(context).focusColor.withOpacity(1),
+                        //                               ),
+                        //                               SizedBox(width: 16),
+                        //                               Text(
+                        //                                 "Değerlendir",
+                        //                                 style: Theme.of(context).textTheme.subtitle1,
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                         ),
                       ],
                     ),
                   ),
@@ -412,9 +422,18 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                       ),
                       onTap: () {
                         if (currentUser.value.apiToken != null) {
-                          Navigator.of(context).pushNamed('/Languages');
+                          Navigator.of(context, rootNavigator: false).push(
+                            MaterialPageRoute(
+                                builder: (context) => LanguagesWidget(),
+                                fullscreenDialog: false),
+                          );
                         } else {
-                          Navigator.of(context).pushReplacementNamed('/Login');
+                          Navigator.of(context, rootNavigator: false)
+                              .pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginWidget(),
+                                      fullscreenDialog: true),
+                                  (route) => false);
                         }
                       },
                       title: Row(
@@ -462,12 +481,20 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                       onTap: () {
                         if (currentUser.value.apiToken != null) {
                           logout().then((value) {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/Pages', (Route<dynamic> route) => false,
-                                arguments: 2);
+                            Navigator.of(context, rootNavigator: true)
+                                .pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginWidget(),
+                                        fullscreenDialog: true),
+                                    (route) => false);
                           });
                         } else {
-                          Navigator.of(context).pushNamed('/Login');
+                          Navigator.of(context, rootNavigator: true)
+                              .pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginWidget(),
+                                      fullscreenDialog: true),
+                                  (route) => false);
                         }
                       },
                       title: Row(
@@ -490,7 +517,11 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                   currentUser.value.apiToken == null
                       ? ListTile(
                           onTap: () {
-                            Navigator.of(context).pushNamed('/SignUp');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => SignUpWidget(),
+                              ),
+                            );
                           },
                           title: Row(
                             children: [
@@ -508,22 +539,33 @@ class _SettingsWidgetState extends StateMVC<SettingsWidget> {
                           ),
                         )
                       : SizedBox(height: 0),
-                  setting.value.enableVersion
-                      ? ListTile(
-                          dense: true,
-                          title: Text(
-                            S.of(context).version +
-                                " " +
-                                setting.value.appVersion,
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                          trailing: Icon(
-                            Icons.remove,
-                            color:
-                                Theme.of(context).focusColor.withOpacity(0.3),
-                          ),
-                        )
-                      : SizedBox(),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Email: info@bizimkapici.com',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Whatsapp: 0 554 968 54 54',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 24,
+                  ),
                   SizedBox(
                     height: 10,
                   ),

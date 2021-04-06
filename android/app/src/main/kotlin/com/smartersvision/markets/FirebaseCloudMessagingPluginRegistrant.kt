@@ -1,4 +1,4 @@
-package com.bahcema
+package com.bizimkapici
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugins.firebasemessaging.FirebaseMessagingPlugin
 

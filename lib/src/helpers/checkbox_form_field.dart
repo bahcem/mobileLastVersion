@@ -12,6 +12,7 @@ class CheckboxFormField extends FormField<bool> {
             onSaved: onSaved,
             validator: validator,
             initialValue: initialValue,
+            // ignore: deprecated_member_use
             autovalidate: autovalidate,
             builder: (FormFieldState<bool> state) {
               return CheckboxListTile(

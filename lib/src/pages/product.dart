@@ -1,13 +1,14 @@
+import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../pages/login.dart';
+import '../pages/menu_list.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/product_controller.dart';
 import '../elements/AddToCartAlertDialog.dart';
 import '../elements/CircularLoadingWidget.dart';
-import '../elements/OptionItemWidget.dart';
 import '../elements/ReviewsListWidget.dart';
 import '../elements/ShoppingCartFloatButtonWidget.dart';
 import '../helpers/helper.dart';
@@ -35,7 +36,6 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
 
   @override
   void initState() {
-
     _con.listenForProduct(productId: widget.routeArgument.id);
     _con.listenForCart();
     _con.listenForFavorite(productId: widget.routeArgument.id);
@@ -46,15 +46,8 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
       // ignore: missing_return
-      onWillPop: () async{
-        if(widget.routeArgument.fromWhichPage=='menu_list'){
-
-          await Navigator.of(context).pushNamed('/Menu',
-              arguments: new RouteArgument(id: _con.product.market.id));
-          Navigator.pop(context);
-        }else {
-          Navigator.pop(context);
-        }
+      onWillPop: () async {
+        Navigator.pop(context);
       },
       child: Scaffold(
         key: _con.scaffoldKey,
@@ -96,37 +89,7 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                 ),
                               ),
                             ),
-                            leading: GestureDetector(
-                              onTap: () async{
-                                if(widget.routeArgument.fromWhichPage=='menu_list'){
-
-                                 await Navigator.of(context).pushNamed('/Menu',
-                                      arguments: new RouteArgument(id: _con.product.market.id));
-                                  Navigator.pop(context);
-                                }else {
-                                  Navigator.pop(context);
-                                }
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    left: 10, top: 10, bottom: 10, right: 2),
-                                color: Colors.transparent,
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 8),
-                                  decoration: BoxDecoration(
-                                    color: Color.fromRGBO(40, 40, 40, 0.75),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(100),
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.clear,
-                                    size: 26,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            leading: Container(),
                           ),
                           SliverToBoxAdapter(
                             child: Padding(
@@ -136,7 +99,8 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                 runSpacing: 8,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Expanded(
                                         flex: 3,
@@ -229,129 +193,60 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                               ),
                                       ),
                                       Expanded(child: SizedBox(height: 0)),
-                                      Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 3),
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context).focusColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(24)),
-                                          child: Text(
-                                            _con.product.capacity +
-                                                " " +
-                                                _con.product.unit,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                .merge(TextStyle(
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                          )),
+                                      _con.product.capacity == null ||
+                                              _con.product.capacity == 'null'
+                                          ? Container()
+                                          : Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .focusColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24)),
+                                              child: Text(
+                                                _con.product.capacity +
+                                                    " " +
+                                                    _con.product.unit,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption
+                                                    .merge(TextStyle(
+                                                        color: Theme.of(context)
+                                                            .primaryColor)),
+                                              )),
                                       SizedBox(width: 5),
-                                      Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 3),
-                                          decoration: BoxDecoration(
-                                              color: Theme.of(context).focusColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(24)),
-                                          child: Text(
-                                            _con.product.packageItemsCount +
-                                                " " +
-                                                S.of(context).items,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                .merge(TextStyle(
-                                                    color: Theme.of(context)
-                                                        .primaryColor)),
-                                          )),
+                                      _con.product.packageItemsCount == null ||
+                                              _con.product.packageItemsCount ==
+                                                  'null'
+                                          ? Container()
+                                          : Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 12, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                      .focusColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          24)),
+                                              child: Text(
+                                                _con.product.packageItemsCount +
+                                                    " " +
+                                                    S.of(context).items,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption
+                                                    .merge(TextStyle(
+                                                        color: Theme.of(context)
+                                                            .primaryColor)),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                   Divider(height: 20),
-                                  Text(Helper.skipHtml(_con.product.description)),
-                                  ListTile(
-                                    dense: true,
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 10),
-                                    title: Text(
-                                      S.of(context).options,
-                                      style:
-                                          Theme.of(context).textTheme.subtitle1,
-                                    ),
-                                    subtitle: Text(
-                                      S
-                                          .of(context)
-                                          .select_options_to_add_them_on_the_product,
-                                      style: Theme.of(context).textTheme.caption,
-                                    ),
-                                  ),
-                                  _con.product.optionGroups == null
-                                      ? CircularLoadingWidget(height: 100)
-                                      : ListView.separated(
-                                          padding: EdgeInsets.all(0),
-                                          itemBuilder:
-                                              (context, optionGroupIndex) {
-                                            var optionGroup = _con
-                                                .product.optionGroups
-                                                .elementAt(optionGroupIndex);
-                                            return Wrap(
-                                              children: <Widget>[
-                                                ListTile(
-                                                  dense: true,
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 0),
-                                                  leading: Icon(
-                                                    Icons.add_circle_outline,
-                                                    color: Theme.of(context)
-                                                        .hintColor,
-                                                  ),
-                                                  title: Text(
-                                                    optionGroup.name,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1,
-                                                  ),
-                                                ),
-                                                ListView.separated(
-                                                  padding: EdgeInsets.all(0),
-                                                  itemBuilder:
-                                                      (context, optionIndex) {
-                                                    return OptionItemWidget(
-                                                      option: _con.product.options
-                                                          .where((option) =>
-                                                              option
-                                                                  .optionGroupId ==
-                                                              optionGroup.id)
-                                                          .elementAt(optionIndex),
-                                                      onChanged:
-                                                          _con.calculateTotal,
-                                                    );
-                                                  },
-                                                  separatorBuilder:
-                                                      (context, index) {
-                                                    return SizedBox(height: 20);
-                                                  },
-                                                  itemCount: _con.product.options
-                                                      .where((option) =>
-                                                          option.optionGroupId ==
-                                                          optionGroup.id)
-                                                      .length,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                          separatorBuilder: (context, index) {
-                                            return SizedBox(height: 20);
-                                          },
-                                          itemCount:
-                                              _con.product.optionGroups.length,
-                                          primary: false,
-                                          shrinkWrap: true,
-                                        ),
+                                  Text(Helper.skipHtml(
+                                      _con.product.description)),
                                   ListTile(
                                     dense: true,
                                     contentPadding:
@@ -464,7 +359,8 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                             },
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 14),
-                                            color: Theme.of(context).primaryColor,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                             shape: StadiumBorder(),
                                             borderSide: BorderSide(
                                                 color: Theme.of(context)
@@ -478,20 +374,26 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                             onPressed: () {
                                               if (currentUser.value.apiToken ==
                                                   null) {
-                                                Navigator.of(context)
-                                                    .pushNamed("/Login");
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginWidget(),
+                                                  ),
+                                                );
                                               } else {
-                                                _con.addToFavorite(_con.product);
+                                                _con.addToFavorite(
+                                                    _con.product);
                                               }
                                             },
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 14),
-                                            color: Theme.of(context).accentColor,
+                                            color:
+                                                Theme.of(context).accentColor,
                                             shape: StadiumBorder(),
                                             child: Icon(
                                               Icons.favorite,
-                                              color:
-                                                  Theme.of(context).primaryColor,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                             )),
                                   ),
                                   SizedBox(width: 10),
@@ -500,37 +402,72 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                     alignment: AlignmentDirectional.centerEnd,
                                     children: <Widget>[
                                       SizedBox(
-                                        width: MediaQuery.of(context).size.width -
-                                            110,
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                110,
                                         child: FlatButton(
-                                          onPressed: () {
-                                            if(_con.product.deliverable == false){
-
-                                            }else {
+                                          onPressed: () async {
+                                            if (_con.product.deliverable ==
+                                                false) {
+                                            } else {
                                               if (currentUser.value.apiToken ==
                                                   null) {
-                                                Navigator.of(context)
-                                                    .pushNamed("/Login");
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginWidget(),
+                                                  ),
+                                                );
                                               } else {
-                                                if (_con
-                                                    .isSameMarkets(_con.product)) {
+                                                if (_con.isSameMarkets(
+                                                    _con.product)) {
                                                   _con.addToCart(_con.product);
+                                                  Timer(
+                                                      Duration(
+                                                          milliseconds: 500),
+                                                      () async {
+                                                    if (widget.routeArgument
+                                                            .fromWhichPage ==
+                                                        'menu_list') {
+                                                      await Navigator.of(
+                                                              context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              MenuWidget(
+                                                            routeArgument:
+                                                                RouteArgument(
+                                                                    id: _con
+                                                                        .product
+                                                                        .market
+                                                                        .id),
+                                                          ),
+                                                        ),
+                                                      );
+                                                      Navigator.pop(context);
+                                                    } else {
+                                                      Navigator.pop(context);
+                                                    }
+                                                  });
                                                 } else {
                                                   showDialog(
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
-                                                      // return object of type Dialog
                                                       return AddToCartAlertDialogWidget(
                                                           oldProduct: _con.carts
                                                               .elementAt(0)
                                                               ?.product,
-                                                          newProduct: _con.product,
+                                                          newProduct:
+                                                              _con.product,
                                                           onPressed: (product,
                                                               {reset: true}) {
-                                                            return _con.addToCart(
-                                                                _con.product,
-                                                                reset: true);
+                                                            return _con
+                                                                .addToCart(
+                                                                    _con
+                                                                        .product,
+                                                                    reset:
+                                                                        true);
                                                           });
                                                     },
                                                   );
@@ -540,26 +477,31 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                           },
                                           padding:
                                               EdgeInsets.symmetric(vertical: 8),
-                                          color:_con.product.deliverable ?Theme.of(context).accentColor  : Theme.of(context).disabledColor,
+                                          color: _con.product.deliverable
+                                              ? Theme.of(context).accentColor
+                                              : Theme.of(context).disabledColor,
                                           shape: StadiumBorder(),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                padding:  EdgeInsets.only(
-                                                    left: 20),
+                                                padding:
+                                                    EdgeInsets.only(left: 20),
                                                 child: Text(
                                                   S.of(context).add_to_cart,
                                                   textAlign: TextAlign.start,
                                                   style: TextStyle(
                                                       color: Theme.of(context)
-                                                          .primaryColor,fontSize: 16),
+                                                          .primaryColor,
+                                                      fontSize: 16),
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 20),
+                                                padding:
+                                                    EdgeInsets.only(right: 20),
                                                 child: Helper.getPrice(
                                                   _con.total,
                                                   context,
@@ -567,8 +509,9 @@ class _ProductWidgetState extends StateMVC<ProductWidget> {
                                                       .textTheme
                                                       .headline4
                                                       .merge(TextStyle(
-                                                      color: Theme.of(context)
-                                                          .primaryColor)),
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .primaryColor)),
                                                 ),
                                               ),
                                             ],

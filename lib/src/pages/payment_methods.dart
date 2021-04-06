@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../generated/l10n.dart';
 import '../elements/PaymentMethodListItemWidget.dart';
 import '../models/payment_method.dart';
 import '../models/route_argument.dart';
-import '../repository/settings_repository.dart';
 
 class PaymentMethodsWidget extends StatefulWidget {
   final RouteArgument routeArgument;
@@ -21,33 +19,22 @@ class _PaymentMethodsWidgetState extends State<PaymentMethodsWidget> {
   @override
   Widget build(BuildContext context) {
     list = new PaymentMethodList(context);
-    if (!setting.value.payPalEnabled)
-      list.paymentsList.removeWhere((element) {
-        return element.id == "paypal";
-      });
-    if (!setting.value.razorPayEnabled)
-      list.paymentsList.removeWhere((element) {
-        return element.id == "razorpay";
-      });
-    if (!setting.value.stripeEnabled)
-      list.paymentsList.removeWhere((element) {
-        return element.id == "visacard" || element.id == "mastercard";
-      });
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          child: Container(
-            color: Theme.of(context).focusColor.withOpacity(0.3),
-            height: 1.0,
-          ),
-          preferredSize: Size.fromHeight(4.0),
+        leading: IconButton(
+          icon:
+          new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
-          S.of(context).payment_mode,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          'Ödeme Yöntemi',
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
         ),
       ),
       body: SingleChildScrollView(
@@ -57,10 +44,6 @@ class _PaymentMethodsWidgetState extends State<PaymentMethodsWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            //  Padding(
-            //              padding: const EdgeInsets.symmetric(horizontal: 20),
-            //              child: SearchBarWidget(),
-            //            ),
             SizedBox(height: 15),
             list.paymentsList.length > 0
                 ? Padding(
@@ -81,39 +64,6 @@ class _PaymentMethodsWidgetState extends State<PaymentMethodsWidget> {
               height: 0,
             ),
             SizedBox(height: 10),
-            //ListView.separated(
-            //              scrollDirection: Axis.vertical,
-            //              shrinkWrap: true,
-            //              primary: false,
-            //              itemCount: list.paymentsList.length,
-            //              separatorBuilder: (context, index) {
-            //                return SizedBox(height: 10);
-            //              },
-            //              itemBuilder: (context, index) {
-            //                return PaymentMethodListItemWidget(paymentMethod: list.paymentsList.elementAt(index));
-            //              },
-            //            ),
-            //list.cashList.length > 0
-            //                ? Padding(
-            //                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            //                    child: ListTile(
-            //                      contentPadding: EdgeInsets.symmetric(vertical: 0),
-            //                      leading: Icon(
-            //                        Icons.monetization_on,
-            //                        color: Theme.of(context).hintColor,
-            //                      ),
-            //                      title: Text(
-            //                        S.of(context).cash_on_delivery,
-            //                        maxLines: 1,
-            //                        overflow: TextOverflow.ellipsis,
-            //                        style: Theme.of(context).textTheme.headline4,
-            //                      ),
-            //                      subtitle: Text(S.of(context).select_your_preferred_payment_mode),
-            //                    ),
-            //                  )
-            //                : SizedBox(
-            //                    height: 0,
-            //                  ),
             ListView.separated(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,

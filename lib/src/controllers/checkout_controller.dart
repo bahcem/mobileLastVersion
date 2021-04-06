@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../generated/l10n.dart';
 import '../models/cart.dart';
 import '../models/coupon.dart';

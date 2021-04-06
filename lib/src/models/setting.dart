@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Setting {
   String appName = '';
   double defaultTax;
@@ -8,9 +7,6 @@ class Setting {
   String distanceUnit;
   bool currencyRight = false;
   int currencyDecimalDigits = 2;
-  bool payPalEnabled = true;
-  bool stripeEnabled = true;
-  bool razorPayEnabled = true;
   String mainColor;
   String mainDarkColor;
   String secondColor;
@@ -21,9 +17,6 @@ class Setting {
   String scaffoldColor;
   String googleMapsKey;
   ValueNotifier<Locale> mobileLanguage = new ValueNotifier(Locale('tr', ''));
-  String appVersion;
-  bool enableVersion = true;
-
   ValueNotifier<Brightness> brightness = new ValueNotifier(Brightness.light);
 
   Setting();
@@ -41,26 +34,18 @@ class Setting {
       scaffoldColor = jsonMap['scaffold_color'] ?? '';
       googleMapsKey = jsonMap['google_maps_key'] ?? null;
       mobileLanguage.value = Locale(jsonMap['mobile_language'] ?? "en", '');
-      appVersion = jsonMap['app_version'] ?? '';
       distanceUnit = jsonMap['distance_unit'] ?? 'km';
-      enableVersion = jsonMap['enable_version'] == null || jsonMap['enable_version'] == '0' ? false : true;
-      defaultTax = double.tryParse(jsonMap['default_tax']) ?? 0.0; //double.parse(jsonMap['default_tax'].toString());
+      defaultTax = double.tryParse(jsonMap['default_tax']) ??
+          0.0; //double.parse(jsonMap['default_tax'].toString());
       defaultCurrency = jsonMap['default_currency'] ?? '';
-      currencyDecimalDigits = int.tryParse(jsonMap['default_currency_decimal_digits']) ?? 2;
-      currencyRight = jsonMap['currency_right'] == null || jsonMap['currency_right'] == '0' ? false : true;
-      payPalEnabled = jsonMap['enable_paypal'] == null || jsonMap['enable_paypal'] == '0' ? false : true;
-      stripeEnabled = jsonMap['enable_stripe'] == null || jsonMap['enable_stripe'] == '0' ? false : true;
-      razorPayEnabled = jsonMap['enable_razorpay'] == null || jsonMap['enable_razorpay'] == '0' ? false : true;
-    } catch (e) {
-    }
+      currencyDecimalDigits =
+          int.tryParse(jsonMap['default_currency_decimal_digits']) ?? 2;
+      currencyRight =
+          jsonMap['currency_right'] == null || jsonMap['currency_right'] == '0'
+              ? false
+              : true;
+    } catch (e) {}
   }
-
-//  ValueNotifier<Locale> initMobileLanguage(String defaultLanguage) {
-//    SharedPreferences.getInstance().then((prefs) {
-//      return new ValueNotifier(Locale(prefs.get('language') ?? defaultLanguage, ''));
-//    });
-//    return new ValueNotifier(Locale(defaultLanguage ?? "en", ''));
-//  }
 
   Map toMap() {
     var map = new Map<String, dynamic>();
@@ -69,9 +54,6 @@ class Setting {
     map["default_currency"] = defaultCurrency;
     map["default_currency_decimal_digits"] = currencyDecimalDigits;
     map["currency_right"] = currencyRight;
-    map["enable_paypal"] = payPalEnabled;
-    map["enable_stripe"] = stripeEnabled;
-    map["enable_razorpay"] = razorPayEnabled;
     map["mobile_language"] = mobileLanguage.value.languageCode;
     return map;
   }

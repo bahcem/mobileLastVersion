@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../pages/product.dart';
 
 import '../helpers/helper.dart';
 import '../models/product.dart';
@@ -18,13 +19,17 @@ class ProductItemWidget extends StatelessWidget {
       splashColor: Theme.of(context).accentColor,
       focusColor: Theme.of(context).accentColor,
       highlightColor: Theme.of(context).primaryColor,
-      onTap: () async {
-        await Navigator.of(context).pushNamed('/Product',
-            arguments: RouteArgument(
-                id: product.id,
-                heroTag: this.heroTag,
-                fromWhichPage: 'menu_list'));
-        Navigator.pop(context);
+      onTap: () {
+        Navigator.of(context, rootNavigator: true).push(
+          MaterialPageRoute(
+              builder: (context) => ProductWidget(
+                    routeArgument: RouteArgument(
+                        id: product.id,
+                        heroTag: this.heroTag,
+                        fromWhichPage: 'menu_list'),
+                  ),
+              fullscreenDialog: true),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),

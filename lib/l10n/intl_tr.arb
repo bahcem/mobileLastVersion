@@ -1,6 +1,6 @@
 {
   "search_for_markets_or_products": "Market ya da ürün arama",
-  "top_markets": "Çevrendeki Bahçeler",
+  "top_markets": "Çevrendeki Mağazalar",
   "ordered_by_nearby_first": "Yakınımdakilerden sipariş et",
   "trending_this_week": "Haftanın Ürünleri",
   "product_categories": "Kategoriler",
@@ -22,7 +22,7 @@
   "total": "Toplam",
   "confirm_payment": "Ödemeyi onayla",
   "information": "Bilgilendirme",
-  "featured_products": "Öne Çıkan Ürünler",
+  "featured_products": "İndirimli Ürünler",
   "what_they_say": "Ne söylediler?",
   "favorite_products": "Favori Ürünler",
   "options": "Kampanyalar",

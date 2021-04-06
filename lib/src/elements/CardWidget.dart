@@ -46,18 +46,29 @@ class CardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10)),
-                  child: CachedNetworkImage(
-                    height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    imageUrl: market.image.url,
-                    placeholder: (context, url) => Image.asset(
-                      'assets/img/loading.gif',
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 150,
-                    ),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  child: Stack(
+                    children: [
+                      CachedNetworkImage(
+                        height: 150,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        imageUrl: market.image.url,
+                        placeholder: (context, url) => Image.asset(
+                          'assets/img/loading.gif',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 150,
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                      market.closed
+                          ? Container(
+                              width: 330,
+                              height: 150,
+                              color: Colors.black.withOpacity(0.6),
+                            )
+                          : Container(),
+                    ],
                   ),
                 ),
               ),
@@ -67,54 +78,32 @@ class CardWidget extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
                     decoration: BoxDecoration(
-                        color: market.closed ? Colors.grey : Colors.green,
+                        color: market.closed ? Colors.red : Colors.green,
                         borderRadius: BorderRadius.circular(24)),
                     child: market.closed
                         ? Text(
-                      S.of(context).closed,
-                      style: Theme.of(context).textTheme.caption.merge(
-                          TextStyle(
-                              color: Theme.of(context).primaryColor)),
-                    )
+                            S.of(context).closed,
+                            style: Theme.of(context).textTheme.caption.merge(
+                                TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                          )
                         : Text(
-                      S.of(context).open,
-                      style: Theme.of(context).textTheme.caption.merge(
-                          TextStyle(
-                              color: Theme.of(context).primaryColor)),
-                    ),
+                            S.of(context).open,
+                            style: Theme.of(context).textTheme.caption.merge(
+                                TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                          ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+                    margin: EdgeInsets.symmetric(vertical: 8),
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
                     decoration: BoxDecoration(
-                        color: Helper.canDelivery(market)
-                            ? Colors.green
-                            : Colors.orange,
+                        color: market.closed ? Colors.grey : Colors.red,
                         borderRadius: BorderRadius.circular(24)),
-                    child: Helper.canDelivery(market)
-                        ? market.custom_fields == "" &&
-                        market.custom_fields == null
-                        ? Text(
-                      "Hızlı Teslim",
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption
-                          .merge(TextStyle(
-                          color: Theme.of(context).primaryColor)),
-                    )
-                        : Text(
-                      market.custom_fields,
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption
-                          .merge(TextStyle(
-                          color: Theme.of(context).primaryColor)),
-                    )
-                        : Text(
-                      S.of(context).pickup,
+                    child: Text(
+                      'min: ${market.minTutar == 'null' || market.minTutar == null ? '-' : market.minTutar} ₺',
                       style: Theme.of(context).textTheme.caption.merge(
-                          TextStyle(
-                              color: Theme.of(context).primaryColor)),
+                          TextStyle(color: Theme.of(context).primaryColor)),
                     ),
                   ),
                 ],
@@ -137,10 +126,14 @@ class CardWidget extends StatelessWidget {
                         market.name,
                         overflow: TextOverflow.fade,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: market.closed
+                            ? Theme.of(context).textTheme.subtitle1.merge(
+                                  TextStyle(color: Colors.grey),
+                                )
+                            : Theme.of(context).textTheme.subtitle1,
                       ),
                       Text(
-                        Helper.skipHtml(market.description),
+                        '',
                         overflow: TextOverflow.fade,
                         softWrap: false,
                         style: Theme.of(context).textTheme.caption,
@@ -148,7 +141,7 @@ class CardWidget extends StatelessWidget {
                       SizedBox(height: 5),
                       Row(
                         children:
-                        Helper.getStarsList(double.parse(market.rate)),
+                            Helper.getStarsList(double.parse(market.rate)),
                       ),
                     ],
                   ),
@@ -160,24 +153,34 @@ class CardWidget extends StatelessWidget {
                       FlatButton(
                         padding: EdgeInsets.all(0),
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MapWidget(routeArgument: new RouteArgument(id: '1', param: market)),),);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => MapWidget(
+                                  routeArgument: new RouteArgument(
+                                      id: '1', param: market)),
+                            ),
+                          );
                         },
                         child: Icon(Icons.directions,
                             color: Theme.of(context).primaryColor),
-                        color: Theme.of(context).accentColor,
+                        color: market.closed
+                            ? Colors.grey
+                            : Theme.of(context).accentColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                       ),
                       market.distance > 0
                           ? Text(
-                        Helper.getDistance(
-                            market.distance,
-                            Helper.of(context)
-                                .trans(setting.value.distanceUnit)),
-                        overflow: TextOverflow.fade,
-                        maxLines: 1,
-                        softWrap: false,
-                      )
+                              Helper.getDistance(
+                                  market.distance,
+                                  Helper.of(context)
+                                      .trans(setting.value.distanceUnit)),
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                              softWrap: false,
+                              style: TextStyle(
+                                  color: market.closed ? Colors.grey : null),
+                            )
                           : SizedBox(height: 0)
                     ],
                   ),

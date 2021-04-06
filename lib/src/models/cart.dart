@@ -1,4 +1,4 @@
-
+import '../models/market.dart';
 import '../models/option.dart';
 import '../models/product.dart';
 
@@ -8,20 +8,32 @@ class Cart {
   double quantity;
   List<Option> options;
   String userId;
+  Market market;
 
   Cart();
 
   Cart.fromJSON(Map<String, dynamic> jsonMap) {
     try {
       id = jsonMap['id'].toString();
-      quantity = jsonMap['quantity'] != null ? jsonMap['quantity'].toDouble() : 0.0;
-      product = jsonMap['product'] != null ? Product.fromJSON(jsonMap['product']) : Product.fromJSON({});
-      options = jsonMap['options'] != null ? List.from(jsonMap['options']).map((element) => Option.fromJSON(element)).toList() : [];
+      quantity =
+          jsonMap['quantity'] != null ? jsonMap['quantity'].toDouble() : 0.0;
+      product = jsonMap['product'] != null
+          ? Product.fromJSON(jsonMap['product'])
+          : Product.fromJSON({});
+      options = jsonMap['options'] != null
+          ? List.from(jsonMap['options'])
+              .map((element) => Option.fromJSON(element))
+              .toList()
+          : [];
+      market = jsonMap['product']['market'] != null
+          ? Market.fromJSON(jsonMap['product']['market'])
+          : Market.fromJSON({});
     } catch (e) {
       id = '';
       quantity = 0.0;
       product = Product.fromJSON({});
       options = [];
+      market = Market.fromJSON({});
     }
   }
 
@@ -46,8 +58,11 @@ class Cart {
   }
 
   bool isSame(Cart cart) {
+    print(cart);
     bool _same = true;
     _same &= this.product == cart.product;
+    print(cart.product.toMap());
+    print(_same);
     _same &= this.options.length == cart.options.length;
     if (_same) {
       this.options.forEach((Option _option) {

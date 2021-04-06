@@ -46,12 +46,13 @@ class _OrdersWidgetState extends StateMVC<OrdersWidget> {
         //          onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
         //        ),
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           S.of(context).my_orders,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
         ),
 
       ),

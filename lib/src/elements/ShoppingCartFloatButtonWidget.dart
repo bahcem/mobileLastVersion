@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../pages/cart.dart';
+import '../pages/login.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../controllers/cart_controller.dart';
@@ -19,10 +21,12 @@ class ShoppingCartFloatButtonWidget extends StatefulWidget {
   final Product product;
 
   @override
-  _ShoppingCartFloatButtonWidgetState createState() => _ShoppingCartFloatButtonWidgetState();
+  _ShoppingCartFloatButtonWidgetState createState() =>
+      _ShoppingCartFloatButtonWidgetState();
 }
 
-class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButtonWidget> {
+class _ShoppingCartFloatButtonWidgetState
+    extends StateMVC<ShoppingCartFloatButtonWidget> {
   CartController _con;
 
   _ShoppingCartFloatButtonWidgetState() : super(CartController()) {
@@ -46,10 +50,20 @@ class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButt
         shape: StadiumBorder(),
         onPressed: () {
           if (currentUser.value.apiToken != null) {
-            Navigator.of(context)
-                .pushNamed('/Cart', arguments: RouteArgument(param: '/Product', id: widget.product.id));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CartWidget(
+                  routeArgument:
+                      RouteArgument(param: '/Product', id: widget.product.id),
+                ),
+              ),
+            );
           } else {
-            Navigator.of(context).pushNamed('/Login');
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LoginWidget(),
+              ),
+            );
           }
         },
         child: Stack(
@@ -66,14 +80,18 @@ class _ShoppingCartFloatButtonWidgetState extends StateMVC<ShoppingCartFloatButt
                   _con.cartCount.toString(),
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption.merge(
-                    TextStyle(color: Theme.of(context).primaryColor, fontSize: 10),
-                  ),
+                        TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 10),
+                      ),
                 ),
               ),
               padding: EdgeInsets.all(0),
-              decoration:
-              BoxDecoration(color: this.widget.labelColor, borderRadius: BorderRadius.all(Radius.circular(10))),
-              constraints: BoxConstraints(minWidth: 15, maxWidth: 15, minHeight: 15, maxHeight: 15),
+              decoration: BoxDecoration(
+                  color: this.widget.labelColor,
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              constraints: BoxConstraints(
+                  minWidth: 15, maxWidth: 15, minHeight: 15, maxHeight: 15),
             ),
           ],
         ),

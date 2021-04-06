@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
@@ -41,13 +42,6 @@ class _SearchResultWidgetState extends StateMVC<SearchResultWidget> {
             child: ListTile(
               dense: true,
               contentPadding: EdgeInsets.symmetric(vertical: 0),
-              trailing: IconButton(
-                icon: Icon(Icons.close),
-                color: Theme.of(context).hintColor,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
               title: Text(
                 S.of(context).search,
                 style: Theme.of(context).textTheme.headline4,
@@ -69,11 +63,21 @@ class _SearchResultWidgetState extends StateMVC<SearchResultWidget> {
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(12),
                 hintText: S.of(context).search_for_markets_or_products,
-                hintStyle: Theme.of(context).textTheme.caption.merge(TextStyle(fontSize: 14)),
-                prefixIcon: Icon(Icons.search, color: Theme.of(context).accentColor),
-                border: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.1))),
-                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.3))),
-                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).focusColor.withOpacity(0.1))),
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .merge(TextStyle(fontSize: 14)),
+                prefixIcon:
+                    Icon(Icons.search, color: Theme.of(context).accentColor),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).focusColor.withOpacity(0.1))),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).focusColor.withOpacity(0.3))),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Theme.of(context).focusColor.withOpacity(0.1))),
               ),
             ),
           ),
@@ -109,7 +113,8 @@ class _SearchResultWidgetState extends StateMVC<SearchResultWidget> {
                         },
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+                        padding:
+                            const EdgeInsets.only(top: 20, left: 20, right: 20),
                         child: ListTile(
                           dense: true,
                           contentPadding: EdgeInsets.symmetric(vertical: 0),
@@ -126,15 +131,22 @@ class _SearchResultWidgetState extends StateMVC<SearchResultWidget> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamed('/Details',
-                                  arguments: RouteArgument(
-                                    id: _con.markets.elementAt(index).id,
-                                    heroTag: widget.heroTag,
-                                  ));
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => MenuWidget(
+                                    routeArgument: RouteArgument(
+                                      id: _con.markets.elementAt(index).id,
+                                      heroTag: widget.heroTag,
+                                    ),
+                                  ),
+                                ),
+                              );
                             },
                             child: Container(
-                              padding: EdgeInsets.only(right:20),
-                              child: CardWidget(market: _con.markets.elementAt(index), heroTag: widget.heroTag),
+                              padding: EdgeInsets.only(right: 20),
+                              child: CardWidget(
+                                  market: _con.markets.elementAt(index),
+                                  heroTag: widget.heroTag),
                             ),
                           );
                         },

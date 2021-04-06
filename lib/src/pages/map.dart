@@ -4,7 +4,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../generated/l10n.dart';
 import '../controllers/map_controller.dart';
-import '../elements/CardsCarouselWidget.dart';
 import '../elements/CircularLoadingWidget.dart';
 import '../models/market.dart';
 import '../models/route_argument.dart';
@@ -13,7 +12,8 @@ class MapWidget extends StatefulWidget {
   final RouteArgument routeArgument;
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  MapWidget({Key key, this.routeArgument, this.parentScaffoldKey}) : super(key: key);
+  MapWidget({Key key, this.routeArgument, this.parentScaffoldKey})
+      : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -30,7 +30,6 @@ class _MapWidgetState extends StateMVC<MapWidget> {
   void initState() {
     _con.currentMarket = widget.routeArgument?.param as Market;
     if (_con.currentMarket?.latitude != null) {
-      // user select a market
       _con.getMarketLocation();
       _con.getDirectionSteps();
     } else {
@@ -43,68 +42,51 @@ class _MapWidgetState extends StateMVC<MapWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
-        leading:  IconButton(
-                icon: new Icon(Icons.arrow_back, color: Theme.of(context).hintColor),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
         title: Text(
           S.of(context).maps_explorer,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
+        ),
+        leading: IconButton(
+          icon:
+              new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.my_location,
-              color: Theme.of(context).hintColor,
+              color: Theme.of(context).primaryColor,
             ),
             onPressed: () {
               _con.goCurrentLocation();
             },
           ),
-          IconButton(
-            icon: Icon(
-              Icons.filter_list,
-              color: Theme.of(context).hintColor,
+        ],
+      ),
+      body: _con.cameraPosition == null
+          ? CircularLoadingWidget(height: 0)
+          : GoogleMap(
+              mapToolbarEnabled: false,
+              mapType: MapType.normal,
+              initialCameraPosition: _con.cameraPosition,
+              markers: Set.from(_con.allMarkers),
+              onMapCreated: (GoogleMapController controller) {
+                _con.mapController.complete(controller);
+              },
+              onCameraMove: (CameraPosition cameraPosition) {
+                _con.cameraPosition = cameraPosition;
+              },
+              onCameraIdle: () {
+                _con.getMarketsOfArea();
+              },
+              polylines: _con.polylines,
             ),
-            onPressed: () {
-              widget.parentScaffoldKey.currentState.openEndDrawer();
-            },
-          ),
-        ],
-      ),
-      body: Stack(
-//        fit: StackFit.expand,
-        alignment: AlignmentDirectional.bottomStart,
-        children: <Widget>[
-          _con.cameraPosition == null
-              ? CircularLoadingWidget(height: 0)
-              : GoogleMap(
-                  mapToolbarEnabled: false,
-                  mapType: MapType.normal,
-                  initialCameraPosition: _con.cameraPosition,
-                  markers: Set.from(_con.allMarkers),
-                  onMapCreated: (GoogleMapController controller) {
-                    _con.mapController.complete(controller);
-                  },
-                  onCameraMove: (CameraPosition cameraPosition) {
-                    _con.cameraPosition = cameraPosition;
-                  },
-                  onCameraIdle: () {
-                    _con.getMarketsOfArea();
-                  },
-                  polylines: _con.polylines,
-                ),
-          CardsCarouselWidget(
-            marketsList: _con.topMarkets,
-            heroTag: 'map_markets',
-          ),
-        ],
-      ),
     );
   }
 }

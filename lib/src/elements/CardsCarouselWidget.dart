@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
 
 import '../elements/CardsCarouselLoaderWidget.dart';
 import '../models/market.dart';
@@ -19,38 +20,48 @@ class CardsCarouselWidget extends StatefulWidget {
 
 class _CardsCarouselWidgetState extends State<CardsCarouselWidget> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return widget.marketsList.isEmpty
+    return widget.marketsList == null ||
+            widget.marketsList.isEmpty ||
+            widget.marketsList.length == 0
         ? CardsCarouselLoaderWidget()
         : Container(
             height: 272,
             child: ListView.builder(
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: widget.marketsList.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/Menu',
-                        arguments: new RouteArgument(id: widget.marketsList.elementAt(index).id));
+
+                    if (widget.marketsList.elementAt(index).closed) {
+
+                    } else {
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MenuWidget(
+                            routeArgument: RouteArgument(
+                                id: widget.marketsList.elementAt(index).id),
+                          ),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
-                      margin: EdgeInsets.only(
-                          right: widget.marketsList.elementAt(index).id ==
-                                  widget.marketsList
-                                      .elementAt(
-                                          ((widget.marketsList.length) - 1)
-                                              .toInt())
-                                      .id
-                              ? 20
-                              : 0),
-                      child: CardWidget(
-                          market: widget.marketsList.elementAt(index),
-                          heroTag: widget.heroTag)),
+                    margin: EdgeInsets.only(
+                        right: widget.marketsList.elementAt(index).id ==
+                                widget.marketsList
+                                    .elementAt(((widget.marketsList.length) - 1)
+                                        .toInt())
+                                    .id
+                            ? 20
+                            : 0),
+                    child: CardWidget(
+                        market: widget.marketsList.elementAt(index),
+                        heroTag: widget.heroTag),
+                  ),
                 );
               },
             ),

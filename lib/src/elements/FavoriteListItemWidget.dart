@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/product.dart';
 
 import '../helpers/helper.dart';
 import '../models/favorite.dart';
@@ -9,7 +10,8 @@ class FavoriteListItemWidget extends StatelessWidget {
   String heroTag;
   Favorite favorite;
 
-  FavoriteListItemWidget({Key key, this.heroTag, this.favorite}) : super(key: key);
+  FavoriteListItemWidget({Key key, this.heroTag, this.favorite})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,24 @@ class FavoriteListItemWidget extends StatelessWidget {
       focusColor: Theme.of(context).accentColor,
       highlightColor: Theme.of(context).primaryColor,
       onTap: () {
-        Navigator.of(context).pushNamed('/Product', arguments: new RouteArgument(heroTag: this.heroTag, id: this.favorite.product.id));
+        Navigator.of(context, rootNavigator: true).push(
+          MaterialPageRoute(
+              builder: (context) => ProductWidget(
+                    routeArgument: RouteArgument(
+                        heroTag: this.heroTag, id: this.favorite.product.id),
+                  ),
+              fullscreenDialog: true),
+        );
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor.withOpacity(0.9),
           boxShadow: [
-            BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.1), blurRadius: 5, offset: Offset(0, 2)),
+            BoxShadow(
+                color: Theme.of(context).focusColor.withOpacity(0.1),
+                blurRadius: 5,
+                offset: Offset(0, 2)),
           ],
         ),
         child: Row(
@@ -38,7 +50,9 @@ class FavoriteListItemWidget extends StatelessWidget {
                 width: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
-                  image: DecorationImage(image: NetworkImage(favorite.product.image.thumb), fit: BoxFit.cover),
+                  image: DecorationImage(
+                      image: NetworkImage(favorite.product.image.thumb),
+                      fit: BoxFit.cover),
                 ),
               ),
             ),
@@ -67,7 +81,8 @@ class FavoriteListItemWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 8),
-                  Helper.getPrice(favorite.product.price, context, style: Theme.of(context).textTheme.headline4),
+                  Helper.getPrice(favorite.product.price, context,
+                      style: Theme.of(context).textTheme.headline4),
                 ],
               ),
             )

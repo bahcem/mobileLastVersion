@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
+import '../pages/product.dart';
 import '../helpers/helper.dart';
 import '../models/route_argument.dart';
 import '../models/slide.dart';
@@ -19,7 +21,6 @@ class HomeSliderWidget extends StatefulWidget {
 
 class _HomeSliderWidgetState extends State<HomeSliderWidget> {
   int _current = 0;
-  AlignmentDirectional _alignmentDirectional;
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +29,17 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
         : widget.slides.isEmpty
             ? HomeSliderLoaderWidget()
             : Stack(
-                alignment: _alignmentDirectional ??
-                    Helper.getAlignmentDirectional(
-                        widget.slides.elementAt(0).textPosition),
                 fit: StackFit.passthrough,
                 children: <Widget>[
                   CarouselSlider(
                     options: CarouselOptions(
                       autoPlay: true,
                       autoPlayInterval: Duration(seconds: 5),
-                      height: 160,
+                      height: 190,
                       viewportFraction: 1.0,
                       onPageChanged: (index, reason) {
                         setState(() {
                           _current = index;
-                          _alignmentDirectional =
-                              Helper.getAlignmentDirectional(
-                                  widget.slides.elementAt(index).textPosition);
                         });
                       },
                     ),
@@ -54,7 +49,7 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                           return Container(
                             margin: EdgeInsets.only(
                                 top: 20, left: 20, right: 20, bottom: 0),
-                            height: 140,
+                            height: 170,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -73,21 +68,29 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                   child: GestureDetector(
                                     onTap: () {
                                       if (slide.product.id != "null") {
-                                        Navigator.of(context).pushNamed(
-                                            '/Product',
-                                            arguments: RouteArgument(
-                                                id: slide.product.id,
-                                                heroTag: 'home_slide'));
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => ProductWidget(
+                                              routeArgument: RouteArgument(
+                                                  id: slide.product.id,
+                                                  heroTag: 'home_slide'),
+                                            ),
+                                          ),
+                                        );
                                       } else {
-                                        Navigator.of(context).pushNamed(
-                                            '/Details',
-                                            arguments: RouteArgument(
-                                                id: slide.market.id,
-                                                heroTag: 'home_slide'));
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => MenuWidget(
+                                              routeArgument: RouteArgument(
+                                                  id: slide.market.id,
+                                                  heroTag: 'home_slide'),
+                                            ),
+                                          ),
+                                        );
                                       }
                                     },
                                     child: CachedNetworkImage(
-                                      height: 140,
+                                      height: 170,
                                       width: double.infinity,
                                       fit: Helper.getBoxFit(slide.imageFit),
                                       imageUrl: slide.image.url,
@@ -96,84 +99,13 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                                         'assets/img/loading.gif',
                                         fit: BoxFit.cover,
                                         width: double.infinity,
-                                        height: 140,
+                                        height: 170,
                                       ),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
                                     ),
                                   ),
                                 ),
-                               // Container(
-                                //                                  alignment: Helper.getAlignmentDirectional(
-                                //                                      slide.textPosition),
-                                //                                  width: double.infinity,
-                                //                                  padding: const EdgeInsets.symmetric(
-                                //                                      horizontal: 20),
-                                //                                  child: Container(
-                                //                                    width: config.App(context).appWidth(40),
-                                //                                    child: Column(
-                                //                                      crossAxisAlignment:
-                                //                                          CrossAxisAlignment.stretch,
-                                //                                      mainAxisSize: MainAxisSize.max,
-                                //                                      mainAxisAlignment:
-                                //                                          MainAxisAlignment.center,
-                                //                                      children: <Widget>[
-                                //                                        if (slide.text != null &&
-                                //                                            slide.text != '')
-                                //                                          Text(
-                                //                                            slide.text,
-                                //                                            style: Theme.of(context)
-                                //                                                .textTheme
-                                //                                                .headline6
-                                //                                                .merge(
-                                //                                                  TextStyle(
-                                //                                                    fontSize: 14,
-                                //                                                    height: 1,
-                                //                                                    color: Helper.of(context)
-                                //                                                        .getColorFromHex(
-                                //                                                            slide.textColor),
-                                //                                                  ),
-                                //                                                ),
-                                //                                            textAlign: TextAlign.center,
-                                //                                            overflow: TextOverflow.fade,
-                                //                                            maxLines: 3,
-                                //                                          ),
-                                //                                        if (slide.button != null &&
-                                //                                            slide.button != '')
-                                //                                          FlatButton(
-                                //                                            onPressed: () {
-                                //                                              if (slide.product.id != "null") {
-                                //                                                Navigator.of(context).pushNamed(
-                                //                                                    '/Product',
-                                //                                                    arguments: RouteArgument(
-                                //                                                        id: slide.product.id,
-                                //                                                        heroTag: 'home_slide'));
-                                //                                              } else {
-                                //                                                Navigator.of(context).pushNamed(
-                                //                                                    '/Details',
-                                //                                                    arguments: RouteArgument(
-                                //                                                        id: slide.market.id,
-                                //                                                        heroTag: 'home_slide'));
-                                //                                              }
-                                //                                            },
-                                //                                            padding: EdgeInsets.symmetric(
-                                //                                                vertical: 5),
-                                //                                            color: Helper.of(context)
-                                //                                                .getColorFromHex(
-                                //                                                    slide.buttonColor),
-                                //                                            shape: StadiumBorder(),
-                                //                                            child: Text(
-                                //                                              slide.button,
-                                //                                              textAlign: TextAlign.start,
-                                //                                              style: TextStyle(
-                                //                                                  color: Theme.of(context)
-                                //                                                      .primaryColor),
-                                //                                            ),
-                                //                                          ),
-                                //                                      ],
-                                //                                    ),
-                                //                                  ),
-                                //                                ),
                               ],
                             ),
                           );
@@ -182,27 +114,31 @@ class _HomeSliderWidgetState extends State<HomeSliderWidget> {
                     }).toList(),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: widget.slides.map((Slide slide) {
-                        return Container(
-                          width: 20.0,
-                          height: 3.0,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 0.0, horizontal: 2.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                              color: _current == widget.slides.indexOf(slide)
-                                  ? Helper.of(context)
-                                      .getColorFromHex(slide.indicatorColor)
-                                  : Helper.of(context)
-                                      .getColorFromHex(slide.indicatorColor)
-                                      .withOpacity(0.3)),
-                        );
-                      }).toList(),
+                    width: MediaQuery.of(context).size.width,
+                    height: 12,
+                    margin: EdgeInsets.only(bottom: 0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: widget.slides.map((Slide slide) {
+                          return Container(
+                            width: 20.0,
+                            height: 3.0,
+                            margin: EdgeInsets.only(left: 2.0, right: 2.0),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                                color: _current == widget.slides.indexOf(slide)
+                                    ? Helper.of(context)
+                                        .getColorFromHex(slide.indicatorColor)
+                                    : Helper.of(context)
+                                        .getColorFromHex(slide.indicatorColor)
+                                        .withOpacity(0.3)),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ],

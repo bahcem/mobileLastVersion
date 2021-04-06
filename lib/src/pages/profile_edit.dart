@@ -36,99 +36,111 @@ class _ProfileEditPageState extends StateMVC<ProfileEditPage> {
           ),
           preferredSize: Size.fromHeight(4.0),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).accentColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           'Profili Düzenle',
-          style: Theme.of(context)
-              .textTheme
-              .headline6
-              .merge(TextStyle(letterSpacing: 1.3)),
+          style: TextStyle(
+              color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
+        ),
+        leading: IconButton(
+          icon:
+              new Icon(Icons.arrow_back, color: Theme.of(context).primaryColor),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: 30,
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).focusColor.withOpacity(0.15),
-                      offset: Offset(0, 2),
-                      blurRadius: 5.0)
-                ]),
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 20),
-            child: Form(
-              key: _profileSettingsFormKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    keyboardType: TextInputType.text,
-                    decoration: getInputDecoration(
-                        hintText: "Adı Soyadı", labelText: S.of(context).full_name),
-                    initialValue: widget.user.value.name,
-                    validator: (input) =>
-                        input.trim().length < 3 ? S.of(context).not_a_valid_full_name : null,
-                    onSaved: (input) => widget.user.value.name = input,
-                  ),
-                  TextFormField(
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: getInputDecoration(
-                        hintText: 'hello@bahcemapp.com',
-                        labelText: S.of(context).email_address),
-                    initialValue: widget.user.value.email,
-                    validator: (input) =>
-                        !input.contains('@') ? S.of(context).email : null,
-                    onSaved: (input) => widget.user.value.email = input,
-                  ),
-                  TextFormField(
-                    style: TextStyle(color: Theme.of(context).hintColor),
-                    keyboardType: TextInputType.text,
-                    decoration: getInputDecoration(
-                        hintText: '0 555 555 55 55',
-                        labelText: S.of(context).phone),
-                    initialValue: widget.user.value.phone,
-                    validator: (input) => input.trim().length < 3
-                        ? S.of(context).not_a_valid_phone
-                        : null,
-                    onSaved: (input) => widget.user.value.phone = input,
-                  ),
-                ],
+      body: Scaffold(
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 30,
+                color: Theme.of(context).scaffoldBackgroundColor,
               ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(20),
-            width: MediaQuery.of(context).size.width,
-            child: FlatButton(
-              onPressed: () {
-                _submit();
-              },
-              disabledColor: Theme.of(context).focusColor.withOpacity(0.5),
-              padding: EdgeInsets.symmetric(vertical: 14),
-              color: Theme.of(context).accentColor,
-              shape: StadiumBorder(),
-              child: Text(
-                S.of(context).save,
-                textAlign: TextAlign.start,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1
-                    .merge(TextStyle(color: Theme.of(context).primaryColor)),
+              Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Theme.of(context).focusColor.withOpacity(0.15),
+                          offset: Offset(0, 2),
+                          blurRadius: 5.0)
+                    ]),
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 20),
+                child: Form(
+                  key: _profileSettingsFormKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        keyboardType: TextInputType.text,
+                        decoration: getInputDecoration(
+                            hintText: "Adı Soyadı",
+                            labelText: S.of(context).full_name),
+                        initialValue: widget.user.value.name,
+                        validator: (input) => input.trim().length < 3
+                            ? S.of(context).not_a_valid_full_name
+                            : null,
+                        onSaved: (input) => widget.user.value.name = input,
+                      ),
+                      TextFormField(
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: getInputDecoration(
+                            hintText: 'hello@bizimkapici.com',
+                            labelText: S.of(context).email_address),
+                        initialValue: widget.user.value.email,
+                        validator: (input) =>
+                            !input.contains('@') ? S.of(context).email : null,
+                        onSaved: (input) => widget.user.value.email = input,
+                      ),
+                      /* TextFormField(
+                        style: TextStyle(color: Theme.of(context).hintColor),
+                        keyboardType: TextInputType.text,
+                        decoration: getInputDecoration(
+                            hintText: '0 555 555 55 55',
+                            labelText: S.of(context).phone),
+                        initialValue: widget.user.value.phone,
+                        validator: (input) => input.trim().length < 3
+                            ? S.of(context).not_a_valid_phone
+                            : null,
+                        onSaved: (input) => widget.user.value.phone = input,
+                      ), */
+                    ],
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
+              Container(
+                padding: EdgeInsets.all(20),
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
+                  onPressed: () {
+                    _submit();
+                  },
+                  disabledColor: Theme.of(context).focusColor.withOpacity(0.5),
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  color: Theme.of(context).accentColor,
+                  shape: StadiumBorder(),
+                  child: Text(
+                    S.of(context).save,
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText1.merge(
+                        TextStyle(color: Theme.of(context).primaryColor)),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

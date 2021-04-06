@@ -63,6 +63,7 @@ class ProductController extends ControllerMVC {
   }
 
   void addToCart(Product product, {bool reset = false}) async {
+    print(product.toMap());
     setState(() {
       this.loadCart = true;
     });
@@ -70,8 +71,9 @@ class ProductController extends ControllerMVC {
     _newCart.product = product;
     _newCart.options = product.options.where((element) => element.checked).toList();
     _newCart.quantity = this.quantity;
-    // if product exist in the cart then increment quantity
+    print(_newCart.toMap());
     var _oldCart = isExistInCart(_newCart);
+    print(_oldCart);
     if (_oldCart != null) {
       _oldCart.quantity += this.quantity;
       updateCart(_oldCart).then((value) {
@@ -84,7 +86,6 @@ class ProductController extends ControllerMVC {
         ));
       });
     } else {
-      // the product doesnt exist in the cart add new one
       addCart(_newCart, reset).then((value) {
         setState(() {
           this.loadCart = false;

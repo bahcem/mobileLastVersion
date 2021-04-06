@@ -62,7 +62,7 @@ Future<Stream<Product>> searchProducts(String search, Address address) async {
   Map<String, dynamic> _queryParams = {};
   _queryParams['search'] = 'name:$search;description:$search';
   _queryParams['searchFields'] = 'name:like;description:like';
-  _queryParams['limit'] = '5';
+  _queryParams['limit'] = '6';
   if (!address.isUnknown()) {
     _queryParams['myLon'] = address.longitude.toString();
     _queryParams['myLat'] = address.latitude.toString();
@@ -202,6 +202,7 @@ Future<Stream<Product>> getProductsOfMarket(String marketId, {List<String> categ
     final streamedRest = await client.send(http.Request('get', uri));
 
     return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
+
       return Product.fromJSON(data);
     });
   } catch (e) {

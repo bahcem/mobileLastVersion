@@ -37,7 +37,6 @@ class FilterController extends ControllerMVC {
   }
 
   void listenForFields({String message}) async {
-    fields.add(new Field.fromJSON({'id': '0', 'name': S.of(context).all, 'selected': true}));
     final Stream<Field> stream = await getFields();
     stream.listen((Field _field) {
       setState(() {
@@ -46,6 +45,7 @@ class FilterController extends ControllerMVC {
           fields.elementAt(0).selected = false;
         }
         fields.add(_field);
+        fields.sort((a, b) => a.siraNo.compareTo(b.siraNo));
       });
     }, onError: (a) {
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
@@ -78,20 +78,11 @@ class FilterController extends ControllerMVC {
     fields.forEach((Field _f) {
       _f.selected = false;
     });
-    fields.elementAt(0).selected = true;
   }
 
   void onChangeFieldsFilter(int index) {
-    if (index == 0) {
-      // all
-      setState(() {
-        resetFields();
-      });
-    } else {
-      setState(() {
-        fields.elementAt(index).selected = !fields.elementAt(index).selected;
-        fields.elementAt(0).selected = false;
-      });
-    }
+    setState(() {
+      fields.elementAt(index).selected = !fields.elementAt(index).selected;
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../pages/delivery_pickup.dart';
+import '../pages/settings.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../helpers/helper.dart';
 import '../models/cart.dart';
@@ -29,8 +30,11 @@ class CartController extends ControllerMVC {
     stream.listen((Cart _cart) {
       if (!carts.contains(_cart)) {
         setState(() {
-          coupon = _cart.product.applyCoupon(coupon);
-          carts.add(_cart);
+          if (_cart == null) {
+          } else {
+            coupon = _cart.product.applyCoupon(coupon);
+            carts.add(_cart);
+          }
         });
       }
     }, onError: (a) {
@@ -52,7 +56,7 @@ class CartController extends ControllerMVC {
 
   Future<void> deleteAllCarts(cards) async {
     await cards.forEach((i) {
-      setState((){
+      setState(() {
         removeCart(i);
       });
     });
@@ -88,7 +92,9 @@ class CartController extends ControllerMVC {
     removeCart(_cart).then((value) {
       calculateSubtotal();
       scaffoldKey?.currentState?.showSnackBar(SnackBar(
-        content: Text(S.of(context).the_product_was_removed_from_your_cart(_cart.product.name)),
+        content: Text(S
+            .of(context)
+            .the_product_was_removed_from_your_cart(_cart.product.name)),
       ));
     });
   }
@@ -107,7 +113,8 @@ class CartController extends ControllerMVC {
     if (Helper.canDelivery(carts[0].product.market, carts: carts)) {
       deliveryFee = carts[0].product.market.deliveryFee;
     }
-    taxAmount = (subTotal + deliveryFee) * carts[0].product.market.defaultTax / 100;
+    taxAmount =
+        (subTotal + deliveryFee) * carts[0].product.market.defaultTax / 100;
     total = subTotal + taxAmount + deliveryFee;
     setState(() {});
   }
@@ -126,19 +133,23 @@ class CartController extends ControllerMVC {
     });
   }
 
-  incrementQuantity(Cart cart) {
-    if (cart.quantity <= 99) {
-      ++cart.quantity;
-      updateCart(cart);
-      calculateSubtotal();
+  incrementQuantity(Cart _cart) {
+    if (_cart.quantity <= 99) {
+      setState(() {
+        ++_cart.quantity;
+        updateCart(_cart);
+        calculateSubtotal();
+      });
     }
   }
 
-  decrementQuantity(Cart cart) {
-    if (cart.quantity > 1) {
-      --cart.quantity;
-      updateCart(cart);
-      calculateSubtotal();
+  decrementQuantity(Cart _cart) {
+    if (_cart.quantity > 1) {
+      setState(() {
+        --_cart.quantity;
+        updateCart(_cart);
+        calculateSubtotal();
+      });
     }
   }
 
@@ -150,7 +161,11 @@ class CartController extends ControllerMVC {
           label: S.of(context).settings,
           textColor: Theme.of(context).accentColor,
           onPressed: () {
-            Navigator.of(context).pushNamed('/Settings');
+            Navigator.of(context, rootNavigator: false).push(
+              MaterialPageRoute(
+                  builder: (context) => SettingsWidget(),
+                  fullscreenDialog: false),
+            );
           },
         ),
       ));
@@ -160,7 +175,11 @@ class CartController extends ControllerMVC {
           content: Text(S.of(context).this_market_is_closed_),
         ));
       } else {
-        Navigator.of(context).pushNamed('/DeliveryPickup');
+        Navigator.of(context, rootNavigator: false).push(
+          MaterialPageRoute(
+              builder: (context) => DeliveryPickupWidget(),
+              fullscreenDialog: false),
+        );
       }
     }
   }

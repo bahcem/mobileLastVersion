@@ -18,6 +18,7 @@ class ProductsCarouselWidget extends StatelessWidget {
             height: 190,
             padding: EdgeInsets.only(top: 10,bottom: 0),
             child: ListView.builder(
+              shrinkWrap: true,
               itemCount: productsList.length,
               itemBuilder: (context, index) {
                 double _marginLeft = 0;

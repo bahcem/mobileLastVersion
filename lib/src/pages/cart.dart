@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/cart_controller.dart';
 import '../elements/CartBottomDetailsWidget.dart';
@@ -36,24 +36,8 @@ class _CartWidgetState extends StateMVC<CartWidget> {
   Widget build(BuildContext context) {
     return WillPopScope(
       // ignore: missing_return
-      onWillPop: () async{
-        if (widget.routeArgument.param == '/Product') {
-          Navigator.pop(context);
-        } else if (widget.routeArgument.fromWhichPage ==
-            'not_home') {
-          Navigator.pop(context);
-        } else if (widget.routeArgument.fromWhichPage !=
-            'not_home' ||
-            widget.routeArgument.fromWhichPage != "" ||
-            widget.routeArgument.fromWhichPage != null) {
-          await Navigator.of(context).pushNamed('/Menu',
-              arguments: new RouteArgument(
-                  id: widget.routeArgument.fromWhichPage));
-          Navigator.pop(context);
-        } else {
-          Navigator.of(context)
-              .pushReplacementNamed('/Pages', arguments: 2);
-        }
+      onWillPop: () async {
+        Navigator.pop(context);
       },
       child: Scaffold(
         key: _con.scaffoldKey,
@@ -85,28 +69,51 @@ class _CartWidgetState extends StateMVC<CartWidget> {
                             'not_home' ||
                         widget.routeArgument.fromWhichPage != "" ||
                         widget.routeArgument.fromWhichPage != null) {
-                      await Navigator.of(context).pushNamed('/Menu',
-                          arguments: new RouteArgument(
-                              id: widget.routeArgument.fromWhichPage));
+                      print(widget.routeArgument.fromWhichPage);
+                      await Navigator.of(context, rootNavigator: false).push(
+                        MaterialPageRoute(
+                            builder: (context) => MenuWidget(
+                                  routeArgument: RouteArgument(
+                                      id: widget.routeArgument.fromWhichPage),
+                                ),
+                            fullscreenDialog: false),
+                      );
                       Navigator.pop(context);
                     } else {
-                      Navigator.of(context)
-                          .pushReplacementNamed('/Pages', arguments: 2);
+                      Navigator.of(context, rootNavigator: true)
+                          .pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => CartWidget(
+                                routeArgument: RouteArgument(
+                                    param: '/Pages',
+                                    id: '2',
+                                    fromWhichPage:
+                                        widget.routeArgument.fromWhichPage)),
+                            fullscreenDialog: true),
+                      );
                     }
                   },
                   icon: Icon(Icons.arrow_back),
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context).primaryColor,
                 ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).accentColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
             S.of(context).cart,
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                .merge(TextStyle(letterSpacing: 1.3)),
+            style: TextStyle(
+                color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
           ),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                  color: Theme.of(context).primaryColor,
+                ),
+                onPressed: () {
+                  _con.refreshCarts();
+                }),
+          ],
         ),
         body: RefreshIndicator(
           onRefresh: _con.refreshCarts,
@@ -115,125 +122,143 @@ class _CartWidgetState extends StateMVC<CartWidget> {
               : Stack(
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 10),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        leading: Icon(
-                          Icons.shopping_cart,
-                          color: Theme.of(context).hintColor,
-                        ),
-                        title: Text(
-                          S.of(context).shopping_cart,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                        subtitle: Text(
-                          S.of(context).verify_your_quantity_and_click_checkout,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.caption,
-                        ),
-                      ),
-                    ),
-                    ListView.separated(
+                    ListView.builder(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       primary: true,
                       itemCount: _con.carts.length,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(height: 15);
-                      },
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                              bottom: _con.carts.length - 1 == index ? 100 : 0),
-                          child: CartItemWidget(
-                            cart: _con.carts.elementAt(index),
-                            heroTag: 'cart',
-                            increment: () {
-                              _con.incrementQuantity(
-                                  _con.carts.elementAt(index));
-                            },
-                            decrement: () {
-                              _con.decrementQuantity(
-                                  _con.carts.elementAt(index));
-                            },
-                            onDismissed: () {
-                              _con.removeFromCart(_con.carts.elementAt(index));
-                            },
-                          ),
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            index == 0 &&
+                                    _con.carts.first.market.minTutar != null &&
+                                    _con.carts.first.market.minTutar !=
+                                        'null' &&
+                                    _con.carts.first.market.minTutar != ''
+                                ? Container(
+                                    margin: EdgeInsets.only(bottom: 15),
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 48,
+                                    color: Colors.white,
+                                    child: Center(
+                                      child: Text(
+                                        'Minimum sepet tutarı: ${_con.carts.first.market.minTutar} tl',
+                                        style: TextStyle(
+                                            color: Colors.red, fontSize: 16),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                            Container(
+                              margin: EdgeInsets.only(bottom: 15),
+                              child: CartItemWidget(
+                                cart: _con.carts.elementAt(index),
+                                heroTag: 'cart',
+                                increment: () {
+                                  _con.incrementQuantity(
+                                      _con.carts.elementAt(index));
+                                },
+                                decrement: () {
+                                  _con.decrementQuantity(
+                                      _con.carts.elementAt(index));
+                                },
+                                onDismissed: () {
+                                  _con.removeFromCart(
+                                      _con.carts.elementAt(index));
+                                },
+                              ),
+                            ),
+                            index == _con.carts.length - 1
+                                ? Container(
+                                    padding: const EdgeInsets.all(18),
+                                    margin: EdgeInsets.only(bottom: 15),
+                                    decoration: BoxDecoration(
+                                        color: Theme.of(context).primaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Theme.of(context)
+                                                  .focusColor
+                                                  .withOpacity(0.15),
+                                              offset: Offset(0, 2),
+                                              blurRadius: 5.0)
+                                        ]),
+                                    child: TextField(
+                                      keyboardType: TextInputType.text,
+                                      onSubmitted: (String value) {
+                                        _con.doApplyCoupon(value);
+                                      },
+                                      cursorColor:
+                                          Theme.of(context).accentColor,
+                                      controller: TextEditingController()
+                                        ..text = coupon?.code ?? '',
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 15),
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.always,
+                                        hintStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                        suffixText: coupon?.valid == null
+                                            ? ''
+                                            : (coupon.valid
+                                                ? S.of(context).validCouponCode
+                                                : S
+                                                    .of(context)
+                                                    .invalidCouponCode),
+                                        suffixStyle: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            .merge(TextStyle(
+                                                color:
+                                                    _con.getCouponIconColor())),
+                                        suffixIcon: InkWell(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () {},
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Icon(
+                                              Icons.confirmation_number,
+                                              color: _con.getCouponIconColor(),
+                                              size: 28,
+                                            ),
+                                          ),
+                                        ),
+                                        hintText: S.of(context).haveCouponCode,
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .focusColor
+                                                    .withOpacity(0.2))),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .focusColor
+                                                    .withOpacity(0.5))),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide(
+                                                color: Theme.of(context)
+                                                    .focusColor
+                                                    .withOpacity(0.2))),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                          ],
                         );
                       },
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(18),
-                      margin: EdgeInsets.only(bottom: 15),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Theme.of(context)
-                                    .focusColor
-                                    .withOpacity(0.15),
-                                offset: Offset(0, 2),
-                                blurRadius: 5.0)
-                          ]),
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        onSubmitted: (String value) {
-                          _con.doApplyCoupon(value);
-                        },
-                        cursorColor: Theme.of(context).accentColor,
-                        controller: TextEditingController()
-                          ..text = coupon?.code ?? '',
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintStyle: Theme.of(context).textTheme.bodyText1,
-                          suffixText: coupon?.valid == null
-                              ? ''
-                              : (coupon.valid
-                                  ? S.of(context).validCouponCode
-                                  : S.of(context).invalidCouponCode),
-                          suffixStyle: Theme.of(context)
-                              .textTheme
-                              .caption
-                              .merge(
-                                  TextStyle(color: _con.getCouponIconColor())),
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Icon(
-                              Icons.confirmation_number,
-                              color: _con.getCouponIconColor(),
-                              size: 28,
-                            ),
-                          ),
-                          hintText: S.of(context).haveCouponCode,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .focusColor
-                                      .withOpacity(0.2))),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .focusColor
-                                      .withOpacity(0.5))),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context)
-                                      .focusColor
-                                      .withOpacity(0.2))),
-                        ),
-                      ),
                     ),
                   ],
                 ),

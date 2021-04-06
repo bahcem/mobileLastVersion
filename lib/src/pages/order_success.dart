@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../pages/pages.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
-
 import '../../generated/l10n.dart';
 import '../controllers/checkout_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
@@ -39,12 +39,13 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: Container(),
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).accentColor,
           elevation: 0,
           centerTitle: true,
           title: Text(
             S.of(context).confirmation,
-            style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
+            style: TextStyle(
+                color: Color.fromRGBO(255, 228, 121, 1), fontFamily: 'rbt'),
           ),
         ),
         body: _con.carts.isEmpty
@@ -66,20 +67,27 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                               height: 150,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  gradient: LinearGradient(begin: Alignment.bottomLeft, end: Alignment.topRight, colors: [
-                                    Colors.green.withOpacity(1),
-                                    Colors.green.withOpacity(0.2),
-                                  ])),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      colors: [
+                                        Colors.green.withOpacity(1),
+                                        Colors.green.withOpacity(0.2),
+                                      ])),
                               child: _con.loading
                                   ? Padding(
                                       padding: EdgeInsets.all(55),
                                       child: CircularProgressIndicator(
-                                        valueColor: new AlwaysStoppedAnimation<Color>(Theme.of(context).scaffoldBackgroundColor),
+                                        valueColor:
+                                            new AlwaysStoppedAnimation<Color>(
+                                                Theme.of(context)
+                                                    .scaffoldBackgroundColor),
                                       ),
                                     )
                                   : Icon(
                                       Icons.check,
-                                      color: Theme.of(context).scaffoldBackgroundColor,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
                                       size: 90,
                                     ),
                             ),
@@ -90,7 +98,9 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.15),
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor
+                                      .withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(150),
                                 ),
                               ),
@@ -102,7 +112,9 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                                 width: 120,
                                 height: 120,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.15),
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor
+                                      .withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(150),
                                 ),
                               ),
@@ -113,9 +125,14 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                         Opacity(
                           opacity: 0.4,
                           child: Text(
-                            S.of(context).your_order_has_been_successfully_submitted,
+                            S
+                                .of(context)
+                                .your_order_has_been_successfully_submitted,
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.headline3.merge(TextStyle(fontWeight: FontWeight.w300)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .merge(TextStyle(fontWeight: FontWeight.w300)),
                           ),
                         ),
                       ],
@@ -124,12 +141,22 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                   Positioned(
                     bottom: 0,
                     child: Container(
-                      height: 235,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      height: 255,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-                          boxShadow: [BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.15), offset: Offset(0, -2), blurRadius: 5.0)]),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Theme.of(context)
+                                    .focusColor
+                                    .withOpacity(0.15),
+                                offset: Offset(0, -2),
+                                blurRadius: 5.0)
+                          ]),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width - 40,
                         child: Column(
@@ -140,11 +167,14 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    S.of(context).subtotal,
-                                    style: Theme.of(context).textTheme.bodyText1,
+                                   'Toplam',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                   ),
                                 ),
-                                Helper.getPrice(_con.subTotal, context, style: Theme.of(context).textTheme.subtitle1)
+                                Helper.getPrice(_con.subTotal, context,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle1)
                               ],
                             ),
                             SizedBox(height: 3),
@@ -154,24 +184,57 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                                     children: <Widget>[
                                       Expanded(
                                         child: Text(
-                                          S.of(context).delivery_fee,
-                                          style: Theme.of(context).textTheme.bodyText1,
+                                          'Poşet Ücreti',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1,
                                         ),
                                       ),
-                                      Helper.getPrice(_con.carts[0].product.market.deliveryFee, context, style: Theme.of(context).textTheme.subtitle1)
+                                      Helper.getPrice(
+                                          _con.carts[0].product.market
+                                              .deliveryFee,
+                                          context,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1)
                                     ],
                                   ),
-                            SizedBox(height: 3),
-                            Divider(height: 30,color: Theme.of(context).hintColor,),
+                            SizedBox(height: 5),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Teslimat Ücreti',
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
+                                  Text(
+                                    'Ücretsiz',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1
+                                        .merge(TextStyle(color: Colors.red)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+                            Divider(
+                              height: 30,
+                              color: Theme.of(context).hintColor,
+                            ),
                             Row(
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
                                     S.of(context).total,
-                                    style: Theme.of(context).textTheme.headline6,
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
                                   ),
                                 ),
-                                Helper.getPrice(_con.total, context, style: Theme.of(context).textTheme.headline6)
+                                Helper.getPrice(_con.total, context,
+                                    style:
+                                        Theme.of(context).textTheme.headline6)
                               ],
                             ),
                             SizedBox(height: 20),
@@ -179,15 +242,22 @@ class _OrderSuccessWidgetState extends StateMVC<OrderSuccessWidget> {
                               width: MediaQuery.of(context).size.width - 40,
                               child: FlatButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed('/Pages', arguments: 1);
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (context) => PagesWidget(
+                                          currentTab: 3,
+                                        ),
+                                      ),
+                                      (route) => false);
                                 },
                                 padding: EdgeInsets.symmetric(vertical: 14),
                                 color: Theme.of(context).accentColor,
                                 shape: StadiumBorder(),
                                 child: Text(
-                                  S.of(context).my_orders,
+                                  'Siparişlerim',
                                   textAlign: TextAlign.start,
-                                  style: TextStyle(color: Theme.of(context).primaryColor),
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
                                 ),
                               ),
                             ),

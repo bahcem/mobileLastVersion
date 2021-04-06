@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../pages/menu_list.dart';
 
 import '../helpers/helper.dart';
 import '../models/market.dart';
@@ -17,17 +18,32 @@ class GridItemWidget extends StatelessWidget {
       highlightColor: Colors.transparent,
       splashColor: Theme.of(context).accentColor.withOpacity(0.08),
       onTap: () {
-        Navigator.of(context).pushNamed('/Details', arguments: RouteArgument(id: market.id, heroTag: heroTag, fromWhichPage: 'popular_markets'));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => MenuWidget(
+              routeArgument: RouteArgument(
+                  id: market.id,
+                  heroTag: heroTag,
+                  fromWhichPage: 'popular_markets'),
+            ),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: [BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.05), offset: Offset(0, 5), blurRadius: 5)]),
+            boxShadow: [
+              BoxShadow(
+                  color: Theme.of(context).focusColor.withOpacity(0.05),
+                  offset: Offset(0, 5),
+                  blurRadius: 5)
+            ]),
         child: Wrap(
           children: <Widget>[
             ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5)),
               child: Hero(
                 tag: heroTag + market.id,
                 child: CachedNetworkImage(

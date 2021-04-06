@@ -25,11 +25,9 @@ class SplashScreenController extends ControllerMVC {
   void initState() {
     super.initState();
    try{
-     print(firebaseMessaging);
-     print(firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true)).toString());
      firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
    }catch(e){
-     print(e);
+
    }
 
     configureFirebase(firebaseMessaging);
@@ -56,7 +54,7 @@ class SplashScreenController extends ControllerMVC {
 
   void configureFirebase(FirebaseMessaging _firebaseMessaging) {
     try {
-      print(_firebaseMessaging);
+
       _firebaseMessaging.configure(
         onMessage: notificationOnMessage,
         onLaunch: notificationOnLaunch,
@@ -66,12 +64,12 @@ class SplashScreenController extends ControllerMVC {
 
 
     } catch (e) {
-      print(e);
+
        }
   }
 
   Future notificationOnResume(Map<String, dynamic> message) async {
-    print('ON RESUME');
+
     try {
       if (message['data']['id'] == "orders") {
         settingRepo.navigatorKey.currentState.pushReplacementNamed('/Pages', arguments: 1);
@@ -82,7 +80,7 @@ class SplashScreenController extends ControllerMVC {
 
   Future notificationOnLaunch(Map<String, dynamic> message) async {
 
-    print('ON LAUNCH');
+
     String messageId = await settingRepo.getMessageId();
     try {
       if (messageId != message['google.message_id']) {
@@ -96,7 +94,7 @@ class SplashScreenController extends ControllerMVC {
   }
 
   Future notificationOnMessage(Map<String, dynamic> message) async {
-    print('ON MESSAGE');
+
     Fluttertoast.showToast(
       msg: message['notification']['title'],
       toastLength: Toast.LENGTH_LONG,

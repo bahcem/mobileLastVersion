@@ -54,6 +54,7 @@ class _DeliveryAddressBottomSheetWidgetState
           Padding(
             padding: const EdgeInsets.only(top: 30),
             child: ListView(
+              shrinkWrap: true,
               padding:
               EdgeInsets.only(top: 20, bottom: 15, left: 20, right: 20),
               children: <Widget>[
@@ -70,7 +71,6 @@ class _DeliveryAddressBottomSheetWidgetState
                       myLocationButtonEnabled: true,
                       //resultCardAlignment: Alignment.bottomCenter,
                     );
-                    print(result);
                     //_con.addAddress(new Address.fromJSON({
                     //                      'address': result.address,
                     //                      'latitude': result.latLng.latitude,

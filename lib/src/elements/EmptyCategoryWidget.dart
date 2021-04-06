@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../generated/l10n.dart';
 import '../helpers/app_config.dart' as config;
 
 class EmptyCategoryWidget extends StatefulWidget {
@@ -92,19 +91,6 @@ class _EmptyCategoryWidgetState extends State<EmptyCategoryWidget> {
                 ),
               ),
               SizedBox(height: 50),
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/Pages', arguments: 2);
-                },
-                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-                color: Theme.of(context).accentColor.withOpacity(1),
-                shape: StadiumBorder(),
-                child: Text(
-                  S.of(context).start_exploring,
-                  style: Theme.of(context).textTheme.headline6.merge(TextStyle(
-                      color: Theme.of(context).scaffoldBackgroundColor)),
-                ),
-              )
             ],
           ),
         ),
